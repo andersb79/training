@@ -2,11 +2,13 @@
   "name": "soccer-training",
   "version": "0.1.0",
   "private": true,
-  
   "homepage": "https://andersb79.github.io/soccer-training",
   "dependencies": {
     "@babel/runtime": "^7.4.5",
     "gh-pages": "^2.0.1",
+    "mobx": "^5.11.0",
+    "mobx-react": "^6.1.1",
+    "mobx-state-tree": "^3.14.0",
     "react": "^16.8.6",
     "react-burger-menu": "^2.6.10",
     "react-dom": "^16.8.6",
