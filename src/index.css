@@ -21,17 +21,24 @@ code {
   margin: 5px 5px 20px 5px;
   height: 400px;
   color: black;
+  border-radius: 4px;
 }
 
 .level-text {
-  font-size: 40px;
-  
+  font-size: 20px;
+  margin-right: 5px;
+  color: gray;
+  text-transform: uppercase;
+  text-align: right;
 }
 .name-text {
   font-size: 40px;
+  text-transform: uppercase;
+  
 }
 .detail-text {
-  font-size: 20px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .number {
