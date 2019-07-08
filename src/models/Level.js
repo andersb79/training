@@ -4,7 +4,8 @@ const Level = types
     level: types.integer,
     details: types.string,
     is_done: false,
-    name: types.string   
+    name: types.string,
+    link: types.string   
   })
   .actions(self => ({
     markDone() {

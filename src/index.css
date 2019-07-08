@@ -12,6 +12,28 @@ code {
     monospace;
 }
 
+.game {
+  margin-top : 80px;
+}
+
+.tile {
+  background-color: white;
+  margin: 5px 5px 20px 5px;
+  height: 400px;
+  color: black;
+}
+
+.level-text {
+  font-size: 40px;
+  
+}
+.name-text {
+  font-size: 40px;
+}
+.detail-text {
+  font-size: 20px;
+}
+
 .number {
   font-size: 16em;
   margin: auto;
