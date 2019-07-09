@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarIcon from "@material-ui/icons/Star";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -19,7 +20,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
-    marginTop: '10px'
+    marginTop: "10px"
   },
   media: {
     height: 0,
@@ -65,7 +66,7 @@ export default function Game({ store }) {
             }
             title={level.name}
             subheader={level.category}
-          />          
+          />
           <CardContent>
             <div
               className="video"
@@ -94,10 +95,11 @@ export default function Game({ store }) {
           </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label="Add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="Share">
-              <ShareIcon />
+              <StarIcon color="secondary" />
+              <StarIcon color="disabled" />
+              <StarIcon color="disabled" />
+              <StarIcon color="disabled" />
+              <StarIcon color="disabled" />
             </IconButton>
             <IconButton
               className={clsx(classes.expand, {
@@ -111,19 +113,11 @@ export default function Game({ store }) {
             </IconButton>
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>              
-              <Typography paragraph>
-                Gör så här
-              </Typography>
-              <Typography paragraph>
-                och så här
-              </Typography>
-              <Typography paragraph>
-                och så här
-              </Typography>
-              <Typography>
-                tada
-              </Typography>
+            <CardContent>
+              <Typography paragraph>Gör så här</Typography>
+              <Typography paragraph>och så här</Typography>
+              <Typography paragraph>och så här</Typography>
+              <Typography>tada</Typography>
             </CardContent>
           </Collapse>
         </Card>
