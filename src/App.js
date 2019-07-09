@@ -18,23 +18,7 @@ function App() {
   const game = menuSelected === "Game" ? <Game store={store} /> : null;
 
   return (
-    <div id="outer-container">
-      <Menu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}>
-        <a
-          id="number"
-          className="menu-item"
-          onClick={() => setMenuSelected("Number")}
-        >
-          Number
-        </a>
-        <a
-          id="game"
-          className="menu-item"
-          onClick={() => setMenuSelected("Game")}
-        >
-          Game
-        </a>
-      </Menu>
+    <div id="outer-container">      
       <main id="page-wrap">
         <div className="App">
           <header className="App-header">
