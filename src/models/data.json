@@ -55,6 +55,14 @@
       "is_done": false,
       "link" : "https://www.youtube.com/embed/sARjTpHeA6w",
       "category" : "Beginner"
+    },
+    {
+      "level": 8,
+      "name": "Gustavs specialare",
+      "details": "Roll the ball across the body then trap the ball with the opposite sole of the foot behind standing leg",
+      "is_done": false,
+      "link" : "https://www.youtube.com/embed/sARjTpHeA6w",
+      "category" : "Beginner"
     }
   ]
 }
