@@ -15,6 +15,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarIcon from "@material-ui/icons/Star";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles(theme => ({
@@ -61,13 +62,13 @@ export default function Game({ store }) {
             }
             action={
               <IconButton aria-label="Settings">
-                <MoreVertIcon />
-                <input type="file" name="test" id="testFile" />
+                <MoreVertIcon />                
               </IconButton>
             }
             title={level.name}
             subheader={level.category}
           />
+          
           <CardContent>
             <div
               className="video"
@@ -115,6 +116,7 @@ export default function Game({ store }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
+            <div><input type="file" name="test" id="testFile" /></div>
               <Typography paragraph>Gör så här</Typography>
               <Typography paragraph>och så här</Typography>
               <Typography paragraph>och så här</Typography>
