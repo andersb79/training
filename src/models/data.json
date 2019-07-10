@@ -1,4 +1,16 @@
 {
+  "users": [
+    {
+      "name" : "Gustav Karlsson",
+      "userName" : "GustavK10",
+      "password" : "cr7"
+    },
+    {
+      "name" : "Love Odenhag",
+      "userName" : "LoveO10",
+      "password" : "44"
+    }
+  ],
   "levels": [
     {
       "level": 1,

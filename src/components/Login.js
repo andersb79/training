@@ -4,11 +4,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default function Login({ store, onLogin }) {
   
+  function onChange() {
+    // if(store.checkPassword()){
+    //   alert('fel lösenord');
+    //   return;
+    // }
+    onLogin('Game');
+  }
+
   return (
     <div>
-      <div>Namn <input /></div>
-      <div>Lösenord <input /></div>
-      <Button variant="outlined" onClick={() => onLogin('Game')}>
+      <div>Användarnamn <input /></div>
+      <div>Lösenord <input type="password" /></div>
+      <Button variant="outlined" onClick={onChange}>
         LOGIN
       </Button>
     </div>
