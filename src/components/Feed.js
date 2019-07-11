@@ -66,7 +66,7 @@ export default function Game({ store }) {
 
   return (
     <div>
-      {store.levels.map((level, i) => (
+      {store.feeds.map((level, i) => (
         <Card key={level.level} className={classes.card}>
           <CardHeader
             avatar={

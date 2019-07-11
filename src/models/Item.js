@@ -1,6 +1,6 @@
 import { types } from "mobx-state-tree";
-const Level = types
-  .model("Level", {
+const Item = types
+  .model("Item", {
     level: types.integer,
     details: types.string,
     is_done: false,
@@ -25,4 +25,4 @@ const Level = types
       return self.is_done ? "Done" : "Not Done";
     }
   }));
-export default Level;
+export default Item;

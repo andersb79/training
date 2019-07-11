@@ -11,6 +11,18 @@
       "password": "44"
     }
   ],
+  "feeds": [
+    {
+      "level": 1,
+      "userName": "GustavK10",
+      "name": "Toe Taps",
+      "details": "Keeping the ball stationary, tap the top of the ball with the soles of both feet",
+      "is_done": true,
+      "link": "https://www.youtube.com/embed/sARjTpHeA6w",
+      "publicId": "xriaksiq3gipz0dupgny",
+      "category": "Beginner"
+    }
+  ],
   "levels": [
     {
       "level": 1,
@@ -36,7 +48,7 @@
       "details": "Move the ball between both feet using the inside and outside of the foot",
       "is_done": false,
       "link": "https://www.youtube.com/embed/sARjTpHeA6w",
-      "publicId": "xriaksiq3gipz0dupgny",
+      "publicId": "ychiextiddgz0gwluod2",
       "category": "Beginner"
     },
     {
