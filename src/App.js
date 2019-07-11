@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Number from "./components/Number";
 import Game from "./components/Game";
-import Feed from "./components/Feed";
+import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import LevelStore from "./models/LevelStore";
 import data from "./models/data.json";
@@ -12,14 +12,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import PhoneIcon from "@material-ui/icons/Phone";
+import StarIcon from "@material-ui/icons/Star";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import PersonPinIcon from "@material-ui/icons/PersonPin";
-import HelpIcon from "@material-ui/icons/Help";
-import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import ThumbDown from "@material-ui/icons/ThumbDown";
-import ThumbUp from "@material-ui/icons/ThumbUp";
 import Typography from "@material-ui/core/Typography";
+
+const store = LevelStore.create(data);
 
 function TabContainer(props) {
   return (
@@ -50,14 +47,11 @@ function App() {
     setTabIndex(newValue);
   }
 
-  const store = LevelStore.create(data);
-
   console.log("levels", store.levels.toJSON());
 
   const number =
     menuSelected === "Number" ? <Number visible={true} store={store} /> : null;
   const game = menuSelected === "Game" ? <Game store={store} /> : null;
-  const feed = menuSelected === "Feed" ? <Feed store={store} /> : null;
 
   const login =
     menuSelected === "Login" ? (
@@ -79,20 +73,20 @@ function App() {
                   indicatorColor="primary"
                   textColor="primary"
                 >
-                  <Tab label="Item One" icon={<PhoneIcon />} />
-                  <Tab label="Item Two" icon={<FavoriteIcon />} />
+                  <Tab label="Flöde" icon={<FavoriteIcon />} />
+                  <Tab label="Utmaningar" icon={<StarIcon />} />
                 </Tabs>
               </AppBar>
               {tabIndex === 0 && (
                 <TabContainer>
                   {number}
                   {login}
-                  <Game store={store} />
+                  <ItemList store={store} />
                 </TabContainer>
               )}
               {tabIndex === 1 && (
                 <TabContainer>
-                  <Feed store={store} />
+                  <Game store={store} />
                 </TabContainer>
               )}
             </div>

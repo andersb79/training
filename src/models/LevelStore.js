@@ -5,7 +5,7 @@ import Item from "./Item";
 const LevelStore = types
   .model("LevelStore", {
     levels: types.array(Level),
-    feeds: types.array(Item)
+    items: types.array(Item)
   })
   .views(self => ({
     get test() {
@@ -15,6 +15,9 @@ const LevelStore = types
   .actions(self => ({
     add(level) {
       self.levels.push(level);
+    },
+    addItem(item) {
+      self.items.push(item);
     },
     processFile(file, level, onProcessed) {
       var formdata = new FormData();
@@ -39,16 +42,12 @@ const LevelStore = types
         //level.setPublicId(myObj.public_id);
         console.log(this.responseText);
 
-        self.add({
-          level: self.levels.length + 1,
-          name: "Toe Taps",
-          details:
-            "Keeping the ball stationary, tap the top of the ball with the soles of both feet",
-          is_done: true,
-          link: "https://www.youtube.com/embed/sARjTpHeA6w",
-          publicId: "ychiextiddgz0gwluod2",
-          category: "Beginner"
+        self.addItem({
+          userName: "GustavK10q",
+          publicId: myObj.public_id
         });
+
+        console.log(self.items);
 
         onProcessed(this.responseText);
       };

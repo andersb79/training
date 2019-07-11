@@ -76,7 +76,7 @@ export default function Game({ store }) {
             }
             action={
               <IconButton aria-label="Settings">
-                <MoreVertIcon />
+                <MoreVertIcon onClick={() => store.addTestItem()} />
               </IconButton>
             }
             title={level.name}
