@@ -18,7 +18,8 @@ import UserIcon from "@material-ui/icons/SupervisedUserCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Typography from "@material-ui/core/Typography";
 
-const store = LevelStore.create(data);
+const store = LevelStore.create();
+store.init();
 
 function TabContainer(props) {
   return (

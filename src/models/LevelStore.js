@@ -1,5 +1,6 @@
-import { types } from "mobx-state-tree";
+import { types, flow, applySnapshot, getEnv } from "mobx-state-tree";
 import { toJS } from "mobx";
+import data from "./data.json";
 import Level from "./Level";
 import Item from "./Item";
 import User from "./User";
@@ -28,6 +29,9 @@ const LevelStore = types
     addItem(item) {
       self.items.push(item);
     },
+    init() {
+      applySnapshot(self, data);
+    },
     processFile(file, level, onProcessed) {
       var formdata = new FormData();
 
@@ -35,13 +39,15 @@ const LevelStore = types
       formdata.append("cloud_name", "deolievif");
       formdata.append("upload_preset", "kv0do7lj");
       formdata.append("resource_type", "raw");
-      formdata.append("public_id", level.level);
+      formdata.append("title", self.loggedIn.userName);
+      //formdata.append("public_id", level.level);
+      formdata.append("tags", self.loggedIn.userName);
 
       var xhr = new XMLHttpRequest();
       xhr.open(
         "POST",
         //"https://api.cloudinary.com/v1_1/deolievif/image/upload",
-        "https://api.cloudinary.com/v1_1/deolievif/video/upload",
+        "https://api.cloudinary.com/v1_1/deolievif/video/upload/",
         true
       );
 
@@ -53,7 +59,7 @@ const LevelStore = types
         console.log(this.responseText);
 
         self.addItem({
-          userName: "GustavK10q",
+          userName: self.loggedIn.userName,
           publicId: myObj.public_id
         });
 

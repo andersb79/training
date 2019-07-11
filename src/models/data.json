@@ -11,7 +11,12 @@
       "password": "lo"
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "userName": "test",
+      "publicId": "xriaksiq3gipz0dupgny"
+    }
+  ],
   "levels": [
     {
       "level": 1,

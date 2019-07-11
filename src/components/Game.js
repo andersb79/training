@@ -138,13 +138,13 @@ export default function Game({ store }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <div class="fileinputs">
+              <div className="fileinputs">
                 <input
                   type="file"
-                  class="file"
+                  className="file"
                   onChange={e => processFile(e, level)}
                 />
-                <div class="fakefile">
+                <div className="fakefile">
                   <Button variant="outlined">
                     <VideoIcon />
                   </Button>
