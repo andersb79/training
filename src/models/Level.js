@@ -6,7 +6,8 @@ const Level = types
     is_done: false,
     name: types.string,
     link: types.string,
-    category: types.string
+    category: types.string,
+    publicId: types.string
   })
   .actions(self => ({
     markDone() {

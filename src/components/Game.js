@@ -17,6 +17,12 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import {
+  Image,
+  Video,
+  Transformation,
+  CloudinaryContext
+} from "cloudinary-react";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -52,26 +58,10 @@ export default function Game({ store }) {
 
   function processFile(e) {
     var file = e.target.files[0];
-    var formdata = new FormData();
 
-    formdata.append("file", file);
-    formdata.append("cloud_name", "deolievif");
-    formdata.append("upload_preset", "kv0do7lj");
-    formdata.append("resource_type", "raw");
-
-    var xhr = new XMLHttpRequest();
-    xhr.open(
-      "POST",
-      "https://api.cloudinary.com/v1_1/deolievif/video/upload",
-      true
-    );
-
-    xhr.onload = function() {
-      // do something to response
-      console.log(this.responseText);
+    store.processFile(file, text => {
       handleExpandClick();
-    };
-    xhr.send(formdata);
+    });
   }
 
   return (
@@ -94,11 +84,18 @@ export default function Game({ store }) {
           />
 
           <CardContent>
-            <div
+            <Video
+              cloudName="deolievif"
+              publicId={level.publicId}
+              width="100%"
+              height="200px"
+              controls
+            />
+            {/* <div
               className="video"
               style={{
                 position: "relative",
-                paddingBottom: "56.25%" /* 16:9 */,
+                paddingBottom: "56.25%" ,
                 paddingTop: 25,
                 height: 0
               }}
@@ -114,7 +111,7 @@ export default function Game({ store }) {
                 src={level.link}
                 frameBorder="0"
               />
-            </div>
+            </div> */}
             <Typography variant="body2" color="textSecondary" component="p">
               {level.details}
             </Typography>
