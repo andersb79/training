@@ -50,6 +50,29 @@ export default function Game({ store }) {
     setExpanded(!expanded);
   }
 
+  function processFile(e) {
+    var file = e.target.files[0];
+    var formdata = new FormData();
+
+    formdata.append("file", file);
+    formdata.append("cloud_name", "deolievif");
+    formdata.append("upload_preset", "kv0do7lj");
+
+    var xhr = new XMLHttpRequest();
+    xhr.open(
+      "POST",
+      "https://api.cloudinary.com/v1_1/deolievif/image/upload",
+      true
+    );
+
+    xhr.onload = function() {
+      // do something to response
+      console.log(this.responseText);
+      handleExpandClick();
+    };
+    xhr.send(formdata);
+  }
+
   return (
     <div>
       {store.levels.map((level, i) => (
@@ -62,13 +85,13 @@ export default function Game({ store }) {
             }
             action={
               <IconButton aria-label="Settings">
-                <MoreVertIcon />                
+                <MoreVertIcon />
               </IconButton>
             }
             title={level.name}
             subheader={level.category}
           />
-          
+
           <CardContent>
             <div
               className="video"
@@ -116,14 +139,16 @@ export default function Game({ store }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
-            <div><input type="file" name="test" id="testFile" /></div>
+              <div>
+                <input type="file" onChange={processFile} />
+              </div>
               <Typography paragraph>Gör så här</Typography>
               <Typography paragraph>och så här</Typography>
               <Typography paragraph>och så här</Typography>
               <Typography>tada</Typography>
             </CardContent>
           </Collapse>
-        </Card>       
+        </Card>
       ))}
     </div>
   );
