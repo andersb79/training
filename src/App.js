@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Number from "./components/Number";
 import Game from "./components/Game";
+import Main from "./components/Main";
 import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import LevelStore from "./models/LevelStore";
@@ -13,6 +14,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import StarIcon from "@material-ui/icons/Star";
+import UserIcon from "@material-ui/icons/SupervisedUserCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Typography from "@material-ui/core/Typography";
 
@@ -39,58 +41,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  const [menuSelected, setMenuSelected] = useState("Feed");
-  const classes = useStyles();
-  const [tabIndex, setTabIndex] = React.useState(1);
-
-  function handleChange(event, newValue) {
-    setTabIndex(newValue);
-  }
-
-  console.log("levels", store.levels.toJSON());
-
-  const number =
-    menuSelected === "Number" ? <Number visible={true} store={store} /> : null;
-  const game = menuSelected === "Game" ? <Game store={store} /> : null;
+  const [menuSelected, setMenuSelected] = useState("Login");
 
   const login =
     menuSelected === "Login" ? (
       <Login store={store} onLogin={setMenuSelected} />
-    ) : null;
+    ) : (
+      <Main store={store} />
+    );
 
   return (
     <div id="outer-container">
       <main id="page-wrap">
         <div className="App">
-          <header className="App-header">
-            <div className={classes.root}>
-              <AppBar position="fixed" color="default">
-                <Tabs
-                  value={tabIndex}
-                  onChange={handleChange}
-                  variant="scrollable"
-                  scrollButtons="on"
-                  indicatorColor="primary"
-                  textColor="primary"
-                >
-                  <Tab label="Flöde" icon={<FavoriteIcon />} />
-                  <Tab label="Utmaningar" icon={<StarIcon />} />
-                </Tabs>
-              </AppBar>
-              {tabIndex === 0 && (
-                <TabContainer>
-                  {number}
-                  {login}
-                  <ItemList store={store} />
-                </TabContainer>
-              )}
-              {tabIndex === 1 && (
-                <TabContainer>
-                  <Game store={store} />
-                </TabContainer>
-              )}
-            </div>
-          </header>
+          <header className="App-header">{login}</header>
         </div>
       </main>
     </div>

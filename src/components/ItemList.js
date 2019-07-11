@@ -41,7 +41,7 @@ function ItemList({ store }) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className="item-list">
       {store.items.map((item, i) => (
         <Card className={classes.card}>
           <CardHeader title={item.userName} subheader={item.userName} />

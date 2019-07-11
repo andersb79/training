@@ -1,18 +1,27 @@
 import { types } from "mobx-state-tree";
+import { toJS } from "mobx";
 import Level from "./Level";
 import Item from "./Item";
+import User from "./User";
 
 const LevelStore = types
   .model("LevelStore", {
     levels: types.array(Level),
-    items: types.array(Item)
+    items: types.array(Item),
+    users: types.array(User)
   })
   .views(self => ({
     get test() {
       return "testing";
     }
   }))
+  .volatile(self => ({
+    loggedIn: null
+  }))
   .actions(self => ({
+    login(userName, password) {
+      self.loggedIn = self.users.find(x => x.userName === userName);
+    },
     add(level) {
       self.levels.push(level);
     },
@@ -26,6 +35,7 @@ const LevelStore = types
       formdata.append("cloud_name", "deolievif");
       formdata.append("upload_preset", "kv0do7lj");
       formdata.append("resource_type", "raw");
+      formdata.append("public_id", level.level);
 
       var xhr = new XMLHttpRequest();
       xhr.open(

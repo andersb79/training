@@ -2,13 +2,13 @@
   "users": [
     {
       "name": "Gustav Karlsson",
-      "userName": "GustavK10",
-      "password": "cr7"
+      "userName": "gk",
+      "password": "gk"
     },
     {
       "name": "Love Odenhag",
-      "userName": "LoveO10",
-      "password": "44"
+      "userName": "lo",
+      "password": "lo"
     }
   ],
   "items": [],
