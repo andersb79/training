@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const [menuSelected, setMenuSelected] = useState("Feed");
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(1);
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
