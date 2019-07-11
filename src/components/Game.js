@@ -91,6 +91,7 @@ export default function Game({ store }) {
               width="100%"
               height="200px"
               controls
+              autoplay
             />
             {/* <div
               className="video"
