@@ -64,7 +64,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <div className={classes.root}>
-              <AppBar position="static" color="default">
+              <AppBar position="fixed" color="default">
                 <Tabs
                   value={tabIndex}
                   onChange={handleChange}

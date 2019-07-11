@@ -13,7 +13,27 @@ code {
 }
 
 .game {
-  margin-top : 40px;
+  margin-top: 60px;
+}
+
+.fakefile {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+}
+
+.fileinputs {
+  position: relative;
+}
+
+.file {
+  position: relative;
+  text-align: right;
+  -moz-opacity: 0;
+  filter: alpha(opacity: 0);
+  opacity: 0;
+  z-index: 2;
 }
 
 .tile {
@@ -34,7 +54,6 @@ code {
 .name-text {
   font-size: 40px;
   text-transform: uppercase;
-  
 }
 .detail-text {
   font-size: 16px;
@@ -44,7 +63,7 @@ code {
 .number {
   font-size: 16em;
   margin: auto;
-  width: 50%; 
+  width: 50%;
   color: yellow;
 }
 

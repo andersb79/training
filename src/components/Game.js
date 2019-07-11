@@ -16,13 +16,14 @@ import StarIcon from "@material-ui/icons/Star";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import VideoIcon from "@material-ui/icons/VideoCall";
 import {
   Image,
   Video,
   Transformation,
   CloudinaryContext
 } from "cloudinary-react";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -65,7 +66,7 @@ export default function Game({ store }) {
   }
 
   return (
-    <div>
+    <div className="game">
       {store.levels.map((level, i) => (
         <Card key={level.level} className={classes.card}>
           <CardHeader
@@ -76,7 +77,7 @@ export default function Game({ store }) {
             }
             action={
               <IconButton aria-label="Settings">
-                <MoreVertIcon onClick={() => store.addTestItem()} />
+                <VideoIcon />
               </IconButton>
             }
             title={level.name}
@@ -137,13 +138,18 @@ export default function Game({ store }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <div>
-                <input type="file" onChange={e => processFile(e, level)} />
+              <div class="fileinputs">
+                <input
+                  type="file"
+                  class="file"
+                  onChange={e => processFile(e, level)}
+                />
+                <div class="fakefile">
+                  <Button variant="outlined">
+                    <VideoIcon />
+                  </Button>
+                </div>
               </div>
-              <Typography paragraph>Gör så här</Typography>
-              <Typography paragraph>och så här</Typography>
-              <Typography paragraph>och så här</Typography>
-              <Typography>tada</Typography>
             </CardContent>
           </Collapse>
         </Card>
