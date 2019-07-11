@@ -57,11 +57,12 @@ export default function Game({ store }) {
     formdata.append("file", file);
     formdata.append("cloud_name", "deolievif");
     formdata.append("upload_preset", "kv0do7lj");
+    formdata.append("resource_type", "raw");
 
     var xhr = new XMLHttpRequest();
     xhr.open(
       "POST",
-      "https://api.cloudinary.com/v1_1/deolievif/image/upload",
+      "https://api.cloudinary.com/v1_1/deolievif/video/upload",
       true
     );
 
