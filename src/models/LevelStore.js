@@ -136,14 +136,16 @@ const LevelStore = types
       });
     },
     updateUser(user) {   
-      const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/${user.id}`;
+      const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/recPDEuzfAvPaJ5Jf`;
       console.log(url);
       fetch(new Request(
         url,
         {
-          method: "post",
+          method: "patch",
           body: JSON.stringify({
-            fields: user
+            fields: {              
+              "profileImage": user.profileImage
+            }
           }),
           headers: new Headers({
             Authorization: `Bearer ${config.apiKey}`,

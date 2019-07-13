@@ -53,7 +53,7 @@ export default function Main({ store }) {
     var file = e.target.files[0];
 
     store.uploadImage(file, text => {
-      alert('uppladdad');
+     
     });
   }
 
