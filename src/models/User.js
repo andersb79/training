@@ -15,8 +15,10 @@ const User = types.model("User", {
   get items() {
     return self.levelStore.items.filter(x => x.userName === self.userName);
   },
+  get highscore(){
+    return self.items.length === 0 ? 0 : self.items.length -1;
+  },
   get nextChallange() {
-    
     return self.levelStore.levels[self.items.length];
   }
 }))

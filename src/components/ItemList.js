@@ -51,7 +51,7 @@ function ItemList({ store }) {
                 <Image cloudName="deolievif"
               publicId={item.user.profileImage}
               width="100%"
-              height="200px"></Image>
+              height="100%"></Image>
               </Avatar>
             }
             title={item.userName}

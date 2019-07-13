@@ -48,7 +48,7 @@ function Main({ store }) {
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
-  }
+  } 
 
   function processFile(e, level) {
     var file = e.target.files[0];
@@ -94,8 +94,9 @@ function Main({ store }) {
           <div className="profile">Topplista</div>
           <div className="highscore">
             <ul>
-              <li>Gustav - Level 7</li>
-              <li>Love - Level 3</li>
+            {store.users.map((user, i) => (
+              <li>{user.name} - {user.highscore}</li>
+            ))}
             </ul>
           </div>
         </TabContainer>
