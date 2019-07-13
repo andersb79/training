@@ -5,7 +5,6 @@ const Level = types
     details: types.string,
     is_done: false,
     name: types.string,
-    link: types.string,
     category: types.string,
     publicId: types.string
   })

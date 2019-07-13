@@ -1,9 +1,40 @@
 import { types, flow, applySnapshot, getEnv } from "mobx-state-tree";
 import { toJS } from "mobx";
-import data from "./data.json";
 import Level from "./Level";
 import Item from "./Item";
 import User from "./User";
+
+const config = {
+  base: "appC7N77wl4iVEXGD",
+  table: "Levels",
+  view: "Grid%20view",
+  apiKey: "keyHQ5GM7ktar7YtG",
+  maxRecords: 20
+};
+
+const request = new Request(
+  `https://api.airtable.com/v0/${config.base}/${config.table}?maxRecords=${
+    config.maxRecords
+  }&view=${config.view}`,
+  {
+    method: "get",
+    headers: new Headers({
+      Authorization: `Bearer ${config.apiKey}`
+    })
+  }
+);
+
+const userRequest = new Request(
+  `https://api.airtable.com/v0/${config.base}/Users?maxRecords=${
+    config.maxRecords
+  }&view=${config.view}`,
+  {
+    method: "get",
+    headers: new Headers({
+      Authorization: `Bearer ${config.apiKey}`
+    })
+  }
+);
 
 const LevelStore = types
   .model("LevelStore", {
@@ -29,9 +60,44 @@ const LevelStore = types
     addItem(item) {
       self.items.push(item);
     },
-    init() {
-      applySnapshot(self, data);
+    async fetchAirtable() {
+      var resp = await fetch(request).catch(err => {
+        console.log(err);
+      });
+      if (resp.status >= 200 && resp.status < 300) {
+        var json = await resp.json();
+        return json.records;
+      }
     },
+    async fetchUsers() {
+      var resp = await fetch(userRequest).catch(err => {
+        console.log(err);
+      });
+      if (resp.status >= 200 && resp.status < 300) {
+        var json = await resp.json();
+        return json.records;
+      }
+    },
+    init: flow(function* saveRule(rule) {
+      var levels = yield self.fetchAirtable();
+      var users = yield self.fetchUsers();
+
+      const data = {
+        "users": [],
+        "items": [],
+        "levels": []
+      }
+
+      levels.forEach(elm => {
+        data.levels.push(elm.fields);
+      });
+
+      users.forEach(elm => {
+        data.users.push(elm.fields);
+      });
+
+      applySnapshot(self, data);
+    }),
     processFile(file, level, onProcessed) {
       var formdata = new FormData();
 
