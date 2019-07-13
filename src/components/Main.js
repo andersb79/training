@@ -19,6 +19,7 @@ import {
   Transformation,
   CloudinaryContext
 } from "cloudinary-react";
+import { observer } from "mobx-react-lite";
 
 function TabContainer(props) {
   return (
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Main({ store }) {
+function Main({ store }) {
   const [menuSelected, setMenuSelected] = useState("Login");
   const classes = useStyles();
   const [tabIndex, setTabIndex] = React.useState(1);
@@ -124,3 +125,5 @@ export default function Main({ store }) {
     </div>
   );
 }
+
+export default observer(Main);
