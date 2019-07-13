@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Game({ store }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -67,18 +67,13 @@ export default function Game({ store }) {
 
   return (
     <div className="game">
-      {store.levels.map((level, i) => (
+      {store.filteredLevels.map((level, i) => (
         <Card key={level.level} className={classes.card}>
           <CardHeader
             avatar={
               <Avatar aria-label="Recipe" className={classes.avatar}>
                 {level.level}
               </Avatar>
-            }
-            action={
-              <IconButton aria-label="Settings">
-                <VideoIcon />
-              </IconButton>
             }
             title={level.name}
             subheader={level.category}
@@ -90,52 +85,12 @@ export default function Game({ store }) {
               publicId={level.publicId}
               width="100%"
               height="200px"
-              controls              
+              controls
             />
-            {/* <div
-              className="video"
-              style={{
-                position: "relative",
-                paddingBottom: "56.25%" ,
-                paddingTop: 25,
-                height: 0
-              }}
-            >
-              <iframe
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%"
-                }}
-                src={level.link}
-                frameBorder="0"
-              />
-            </div> */}
             <Typography variant="body2" color="textSecondary" component="p">
               {level.details}
             </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="Add to favorites">
-              <StarIcon color="secondary" />
-              <StarIcon color="disabled" />
-              <StarIcon color="disabled" />
-              <StarIcon color="disabled" />
-              <StarIcon color="disabled" />
-            </IconButton>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
+          </CardContent>          
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <div className="fileinputs">
@@ -146,7 +101,7 @@ export default function Game({ store }) {
                 />
                 <div className="fakefile">
                   <Button variant="outlined">
-                    <VideoIcon />
+                    Ladda upp <VideoIcon />
                   </Button>
                 </div>
               </div>

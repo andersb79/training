@@ -6,6 +6,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import { red } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
 import {
   Image,
   Video,
@@ -44,7 +45,18 @@ function ItemList({ store }) {
     <div className="item-list">
       {store.items.map((item, i) => (
         <Card key={item.publicId} className={classes.card}>
-          <CardHeader title={item.userName} subheader={item.userName} />
+          <CardHeader
+            avatar={
+              <Avatar aria-label="Recipe" className={classes.avatar}>
+                <Image cloudName="deolievif"
+              publicId={item.user.profileImage}
+              width="100%"
+              height="200px"></Image>
+              </Avatar>
+            }
+            title={item.userName}
+            subheader={item.userName}
+          />
           <CardContent>
             <Video
               cloudName="deolievif"

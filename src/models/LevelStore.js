@@ -80,6 +80,11 @@ const LevelStore = types
   .views(self => ({
     get test() {
       return "testing";
+    },
+    get filteredLevels() {
+      const array = [];
+      array.push(self.levels[0]);
+      return array;
     }
   }))
   .volatile(self => ({
@@ -130,6 +135,25 @@ const LevelStore = types
         console.log(err);
       });
     },
+    updateUser(user) {   
+      const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/${user.id}`;
+      console.log(url);
+      fetch(new Request(
+        url,
+        {
+          method: "post",
+          body: JSON.stringify({
+            fields: user
+          }),
+          headers: new Headers({
+            Authorization: `Bearer ${config.apiKey}`,
+            'Content-Type': 'application/json',
+          })
+        }
+      )).catch(err => {
+        console.log(err);
+      });
+    },
     async fetchUsers() {
       var resp = await fetch(userRequest).catch(err => {
         console.log(err);
@@ -155,6 +179,7 @@ const LevelStore = types
       });
 
       users.forEach(elm => {
+        elm.fields.id = elm.id;
         data.users.push(elm.fields);
       });
      
@@ -164,6 +189,34 @@ const LevelStore = types
 
       applySnapshot(self, data);
     }),
+    uploadImage(file, onProcessed) {
+      var formdata = new FormData();
+
+      formdata.append("file", file);
+      formdata.append("cloud_name", "deolievif");
+      formdata.append("upload_preset", "kv0do7lj");
+      formdata.append("title", self.loggedIn.userName);
+      formdata.append("tags", self.loggedIn.userName);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open(
+        "POST",
+        "https://api.cloudinary.com/v1_1/deolievif/image/upload",
+        true
+      );
+
+      xhr.onload = function() {
+        // do something to response
+
+        var myObj = JSON.parse(this.responseText);
+        self.loggedIn.setProfileImage(myObj.public_id);
+        self.updateUser(self.loggedIn);
+
+        onProcessed(this.responseText);
+      };
+      xhr.send(formdata);
+
+    },
     processFile(file, level, onProcessed) {
       var formdata = new FormData();
 
@@ -197,6 +250,7 @@ const LevelStore = types
 
         self.addItem({
           userName: self.loggedIn.userName,
+          level: level,
           publicId: myObj.public_id
         });
 
