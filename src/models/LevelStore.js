@@ -153,7 +153,7 @@ const LevelStore = types
           })
         }
       )).catch(err => {
-        console.log(err);
+        alert(err);
       });
     },
     async fetchUsers() {
