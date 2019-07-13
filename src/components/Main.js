@@ -59,6 +59,7 @@ export default function Main({ store }) {
         >
           <Tab label="Flöde" icon={<FavoriteIcon />} />
           <Tab label="Utmaningar" icon={<StarIcon />} />
+          <Tab label="Topplista" icon={<StarIcon />} />
           <Tab label={store.loggedIn.userName} icon={<UserIcon />} />
         </Tabs>
       </AppBar>
@@ -73,6 +74,17 @@ export default function Main({ store }) {
         </TabContainer>
       )}
       {tabIndex === 2 && (
+        <TabContainer>
+          <div className="profile">Topplista</div>
+          <div className="highscore">
+            <ul>
+              <li>Gustav - Level 7</li>
+              <li>Love - Level 3</li>
+            </ul>
+          </div>
+        </TabContainer>
+      )}
+      {tabIndex === 3 && (
         <TabContainer>
           <div className="profile">{store.loggedIn.name}</div>
         </TabContainer>

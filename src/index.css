@@ -20,6 +20,10 @@ code {
   margin-top: 60px;
 }
 
+.highscore{
+  color: red;
+}
+
 .profile {
   margin-top: 60px;
   color: blue;
