@@ -29,7 +29,7 @@ const insertLevel = new Request(
     }),
     headers: new Headers({
       Authorization: `Bearer ${config.apiKey}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json"
     })
   }
 );
@@ -57,7 +57,6 @@ const itemsRequest = new Request(
     })
   }
 );
-
 
 const userRequest = new Request(
   `https://api.airtable.com/v0/${config.base}/Users?maxRecords=${
@@ -119,40 +118,41 @@ const LevelStore = types
       }
     },
     insertItem(item) {
-      fetch(new Request(
-        `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Items`,
-        {
+      fetch(
+        new Request(`https://api.airtable.com/v0/appC7N77wl4iVEXGD/Items`, {
           method: "post",
           body: JSON.stringify({
             fields: item
           }),
           headers: new Headers({
             Authorization: `Bearer ${config.apiKey}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json"
           })
-        }
-      )).catch(err => {
+        })
+      ).catch(err => {
         console.log(err);
       });
     },
-    updateUser(user) {   
+    updateUser(user) {
       const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/recPDEuzfAvPaJ5Jf`;
       console.log(url);
-      fetch(new Request(
-        url,
-        {
-          method: "patch",
+      fetch(
+        new Request(url, {
+          method: "put",
           body: JSON.stringify({
-            fields: {              
-              "profileImage": user.profileImage
+            fields: {
+              name: "Gustav Karlsson",
+              userName: "gk",
+              password: "gk",
+              profileImage: user.profileImage
             }
           }),
           headers: new Headers({
             Authorization: `Bearer ${config.apiKey}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json"
           })
-        }
-      )).catch(err => {
+        })
+      ).catch(err => {
         alert(err);
       });
     },
@@ -184,7 +184,7 @@ const LevelStore = types
         elm.fields.id = elm.id;
         data.users.push(elm.fields);
       });
-     
+
       items.forEach(elm => {
         data.items.push(elm.fields);
       });
@@ -217,7 +217,6 @@ const LevelStore = types
         onProcessed(this.responseText);
       };
       xhr.send(formdata);
-
     },
     processFile(file, level, onProcessed) {
       var formdata = new FormData();
