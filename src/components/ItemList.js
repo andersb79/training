@@ -48,10 +48,12 @@ function ItemList({ store }) {
           <CardHeader
             avatar={
               <Avatar aria-label="Recipe" className={classes.avatar}>
-                <Image cloudName="deolievif"
-              publicId={item.user.profileImage}
-              width="100%"
-              height="100%"></Image>
+                <Image
+                  cloudName="deolievif"
+                  publicId={item.user.profileImage}
+                  width="100%"
+                  height="100%"
+                />
               </Avatar>
             }
             title={item.userName}
@@ -64,6 +66,10 @@ function ItemList({ store }) {
               width="100%"
               height="200px"
               controls
+              autoplay
+              loop
+              muted
+              playsinline
             />
           </CardContent>
         </Card>

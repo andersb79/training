@@ -65,51 +65,55 @@ export default function Game({ store }) {
     });
   }
 
-const level = store.loggedIn.nextChallange;
+  const level = store.loggedIn.nextChallange;
 
   return (
     <div className="game">
       {/* {store.loggedIn.nextChallange.map((level, i) => ( */}
-        <Card key={level.level} className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar}>
-                {level.level}
-              </Avatar>
-            }
-            title={level.name}
-            subheader={level.category}
-          />
+      <Card key={level.level} className={classes.card}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="Recipe" className={classes.avatar}>
+              {level.level}
+            </Avatar>
+          }
+          title={level.name}
+          subheader={level.category}
+        />
 
+        <CardContent>
+          <Video
+            cloudName="deolievif"
+            publicId={level.publicId}
+            width="100%"
+            height="200px"
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+          />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {level.details}
+          </Typography>
+        </CardContent>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Video
-              cloudName="deolievif"
-              publicId={level.publicId}
-              width="100%"
-              height="200px"
-              controls
-            />
-            <Typography variant="body2" color="textSecondary" component="p">
-              {level.details}
-            </Typography>
-          </CardContent>          
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <div className="fileinputs">
-                <input
-                  type="file"
-                  className="file"
-                  onChange={e => processFile(e, level)}
-                />
-                <div className="fakefile">
-                  <Button variant="outlined">
-                    Ladda upp <VideoIcon />
-                  </Button>
-                </div>
+            <div className="fileinputs">
+              <input
+                type="file"
+                className="file"
+                onChange={e => processFile(e, level)}
+              />
+              <div className="fakefile">
+                <Button variant="outlined">
+                  Ladda upp <VideoIcon />
+                </Button>
               </div>
-            </CardContent>
-          </Collapse>
-        </Card>
+            </div>
+          </CardContent>
+        </Collapse>
+      </Card>
       {/* ))} */}
     </div>
   );
