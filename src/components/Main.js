@@ -97,8 +97,8 @@ function Main({ store }) {
             {store.users.map((user, i) => (
               <li><Image cloudName="deolievif"
               publicId={user.profileImage}
-              width="100%"
-              height="100%"></Image>{user.name} - {user.highscore}</li>
+              width="20%"
+              height="20%"></Image>{user.name} - {user.highscore}</li>
             ))}
             </ul>
           </div>
