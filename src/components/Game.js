@@ -65,9 +65,11 @@ export default function Game({ store }) {
     });
   }
 
+const level = store.loggedIn.nextChallange;
+
   return (
     <div className="game">
-      {store.filteredLevels.map((level, i) => (
+      {/* {store.loggedIn.nextChallange.map((level, i) => ( */}
         <Card key={level.level} className={classes.card}>
           <CardHeader
             avatar={
@@ -108,7 +110,7 @@ export default function Game({ store }) {
             </CardContent>
           </Collapse>
         </Card>
-      ))}
+      {/* ))} */}
     </div>
   );
 }

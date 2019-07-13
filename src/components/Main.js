@@ -106,7 +106,7 @@ function Main({ store }) {
           <Image cloudName="deolievif"
               publicId={store.loggedIn.profileImage}
               width="100%"
-              height="200px"></Image>
+              height="100%"></Image>
           <div className="fileinputs">
                 <input
                   type="file"

@@ -1,5 +1,4 @@
-import { types } from "mobx-state-tree";
-import { type } from "os";
+import { types, getRoot } from "mobx-state-tree";
 
 const User = types.model("User", {
   id: types.string,
@@ -8,6 +7,19 @@ const User = types.model("User", {
   password: types.string,
   profileImage: types.string
 })
+.views(self => ({
+  get levelStore() {
+    const levelStore = getRoot(self);
+    return levelStore;   
+  },
+  get items() {
+    return self.levelStore.items.filter(x => x.userName === self.userName);
+  },
+  get nextChallange() {
+    
+    return self.levelStore.levels[self.items.length];
+  }
+}))
 .actions(self => ({
   setProfileImage(newPublicId) {
     self.profileImage = newPublicId;

@@ -55,7 +55,7 @@ function ItemList({ store }) {
               </Avatar>
             }
             title={item.userName}
-            subheader={item.userName}
+            subheader={item.level}
           />
           <CardContent>
             <Video
