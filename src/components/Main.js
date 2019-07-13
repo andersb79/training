@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import Game from "./Game";
 import ItemList from "./ItemList";
 import Login from "./Login";
-import ImageIcon from "@material-ui/icons/Image";
+
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -12,7 +11,18 @@ import StarIcon from "@material-ui/icons/Star";
 import UserIcon from "@material-ui/icons/SupervisedUserCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+
+import ImageIcon from "@material-ui/icons/Image";
+import WorkIcon from "@material-ui/icons/Work";
+import BeachAccessIcon from "@material-ui/icons/BeachAccess";
+import Divider from "@material-ui/core/Divider";
 import {
   Image,
   Video,
@@ -48,14 +58,12 @@ function Main({ store }) {
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
-  } 
+  }
 
   function processFile(e, level) {
     var file = e.target.files[0];
 
-    store.uploadImage(file, text => {
-     
-    });
+    store.uploadImage(file, text => {});
   }
 
   const login =
@@ -93,36 +101,51 @@ function Main({ store }) {
         <TabContainer>
           <div className="profile">Topplista</div>
           <div className="highscore">
-            <ul>
-            {store.users.map((user, i) => (
-              <li><Image cloudName="deolievif"
-              publicId={user.profileImage}
-              width="20%"
-              height="20%"></Image>{user.name} - {user.highscore}</li>
-            ))}
-            </ul>
+            <List className={classes.root}>
+              {store.users.map(user => (
+                <>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <Image
+                          cloudName="deolievif"
+                          publicId={user.profileImage}
+                          width="100%"
+                          height="100%"
+                        />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={user.name} secondary={user.highscore} />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </>
+              ))}
+            </List>
           </div>
         </TabContainer>
       )}
       {tabIndex === 3 && (
         <TabContainer>
-          <div className="profile">{store.loggedIn.name}
-          <Image cloudName="deolievif"
+          <div className="profile">
+            {store.loggedIn.name}
+            <Image
+              cloudName="deolievif"
               publicId={store.loggedIn.profileImage}
               width="100%"
-              height="100%"></Image>
-          <div className="fileinputs">
-                <input
-                  type="file"
-                  className="file"
-                  onChange={e => processFile(e)}
-                />
-                <div className="fakefile">
-                  <Button variant="outlined">
-                    Ladda upp <ImageIcon />
-                  </Button>
-                </div>
+              height="100%"
+            />
+            <div className="fileinputs">
+              <input
+                type="file"
+                className="file"
+                onChange={e => processFile(e)}
+              />
+              <div className="fakefile">
+                <Button variant="outlined">
+                  Ladda upp <ImageIcon />
+                </Button>
               </div>
+            </div>
           </div>
         </TabContainer>
       )}
