@@ -12,6 +12,28 @@ const config = {
   maxRecords: 20
 };
 
+const insertLevel = new Request(
+  `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Levels`,
+  {
+    method: "post",
+    body: JSON.stringify({
+      fields: {
+        level: 11,
+        name: "Bell Taps",
+        details:
+          "Transfer ball from side to side in a “bell ringing” motion, using the inside of both feet",
+        is_done: false,
+        publicId: "xriaksiq3gipz0dupgny",
+        category: "Beginner"
+      }
+    }),
+    headers: new Headers({
+      Authorization: `Bearer ${config.apiKey}`,
+      'Content-Type': 'application/json',
+    })
+  }
+);
+
 const request = new Request(
   `https://api.airtable.com/v0/${config.base}/${config.table}?maxRecords=${
     config.maxRecords
@@ -23,6 +45,19 @@ const request = new Request(
     })
   }
 );
+
+const itemsRequest = new Request(
+  `https://api.airtable.com/v0/${config.base}/Items?maxRecords=${
+    config.maxRecords
+  }&view=${config.view}`,
+  {
+    method: "get",
+    headers: new Headers({
+      Authorization: `Bearer ${config.apiKey}`
+    })
+  }
+);
+
 
 const userRequest = new Request(
   `https://api.airtable.com/v0/${config.base}/Users?maxRecords=${
@@ -69,6 +104,32 @@ const LevelStore = types
         return json.records;
       }
     },
+    async fetchItems() {
+      var resp = await fetch(itemsRequest).catch(err => {
+        console.log(err);
+      });
+      if (resp.status >= 200 && resp.status < 300) {
+        var json = await resp.json();
+        return json.records;
+      }
+    },
+    insertItem(item) {
+      fetch(new Request(
+        `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Items`,
+        {
+          method: "post",
+          body: JSON.stringify({
+            fields: item
+          }),
+          headers: new Headers({
+            Authorization: `Bearer ${config.apiKey}`,
+            'Content-Type': 'application/json',
+          })
+        }
+      )).catch(err => {
+        console.log(err);
+      });
+    },
     async fetchUsers() {
       var resp = await fetch(userRequest).catch(err => {
         console.log(err);
@@ -81,12 +142,13 @@ const LevelStore = types
     init: flow(function* saveRule(rule) {
       var levels = yield self.fetchAirtable();
       var users = yield self.fetchUsers();
+      var items = yield self.fetchItems();
 
       const data = {
-        "users": [],
-        "items": [],
-        "levels": []
-      }
+        users: [],
+        items: [],
+        levels: []
+      };
 
       levels.forEach(elm => {
         data.levels.push(elm.fields);
@@ -94,6 +156,10 @@ const LevelStore = types
 
       users.forEach(elm => {
         data.users.push(elm.fields);
+      });
+     
+      items.forEach(elm => {
+        data.items.push(elm.fields);
       });
 
       applySnapshot(self, data);
@@ -123,6 +189,11 @@ const LevelStore = types
         console.log(myObj);
         //level.setPublicId(myObj.public_id);
         console.log(this.responseText);
+
+        self.insertItem({
+          userName: self.loggedIn.userName,
+          publicId: myObj.public_id
+        });
 
         self.addItem({
           userName: self.loggedIn.userName,
