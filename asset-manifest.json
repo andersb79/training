@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/soccer-training/static/css/main.c9a37568.chunk.css",
-    "main.js": "/soccer-training/static/js/main.a5ded86d.chunk.js",
-    "main.js.map": "/soccer-training/static/js/main.a5ded86d.chunk.js.map",
+    "main.js": "/soccer-training/static/js/main.97ce0678.chunk.js",
+    "main.js.map": "/soccer-training/static/js/main.97ce0678.chunk.js.map",
     "runtime~main.js": "/soccer-training/static/js/runtime~main.3752efe7.js",
     "runtime~main.js.map": "/soccer-training/static/js/runtime~main.3752efe7.js.map",
-    "static/js/2.2c96090c.chunk.js": "/soccer-training/static/js/2.2c96090c.chunk.js",
-    "static/js/2.2c96090c.chunk.js.map": "/soccer-training/static/js/2.2c96090c.chunk.js.map",
+    "static/js/2.db82e58c.chunk.js": "/soccer-training/static/js/2.db82e58c.chunk.js",
+    "static/js/2.db82e58c.chunk.js.map": "/soccer-training/static/js/2.db82e58c.chunk.js.map",
     "index.html": "/soccer-training/index.html",
-    "precache-manifest.4e80f18d162cd5a6bedfb1c8d528015e.js": "/soccer-training/precache-manifest.4e80f18d162cd5a6bedfb1c8d528015e.js",
+    "precache-manifest.dfe23e1c12932079942c01f68b2bb896.js": "/soccer-training/precache-manifest.dfe23e1c12932079942c01f68b2bb896.js",
     "service-worker.js": "/soccer-training/service-worker.js",
     "static/css/main.c9a37568.chunk.css.map": "/soccer-training/static/css/main.c9a37568.chunk.css.map"
   }
