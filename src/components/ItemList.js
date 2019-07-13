@@ -69,7 +69,7 @@ function ItemList({ store }) {
               autoplay
               loop
               muted
-              playsinline
+              playsInline
             />
           </CardContent>
         </Card>

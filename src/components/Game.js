@@ -91,7 +91,7 @@ export default function Game({ store }) {
             autoplay
             loop
             muted
-            playsinline
+            playsInline
           />
           <Typography variant="body2" color="textSecondary" component="p">
             {level.details}
