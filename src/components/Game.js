@@ -90,8 +90,7 @@ export default function Game({ store }) {
               publicId={level.publicId}
               width="100%"
               height="200px"
-              controls
-              autoPlay
+              controls              
             />
             {/* <div
               className="video"
