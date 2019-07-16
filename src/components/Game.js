@@ -110,22 +110,20 @@ export default function Game({ store }) {
               </Typography>
             </CardContent>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-              {level.level === store.loggedIn.nextChallange.level && (
-                <CardContent>
-                  <div className="fileinputs">
-                    <input
-                      type="file"
-                      className="file"
-                      onChange={e => processFile(e, level)}
-                    />
-                    <div className="fakefile">
-                      <Button variant="outlined">
-                        Ladda upp <VideoIcon />
-                      </Button>
-                    </div>
+              <CardContent>
+                <div className="fileinputs">
+                  <input
+                    type="file"
+                    className="file"
+                    onChange={e => processFile(e, level)}
+                  />
+                  <div className="fakefile">
+                    <Button variant="outlined">
+                      Ladda upp <VideoIcon />
+                    </Button>
                   </div>
-                </CardContent>
-              )}
+                </div>
+              </CardContent>
             </Collapse>
           </Card>
         </VisibilitySensor>
