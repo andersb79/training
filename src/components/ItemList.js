@@ -66,7 +66,7 @@ function ItemList({ store }) {
               width="100%"
               height="200px"
               controls
-              autoplay
+              autoPlay
               loop
               muted
               playsInline
