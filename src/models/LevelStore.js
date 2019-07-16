@@ -1,4 +1,4 @@
-import { types, flow, applySnapshot, getEnv } from "mobx-state-tree";
+import { types, flow, applySnapshot, getEnv, onAction } from "mobx-state-tree";
 import { toJS } from "mobx";
 import Level from "./Level";
 import Item from "./Item";
@@ -87,13 +87,26 @@ const LevelStore = types
     }
   }))
   .volatile(self => ({
-    loggedIn: null
+    loggedIn: null,
+    initzialize: false
   }))
   .actions(self => ({
+    logout() {
+      self.loggedIn = null;
+    },
     login(userName, password) {
       self.loggedIn = self.users.find(
         x => x.userName === userName && x.password === password
       );
+
+      if (self.loggedIn) {
+        return true;
+      }
+
+      return false;
+    },
+    login2(id) {
+      self.loggedIn = self.users.find(x => x.id === JSON.parse(id));
 
       if (self.loggedIn) {
         return true;
@@ -173,7 +186,7 @@ const LevelStore = types
         return json.records;
       }
     },
-    init: flow(function* saveRule(rule) {
+    init: flow(function* init(id) {
       var levels = yield self.fetchAirtable();
       var users = yield self.fetchUsers();
       var items = yield self.fetchItems();
@@ -198,6 +211,12 @@ const LevelStore = types
       });
 
       applySnapshot(self, data);
+
+      if (id) {
+        self.login2(id);
+      }
+
+      self.initzialize = true;
     }),
     uploadImage(file, onProcessed) {
       var formdata = new FormData();

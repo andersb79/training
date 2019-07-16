@@ -1,25 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
-import Number from "./components/Number";
-import Game from "./components/Game";
 import Main from "./components/Main";
-import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import LevelStore from "./models/LevelStore";
-import data from "./models/data.json";
-
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import StarIcon from "@material-ui/icons/Star";
-import UserIcon from "@material-ui/icons/SupervisedUserCircle";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import Typography from "@material-ui/core/Typography";
+import { observer } from "mobx-react-lite";
 
 const store = LevelStore.create();
-store.init();
+store.init(window.localStorage.getItem("loggedIn"));
 
 function TabContainer(props) {
   return (
@@ -35,6 +24,19 @@ TabContainer.propTypes = {
 
 function App() {
   const [menuSelected, setMenuSelected] = useState("Login");
+
+  function onLogout() {
+    store.logout();
+    setMenuSelected("Login");
+  }
+
+  if (!store.initzialize) {
+    return <div>loading</div>;
+  }
+
+  if (store.initzialize && store.loggedIn) {
+    return <Main store={store} onLogout={onLogout} />;
+  }
 
   const login =
     menuSelected === "Login" ? (
@@ -54,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

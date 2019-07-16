@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Main({ store }) {
+function Main({ store, onLogout }) {
   const classes = useStyles();
   const [tabIndex, setTabIndex] = React.useState(0);
 
@@ -53,6 +53,11 @@ function Main({ store }) {
     var file = e.target.files[0];
 
     store.uploadImage(file, text => {});
+  }
+
+  function logout() {
+    window.localStorage.removeItem("loggedIn");
+    onLogout();
   }
 
   return (
@@ -135,6 +140,9 @@ function Main({ store }) {
               </div>
             </div>
           </div>
+          <Button variant="outlined" onClick={logout}>
+            Logga ut
+          </Button>
         </TabContainer>
       )}
     </div>

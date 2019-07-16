@@ -4,15 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import { red } from "@material-ui/core/colors";
-import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-import {
-  Image,
-  Video,
-  Transformation,
-  CloudinaryContext
-} from "cloudinary-react";
+import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 
 const useStyles = makeStyles(theme => ({
