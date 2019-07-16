@@ -26,10 +26,10 @@ const Level = types
     }
   }))
   .views(self => ({
-    status() {
+    get status() {
       return self.is_done ? "Done" : "Not Done";
     },
-    poster() {
+    get poster() {
       return { publicId: self.publicId + '.jpg', resourceType: "video" };
     }
   }));
