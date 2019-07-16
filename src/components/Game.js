@@ -87,7 +87,6 @@ export default function Game({ store }) {
             publicId={level.publicId}
             width="100%"
             height="200px"
-            controls
             autoPlay
             loop
             muted

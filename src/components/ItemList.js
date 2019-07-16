@@ -65,7 +65,6 @@ function ItemList({ store }) {
               publicId={item.publicId}
               width="100%"
               height="200px"
-              controls
               autoPlay
               loop
               muted
