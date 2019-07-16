@@ -13,6 +13,7 @@ import {
   Transformation,
   CloudinaryContext
 } from "cloudinary-react";
+import VisibilitySensor from "react-visibility-sensor";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -38,40 +39,54 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+function onChange(item, isVisible) {
+  item.setVisibility(isVisible);
+  if (isVisible) {
+    document.getElementById(item.publicId).play();
+  } else {
+    document.getElementById(item.publicId).pause();
+  }
+}
+
 function ItemList({ store }) {
   const classes = useStyles();
 
   return (
     <div className="item-list">
       {store.items.map((item, i) => (
-        <Card key={item.publicId} className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar}>
-                <Image
-                  cloudName="deolievif"
-                  publicId={item.user.profileImage}
-                  width="100%"
-                  height="100%"
-                />
-              </Avatar>
-            }
-            title={item.userName}
-            subheader={item.level}
-          />
-          <CardContent>
-            <Video
-              cloudName="deolievif"
-              publicId={item.publicId}
-              width="100%"
-              height="200px"
-              autoPlay
-              loop
-              muted
-              playsInline
+        <VisibilitySensor
+          key={item.publicId}
+          onChange={isVisible => onChange(item, isVisible)}
+        >
+          <Card key={item.publicId} className={classes.card}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="Recipe" className={classes.avatar}>
+                  <Image
+                    cloudName="deolievif"
+                    publicId={item.user.profileImage}
+                    width="100%"
+                    height="100%"
+                  />
+                </Avatar>
+              }
+              title={item.userName}
+              subheader={item.isVisible ? "synlig" : "ej synlig"}
             />
-          </CardContent>
-        </Card>
+            <CardContent>
+              <Video
+                id={item.publicId}
+                cloudName="deolievif"
+                publicId={item.publicId}
+                width="100%"
+                height="100%"
+                loop
+                muted
+                playsInline
+              />
+            </CardContent>
+          </Card>
+        </VisibilitySensor>
       ))}
     </div>
   );

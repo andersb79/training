@@ -83,6 +83,7 @@ export default function Game({ store }) {
 
         <CardContent>
           <Video
+            id="myVideo"
             cloudName="deolievif"
             publicId={level.publicId}
             width="100%"
