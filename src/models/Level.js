@@ -28,6 +28,9 @@ const Level = types
   .views(self => ({
     status() {
       return self.is_done ? "Done" : "Not Done";
+    },
+    poster() {
+      return { publicId: self.publicId + '.jpg', resourceType: "video" };
     }
   }));
 export default Level;

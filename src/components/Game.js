@@ -104,6 +104,8 @@ export default function Game({ store }) {
                 loop
                 muted
                 playsInline
+                preload="metadata"
+                poster={level.poster}
               />
               <Typography variant="body2" color="textSecondary" component="p">
                 {level.details}
