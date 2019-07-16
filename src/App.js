@@ -33,14 +33,6 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-    backgroundColor: theme.palette.background.paper
-  }
-}));
-
 function App() {
   const [menuSelected, setMenuSelected] = useState("Login");
 

@@ -91,7 +91,15 @@ const LevelStore = types
   }))
   .actions(self => ({
     login(userName, password) {
-      self.loggedIn = self.users.find(x => x.userName === userName);
+      self.loggedIn = self.users.find(
+        x => x.userName === userName && x.password === password
+      );
+
+      if (self.loggedIn) {
+        return true;
+      }
+
+      return false;
     },
     add(level) {
       self.levels.push(level);

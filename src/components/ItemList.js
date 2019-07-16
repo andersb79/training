@@ -71,7 +71,7 @@ function ItemList({ store }) {
                 </Avatar>
               }
               title={item.userName}
-              subheader={item.isVisible ? "synlig" : "ej synlig"}
+              subheader={item.level}
             />
             <CardContent>
               <Video
