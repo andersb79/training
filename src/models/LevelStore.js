@@ -1,5 +1,4 @@
-import { types, flow, applySnapshot, getEnv, onAction } from "mobx-state-tree";
-import { toJS } from "mobx";
+import { types, flow, applySnapshot } from "mobx-state-tree";
 import Level from "./Level";
 import Item from "./Item";
 import User from "./User";
