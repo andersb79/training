@@ -20,7 +20,11 @@ code {
   margin-top: 60px;
 }
 
-.highscore{
+.logout {
+  color: red;
+}
+
+.highscore {
   color: red;
 }
 

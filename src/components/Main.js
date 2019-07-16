@@ -140,9 +140,12 @@ function Main({ store, onLogout }) {
               </div>
             </div>
           </div>
-          <Button variant="outlined" onClick={logout}>
-            Logga ut
-          </Button>
+          <br />
+          <div>
+            <Button variant="outlined" onClick={logout}>
+              Logga ut
+            </Button>
+          </div>
         </TabContainer>
       )}
     </div>
