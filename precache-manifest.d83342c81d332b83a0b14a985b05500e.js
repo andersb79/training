@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "361668ab3cd0fd06600fc07748862253",
+    "revision": "01ec3126e385dfb900140559975f3f38",
     "url": "/soccer-training/index.html"
   },
   {
