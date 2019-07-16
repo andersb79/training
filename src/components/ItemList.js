@@ -67,7 +67,7 @@ function ItemList({ store }) {
               }
               action={item.isDone && <StarIcon />}
               title={item.user.name}
-              subheader={item.level}
+              subheader={item.game.name}
             />
             <CardContent>
               <Video

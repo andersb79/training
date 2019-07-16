@@ -19,6 +19,10 @@ const Item = types
     get user() {
       const levelStore = getRoot(self);
       return levelStore.users.find(x => x.userName === self.userName);
+    },
+    get game() {
+      const levelStore = getRoot(self);
+      return levelStore.levels.find(x => x.level === self.level);
     }
   }));
 export default Item;
