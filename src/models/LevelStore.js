@@ -87,9 +87,13 @@ const LevelStore = types
   }))
   .volatile(self => ({
     loggedIn: null,
-    initzialize: false
+    initzialize: false,
+    height: null
   }))
   .actions(self => ({
+    setHeight(height) {
+      self.height = height;
+    },
     logout() {
       self.loggedIn = null;
     },

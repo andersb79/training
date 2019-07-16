@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Main from "./components/Main";
 import Login from "./components/Login";
@@ -24,11 +24,17 @@ TabContainer.propTypes = {
 
 function App() {
   const [menuSelected, setMenuSelected] = useState("Login");
+  
+  useEffect(() => {
+    store.setHeight(window.innerHeight);
+  }, []);
 
   function onLogout() {
     store.logout();
     setMenuSelected("Login");
   }
+
+
 
   if (!store.initzialize) {
     return <div>loading</div>;
