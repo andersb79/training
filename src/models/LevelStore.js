@@ -271,17 +271,15 @@ const LevelStore = types
         //level.setPublicId(myObj.public_id);
         console.log(this.responseText);
 
-        self.insertItem({
+        const item = {
           userName: self.loggedIn.userName,
           publicId: myObj.public_id,
           level: level
-        });
+        };
 
-        self.addItem({
-          userName: self.loggedIn.userName,
-          level: level,
-          publicId: myObj.public_id
-        });
+        self.insertItem(item);
+
+        self.addItem(item);
 
         console.log(self.items);
 
