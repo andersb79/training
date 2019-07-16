@@ -8,6 +8,9 @@ const Level = types
     category: types.string,
     publicId: types.string
   })
+  .volatile(self => ({
+    isVisible: false
+  }))
   .actions(self => ({
     markDone() {
       self.is_done = true;
@@ -17,6 +20,9 @@ const Level = types
     },
     setName(newName) {
       self.name = newName;
+    },
+    setVisibility(isVisible) {
+      self.isVisible = isVisible;
     }
   }))
   .views(self => ({

@@ -24,6 +24,7 @@ import {
   CloudinaryContext
 } from "cloudinary-react";
 import Button from "@material-ui/core/Button";
+import VisibilitySensor from "react-visibility-sensor";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -65,56 +66,69 @@ export default function Game({ store }) {
     });
   }
 
+  function onChange(item, isVisible) {
+    item.setVisibility(isVisible);
+    if (isVisible) {
+      document.getElementById(item.publicId).play();
+    } else {
+      document.getElementById(item.publicId).pause();
+    }
+  }
+
   return (
     <div className="game">
       {/* {store.loggedIn.nextChallange.map((level, i) => ( */}
       {store.levels.map((level, i) => (
-        <Card key={level.level} className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar}>
-                {level.level}
-              </Avatar>
-            }
-            title={level.name}
-            subheader={level.category}
-          />
-
-          <CardContent>
-            <Video
-              id="myVideo"
-              cloudName="deolievif"
-              publicId={level.publicId}
-              width="100%"
-              height="200px"
-              autoPlay
-              loop
-              muted
-              playsInline
+        <VisibilitySensor
+          key={level.publicId}
+          onChange={isVisible => onChange(level, isVisible)}
+        >
+          <Card key={level.level} className={classes.card}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="Recipe" className={classes.avatar}>
+                  {level.level}
+                </Avatar>
+              }
+              title={level.name}
+              subheader={level.category}
             />
-            <Typography variant="body2" color="textSecondary" component="p">
-              {level.details}
-            </Typography>
-          </CardContent>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            {level.level === store.loggedIn.nextChallange.level && (
-              <CardContent>
-                <div className="fileinputs">
-                  <input
-                    type="file"
-                    className="file"
-                    onChange={e => processFile(e, level)}
-                  />
-                  <div className="fakefile">
-                    <Button variant="outlined">
-                      Ladda upp <VideoIcon />
-                    </Button>
+
+            <CardContent>
+              <Video
+                id={level.publicId}
+                cloudName="deolievif"
+                publicId={level.publicId}
+                width="100%"
+                height="100%"
+                loop
+                muted
+                playsInline
+              />
+              <Typography variant="body2" color="textSecondary" component="p">
+                {level.details}
+              </Typography>
+            </CardContent>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              {level.level === store.loggedIn.nextChallange.level && (
+                <CardContent>
+                  <div className="fileinputs">
+                    <input
+                      type="file"
+                      className="file"
+                      onChange={e => processFile(e, level)}
+                    />
+                    <div className="fakefile">
+                      <Button variant="outlined">
+                        Ladda upp <VideoIcon />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            )}
-          </Collapse>
-        </Card>
+                </CardContent>
+              )}
+            </Collapse>
+          </Card>
+        </VisibilitySensor>
       ))}
       {/* ))} */}
     </div>
