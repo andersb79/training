@@ -79,6 +79,8 @@ function ItemList({ store }) {
                 loop
                 muted
                 playsInline
+                preload="none"
+                poster={item.poster}
               />
             </CardContent>
           </Card>

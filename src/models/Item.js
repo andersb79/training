@@ -23,6 +23,9 @@ const Item = types
     get game() {
       const levelStore = getRoot(self);
       return levelStore.levels.find(x => x.level === self.level);
+    },
+    get poster() {
+      return { publicId: self.publicId + '.jpg', resourceType: "video" };
     }
   }));
 export default Item;
