@@ -4,7 +4,8 @@ const Item = types
   .model("Item", {
     userName: types.string,
     publicId: types.string,
-    level: types.integer
+    level: types.integer,
+    isDone: types.maybeNull(types.boolean)
   })
   .volatile(self => ({
     isVisible: false
@@ -17,7 +18,7 @@ const Item = types
   .views(self => ({
     get user() {
       const levelStore = getRoot(self);
-      return levelStore.users.find(x => x.userName == self.userName);
+      return levelStore.users.find(x => x.userName === self.userName);
     }
   }));
 export default Item;

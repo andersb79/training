@@ -259,7 +259,6 @@ const LevelStore = types
       var xhr = new XMLHttpRequest();
       xhr.open(
         "POST",
-        //"https://api.cloudinary.com/v1_1/deolievif/image/upload",
         "https://api.cloudinary.com/v1_1/deolievif/video/upload/",
         true
       );
@@ -274,7 +273,8 @@ const LevelStore = types
         const item = {
           userName: self.loggedIn.userName,
           publicId: myObj.public_id,
-          level: level
+          level: level.level,
+          isDone: false
         };
 
         self.insertItem(item);

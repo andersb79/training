@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
+import StarIcon from "@material-ui/icons/Star";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -64,6 +65,7 @@ function ItemList({ store }) {
                   />
                 </Avatar>
               }
+              action={item.isDone && <StarIcon />}
               title={item.user.name}
               subheader={item.level}
             />
