@@ -69,6 +69,12 @@ const userRequest = new Request(
   }
 );
 
+const levelFilters = [
+  { id: 0, text: 'Alla'},
+  { id: 1, text: 'Ej klarade'},
+  { id: 2, text: 'Klarade'}  
+];
+
 const LevelStore = types
   .model("LevelStore", {
     levels: types.array(Level),
@@ -80,20 +86,37 @@ const LevelStore = types
       return "testing";
     },
     get filteredLevels() {
-      const array = [];
-      array.push(self.levels[0]);
-      return array;
+      if(self.levelFilter.id === 0){
+        return self.levels;
+      }
+
+      if(self.levelFilter.id === 1){
+        return self.levels.filter(x => !x.isDone);
+      }
+
+       if(self.levelFilter.id === 2){
+         return self.levels.filter(x => x.isDone);
+       }
+
+      return [];
+    },
+    get levelFilters(){
+      return levelFilters;
     }
   }))
   .volatile(self => ({
     loggedIn: null,
     initzialize: false,
     height: null,
-    selectedProfile: null
+    selectedProfile: null,
+    levelFilter: self.levelFilters[0]
   }))
   .actions(self => ({
     selectProfile(profile){
       self.selectedProfile = profile; 
+    },
+    setLevelFilter(filter){
+      self.levelFilter = filter; 
     },
     async refresh(){
       var items = await self.fetchItems();

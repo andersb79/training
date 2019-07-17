@@ -1,9 +1,8 @@
-import { types } from "mobx-state-tree";
+import { types, getRoot } from "mobx-state-tree";
 const Level = types
   .model("Level", {
     level: types.integer,
     details: types.string,
-    is_done: false,
     name: types.string,
     category: types.string,
     publicId: types.string
@@ -12,9 +11,6 @@ const Level = types
     isVisible: false
   }))
   .actions(self => ({
-    markDone() {
-      self.is_done = true;
-    },
     setPublicId(newPublicId) {
       self.publicId = newPublicId;
     },
@@ -29,8 +25,17 @@ const Level = types
     get status() {
       return self.is_done ? "Done" : "Not Done";
     },
+    get isDone() {
+      const levelStore = getRoot(self);
+      return levelStore.items.some(
+        x =>
+          x.user.id === levelStore.loggedIn.id &&
+          x.isDone &&
+          x.level === self.level
+      );
+    },
     get poster() {
-      return { publicId: self.publicId + '.jpg', resourceType: "video" };
+      return { publicId: self.publicId + ".jpg", resourceType: "video" };
     }
   }));
 export default Level;

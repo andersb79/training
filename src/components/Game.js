@@ -1,31 +1,23 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import StarIcon from "@material-ui/icons/Star";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import VideoIcon from "@material-ui/icons/VideoCall";
-import {
-  Image,
-  Video,
-  Transformation,
-  CloudinaryContext
-} from "cloudinary-react";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import VideoIcon from "@material-ui/icons/VideoCall";
+import { Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
+const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
   card: {
     //maxWidth: 345,
@@ -75,9 +67,53 @@ export default function Game({ store }) {
     }
   }
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose(option) {
+    store.setLevelFilter(option);
+    setAnchorEl(null);
+  }
+
   return (
     <div className="game">
-      {store.levels.map((level, i) => (
+      <IconButton
+        aria-label="More"
+        aria-controls="long-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <FilterListIcon />{store.levelFilter.text}
+      </IconButton>
+      <Menu
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: 200
+          }
+        }}
+      >
+        {store.levelFilters.map(option => (
+          <MenuItem
+            key={option.id}
+            selected={option.id === store.levelFilter}
+            onClick={() => handleClose(option)}
+          >
+            {option.text}
+          </MenuItem>
+        ))}
+      </Menu>
+
+      {store.filteredLevels.map((level, i) => (
         <VisibilitySensor
           key={level.publicId}
           onChange={isVisible => onChange(level, isVisible)}
