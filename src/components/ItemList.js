@@ -9,6 +9,8 @@ import Avatar from "@material-ui/core/Avatar";
 import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ProfileReadOnly from "./ProfileReadOnly";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -54,6 +56,10 @@ function handleRefresh(store) {
   const success = store.refresh();
 }
 
+function Items({store}) {
+  
+}
+
 function ItemList({ store }) {
   const classes = useStyles();
 
@@ -63,13 +69,14 @@ function ItemList({ store }) {
         <VisibilitySensor offset={{top:80}} onChange={isVisible => onChangeRefresh(store, isVisible)}>
           <div className="refresh-div">dra för att ladda</div>
         </VisibilitySensor>
-        {store.items.map((item, i) => (
+
+{!store.selectedProfile && store.items.map((item, i) => (
           <VisibilitySensor
             key={item.publicId}
             onChange={isVisible => onChange(item, isVisible)}
           >
             <Card key={item.publicId} className={classes.card}>
-              <CardHeader
+              <CardHeader 
                 avatar={
                   <Avatar aria-label="Recipe" className={classes.avatar}>
                     <Image
@@ -81,7 +88,7 @@ function ItemList({ store }) {
                   </Avatar>
                 }
                 action={item.isDone && <StarIcon />}
-                title={item.user.name}
+                title={<div onClick={() => store.selectProfile(item.user)}>{item.user.name}</div> }
                 subheader={item.game.name}
               />
               <CardContent>
@@ -99,11 +106,12 @@ function ItemList({ store }) {
                 />
               </CardContent>
               <CardContent>
-                {item.id}
+                <div className="item-date">{item.date}</div>
               </CardContent>
             </Card>
           </VisibilitySensor>
         ))}
+        {store.selectedProfile && <ProfileReadOnly store={store}/>}
       </div>
     </div>
   );

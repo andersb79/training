@@ -1,5 +1,12 @@
 import { types, getRoot } from "mobx-state-tree";
 
+function appendLeadingZeroes(n) {
+  if (n <= 9) {
+    return "0" + n;
+  }
+  return n;
+}
+
 const Item = types
   .model("Item", {
     id: types.string,
@@ -18,6 +25,15 @@ const Item = types
     }
   }))
   .views(self => ({
+    get date() {
+      return (
+        self.createdTime.getFullYear() +
+        "-" +
+        appendLeadingZeroes(self.createdTime.getMonth() + 1) +
+        "-" +
+        appendLeadingZeroes(self.createdTime.getDate())
+      );
+    },
     get user() {
       const levelStore = getRoot(self);
       return levelStore.users.find(x => x.userName === self.userName);
@@ -27,7 +43,7 @@ const Item = types
       return levelStore.levels.find(x => x.level === self.level);
     },
     get poster() {
-      return { publicId: self.publicId + '.jpg', resourceType: "video" };
+      return { publicId: self.publicId + ".jpg", resourceType: "video" };
     }
   }));
 export default Item;

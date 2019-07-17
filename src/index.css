@@ -21,6 +21,13 @@ code {
   padding: 0 !important;
 }
 
+.item-date{
+  color: gray;
+  font-size: 12px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
 .game {
   margin-top: 80px;
 }
@@ -48,6 +55,7 @@ code {
 }
 
 .logout {
+  margin-top: 80px;
   color: red;
 }
 
@@ -56,7 +64,7 @@ code {
 }
 
 .profile {
-  margin-top: 60px;
+  margin-top: 80px;
   color: blue;
 }
 

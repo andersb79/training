@@ -10,16 +10,15 @@ import UserIcon from "@material-ui/icons/SupervisedUserCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ImageIcon from "@material-ui/icons/Image";
 import Divider from "@material-ui/core/Divider";
 import { Image } from "cloudinary-react";
 import { observer } from "mobx-react-lite";
+import Profile from "./Profile";
 
 function TabContainer(props) {
   return (
@@ -47,18 +46,7 @@ function Main({ store, onLogout }) {
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
-  }
-
-  function processFile(e, level) {
-    var file = e.target.files[0];
-
-    store.uploadImage(file, text => {});
-  }
-
-  function logout() {
-    window.localStorage.removeItem("loggedIn");
-    onLogout();
-  }
+  }  
 
   return (
     <div className={classes.root}>
@@ -119,33 +107,7 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 3 && (
         <TabContainer>
-          <div className="profile">
-            {store.loggedIn.name}
-            <Image
-              cloudName="deolievif"
-              publicId={store.loggedIn.profileImage}
-              width="100%"
-              height="100%"
-            />
-            <div className="fileinputs">
-              <input
-                type="file"
-                className="file"
-                onChange={e => processFile(e)}
-              />
-              <div className="fakefile">
-                <Button variant="outlined">
-                  Ladda upp <ImageIcon />
-                </Button>
-              </div>
-            </div>
-          </div>
-          <br />
-          <div>
-            <Button variant="outlined" onClick={logout}>
-              Logga ut
-            </Button>
-          </div>
+         <Profile store={store} onLogout={onLogout} />
         </TabContainer>
       )}
     </div>

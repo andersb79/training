@@ -88,9 +88,13 @@ const LevelStore = types
   .volatile(self => ({
     loggedIn: null,
     initzialize: false,
-    height: null
+    height: null,
+    selectedProfile: null
   }))
   .actions(self => ({
+    selectProfile(profile){
+      self.selectedProfile = profile; 
+    },
     async refresh(){
       var items = await self.fetchItems();
       
