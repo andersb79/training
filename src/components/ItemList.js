@@ -45,8 +45,10 @@ function onChange(item, isVisible) {
   }
 }
 
-function onChangeRefresh(isVisible){
-
+function onChangeRefresh(isVisible) {
+  if(isVisible) {
+    alert('hej');
+  }
 }
 
 function handleRefresh(store) {
@@ -71,9 +73,9 @@ function ItemList({ store }) {
   return (
     <div className="item-container">
       <div className="item-list">
-      <VisibilitySensor            
-            onChange={isVisible => onChangeRefresh(isVisible)}
-          ><div className="refresh-div">tada</div></VisibilitySensor>
+        <VisibilitySensor offset={{top:80}} onChange={isVisible => onChangeRefresh(isVisible)}>
+          <div className="refresh-div">tada</div>
+        </VisibilitySensor>
         {store.items.map((item, i) => (
           <VisibilitySensor
             key={item.publicId}
