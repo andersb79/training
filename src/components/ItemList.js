@@ -54,14 +54,14 @@ function ItemList({ store }) {
   const classes = useStyles();
 
   useEffect(() => {
-    PullToRefresh.init({
-      mainElement: ".item-list",
-      onRefresh() {
-        handleRefresh(store);
-      },
-      iconArrow: ReactDOMServer.renderToString(<StarIcon />),
-      iconRefreshing: ReactDOMServer.renderToString(<StarIcon />)
-    });
+    // PullToRefresh.init({
+    //   mainElement: ".item-list",
+    //   onRefresh() {
+    //     handleRefresh(store);
+    //   },
+    //   iconArrow: ReactDOMServer.renderToString(<StarIcon />),
+    //   iconRefreshing: ReactDOMServer.renderToString(<StarIcon />)
+    // });
   }, []);
 
   return (
