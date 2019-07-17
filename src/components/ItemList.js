@@ -67,6 +67,7 @@ function ItemList({ store }) {
           textAlign: "center"
         }}
       >
+        <h3>Pull down to refresh</h3>
         {store.items.map((item, i) => (
           <VisibilitySensor
             key={item.publicId}
