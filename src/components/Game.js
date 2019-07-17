@@ -28,8 +28,8 @@ import VisibilitySensor from "react-visibility-sensor";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
-    marginTop: "10px"    
+    //maxWidth: 345,
+    marginTop: "10px"
   },
   media: {
     height: 0,

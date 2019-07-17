@@ -13,8 +13,16 @@ code {
     monospace;
 }
 
+.MuiTypography-body1 {
+  padding: 0 !important;
+}
+
+.MuiCardContent-root {
+  padding: 0 !important;
+}
+
 .game {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .item-list {
@@ -27,7 +35,6 @@ code {
 
 .highscore {
   color: red;
-  
 }
 
 .profile {
