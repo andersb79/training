@@ -35,8 +35,12 @@ code {
   margin-bottom: 14px;
 }
 
-.item-list {
+.item-container {
   margin-top: 80px;
+}
+
+.item-list {
+  
 }
 
 .logout {

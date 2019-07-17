@@ -77,7 +77,6 @@ export default function Game({ store }) {
 
   return (
     <div className="game">
-      {/* {store.loggedIn.nextChallange.map((level, i) => ( */}
       {store.levels.map((level, i) => (
         <VisibilitySensor
           key={level.publicId}
@@ -134,7 +133,6 @@ export default function Game({ store }) {
           </Card>
         </VisibilitySensor>
       ))}
-      {/* ))} */}
     </div>
   );
 }

@@ -52,62 +52,60 @@ function handleRefresh(store) {
 
 function ItemList({ store }) {
   const classes = useStyles();
-  
+
   useEffect(() => {
     PullToRefresh.init({
-      mainElement: "body",
+      mainElement: ".item-list",
       onRefresh() {
         handleRefresh(store);
       },
-      iconArrow: ReactDOMServer.renderToString(
-        <StarIcon />
-      ),
-      iconRefreshing: ReactDOMServer.renderToString(
-        <StarIcon />
-      )
+      iconArrow: ReactDOMServer.renderToString(<StarIcon />),
+      iconRefreshing: ReactDOMServer.renderToString(<StarIcon />)
     });
   }, []);
 
   return (
-    <div className="item-list">
-      {store.items.map((item, i) => (
-        <VisibilitySensor
-          key={item.publicId}
-          onChange={isVisible => onChange(item, isVisible)}
-        >
-          <Card key={item.publicId} className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  <Image
-                    cloudName="deolievif"
-                    publicId={item.user.profileImage}
-                    width="100%"
-                    height="100%"
-                  />
-                </Avatar>
-              }
-              action={item.isDone && <StarIcon />}
-              title={item.user.name}
-              subheader={item.game.name}
-            />
-            <CardContent>
-              <Video
-                id={item.publicId}
-                cloudName="deolievif"
-                publicId={item.publicId}
-                width="100%"
-                height="100%"
-                loop
-                muted
-                playsInline
-                preload="none"
-                poster={item.poster}
+    <div className="item-container">
+      <div className="item-list">
+        {store.items.map((item, i) => (
+          <VisibilitySensor
+            key={item.publicId}
+            onChange={isVisible => onChange(item, isVisible)}
+          >
+            <Card key={item.publicId} className={classes.card}>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="Recipe" className={classes.avatar}>
+                    <Image
+                      cloudName="deolievif"
+                      publicId={item.user.profileImage}
+                      width="100%"
+                      height="100%"
+                    />
+                  </Avatar>
+                }
+                action={item.isDone && <StarIcon />}
+                title={item.user.name}
+                subheader={item.game.name}
               />
-            </CardContent>
-          </Card>
-        </VisibilitySensor>
-      ))}
+              <CardContent>
+                <Video
+                  id={item.publicId}
+                  cloudName="deolievif"
+                  publicId={item.publicId}
+                  width="100%"
+                  height="100%"
+                  loop
+                  muted
+                  playsInline
+                  preload="none"
+                  poster={item.poster}
+                />
+              </CardContent>
+            </Card>
+          </VisibilitySensor>
+        ))}
+      </div>
     </div>
   );
 }
