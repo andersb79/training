@@ -35,8 +35,12 @@ code {
   margin-bottom: 14px;
 }
 
+.refresh-div {
+  margin-top: 50px;
+}
+
 .item-container {
-  margin-top: 80px;
+  /* margin-top: 80px; */
 }
 
 .item-list {
