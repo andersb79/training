@@ -2,6 +2,8 @@ import { types, getRoot } from "mobx-state-tree";
 
 const Item = types
   .model("Item", {
+    id: types.string,
+    createdTime: types.Date,
     userName: types.string,
     publicId: types.string,
     level: types.integer,

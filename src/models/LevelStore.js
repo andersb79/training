@@ -96,8 +96,11 @@ const LevelStore = types
       
       const data = [];      
       
+      items.reverse();
 
       items.forEach(elm => {
+        elm.fields.id = elm.id;        
+        elm.fields.createdTime = new Date(elm.createdTime);
         data.push(elm.fields);
       });
 
@@ -223,7 +226,11 @@ const LevelStore = types
         data.users.push(elm.fields);
       });
 
+      items.reverse();
+
       items.forEach(elm => {
+        elm.fields.id = elm.id;        
+        elm.fields.createdTime = new Date(elm.createdTime);
         data.items.push(elm.fields);
       });
 

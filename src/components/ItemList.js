@@ -9,8 +9,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
-import PullToRefresh from "pulltorefreshjs";
-import ReactDOMServer from "react-dom/server";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -59,17 +57,6 @@ function handleRefresh(store) {
 function ItemList({ store }) {
   const classes = useStyles();
 
-  useEffect(() => {
-    // PullToRefresh.init({
-    //   mainElement: ".item-list",
-    //   onRefresh() {
-    //     handleRefresh(store);
-    //   },
-    //   iconArrow: ReactDOMServer.renderToString(<StarIcon />),
-    //   iconRefreshing: ReactDOMServer.renderToString(<StarIcon />)
-    // });
-  }, []);
-
   return (
     <div className="item-container">
       <div className="item-list">
@@ -110,6 +97,9 @@ function ItemList({ store }) {
                   preload="none"
                   poster={item.poster}
                 />
+              </CardContent>
+              <CardContent>
+                {item.id}
               </CardContent>
             </Card>
           </VisibilitySensor>
