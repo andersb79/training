@@ -9,7 +9,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
-import ReactPullToRefresh from "react-pull-to-refresh";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -60,53 +59,44 @@ function ItemList({ store }) {
 
   return (
     <div className="item-list">
-      <ReactPullToRefresh
-        onRefresh={(resolve, reject) => handleRefresh(store, resolve, reject)}
-        className="your-own-class-if-you-want"
-        style={{
-          textAlign: "center"
-        }}
-      >
-        <h3>Pull down to refresh</h3>
-        {store.items.map((item, i) => (
-          <VisibilitySensor
-            key={item.publicId}
-            onChange={isVisible => onChange(item, isVisible)}
-          >
-            <Card key={item.publicId} className={classes.card}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="Recipe" className={classes.avatar}>
-                    <Image
-                      cloudName="deolievif"
-                      publicId={item.user.profileImage}
-                      width="100%"
-                      height="100%"
-                    />
-                  </Avatar>
-                }
-                action={item.isDone && <StarIcon />}
-                title={item.user.name}
-                subheader={item.game.name}
+      {store.items.map((item, i) => (
+        <VisibilitySensor
+          key={item.publicId}
+          onChange={isVisible => onChange(item, isVisible)}
+        >
+          <Card key={item.publicId} className={classes.card}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="Recipe" className={classes.avatar}>
+                  <Image
+                    cloudName="deolievif"
+                    publicId={item.user.profileImage}
+                    width="100%"
+                    height="100%"
+                  />
+                </Avatar>
+              }
+              action={item.isDone && <StarIcon />}
+              title={item.user.name}
+              subheader={item.game.name}
+            />
+            <CardContent>
+              <Video
+                id={item.publicId}
+                cloudName="deolievif"
+                publicId={item.publicId}
+                width="100%"
+                height="100%"
+                loop
+                muted
+                playsInline
+                preload="none"
+                poster={item.poster}
               />
-              <CardContent>
-                <Video
-                  id={item.publicId}
-                  cloudName="deolievif"
-                  publicId={item.publicId}
-                  width="100%"
-                  height="100%"
-                  loop
-                  muted
-                  playsInline
-                  preload="none"
-                  poster={item.poster}
-                />
-              </CardContent>
-            </Card>
-          </VisibilitySensor>
-        ))}
-      </ReactPullToRefresh>
+            </CardContent>
+          </Card>
+        </VisibilitySensor>
+      ))}
     </div>
   );
 }
