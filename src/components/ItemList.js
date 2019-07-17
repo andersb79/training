@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -9,6 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
+import PullToRefresh from "pulltorefreshjs";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -43,19 +44,22 @@ function onChange(item, isVisible) {
   }
 }
 
-function handleRefresh(store, resolve, reject) {
+function handleRefresh(store) {
   // do some async code here
   const success = store.refresh();
-
-  if (success) {
-    resolve();
-  } else {
-    reject();
-  }
 }
 
 function ItemList({ store }) {
   const classes = useStyles();
+  
+  useEffect(() => {
+    PullToRefresh.init({
+      mainElement: "body",
+      onRefresh() {
+        handleRefresh(store);
+      }
+    });
+  }, []);
 
   return (
     <div className="item-list">
