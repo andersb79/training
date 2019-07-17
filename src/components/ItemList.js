@@ -10,6 +10,7 @@ import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
 import PullToRefresh from "pulltorefreshjs";
+import ReactDOMServer from "react-dom/server";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -57,7 +58,13 @@ function ItemList({ store }) {
       mainElement: "body",
       onRefresh() {
         handleRefresh(store);
-      }
+      },
+      iconArrow: ReactDOMServer.renderToString(
+        <StarIcon />
+      ),
+      iconRefreshing: ReactDOMServer.renderToString(
+        <StarIcon />
+      )
     });
   }, []);
 
