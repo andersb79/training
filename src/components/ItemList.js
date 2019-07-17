@@ -45,9 +45,9 @@ function onChange(item, isVisible) {
   }
 }
 
-function onChangeRefresh(isVisible) {
+function onChangeRefresh(store, isVisible) {
   if(isVisible) {
-    alert('hej');
+    store.refresh();
   }
 }
 
@@ -73,8 +73,8 @@ function ItemList({ store }) {
   return (
     <div className="item-container">
       <div className="item-list">
-        <VisibilitySensor offset={{top:80}} onChange={isVisible => onChangeRefresh(isVisible)}>
-          <div className="refresh-div">tada</div>
+        <VisibilitySensor offset={{top:80}} onChange={isVisible => onChangeRefresh(store, isVisible)}>
+          <div className="refresh-div">dra för att ladda</div>
         </VisibilitySensor>
         {store.items.map((item, i) => (
           <VisibilitySensor
