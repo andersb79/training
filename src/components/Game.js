@@ -107,22 +107,26 @@ export default function Game({ store }) {
                 preload="none"
                 poster={level.poster}
               />
-              <Typography variant="body2" color="textSecondary" component="p">
-                {level.details}
-              </Typography>
+              <div className="card-content">
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {level.details}
+                </Typography>
+              </div>
             </CardContent>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                <div className="fileinputs">
-                  <input
-                    type="file"
-                    className="file"
-                    onChange={e => processFile(e, level)}
-                  />
-                  <div className="fakefile">
-                    <Button variant="outlined">
-                      Ladda upp <VideoIcon />
-                    </Button>
+                <div className="card-content2">
+                  <div className="fileinputs">
+                    <input
+                      type="file"
+                      className="file"
+                      onChange={e => processFile(e, level)}
+                    />
+                    <div className="fakefile">
+                      <Button variant="outlined">
+                        Ladda upp <VideoIcon />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>

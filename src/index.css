@@ -25,6 +25,16 @@ code {
   margin-top: 80px;
 }
 
+.card-content {
+  padding: 16px;
+  margin-bottom: -14px;
+}
+
+.card-content2 {
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
 .item-list {
   margin-top: 80px;
 }
