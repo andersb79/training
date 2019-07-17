@@ -47,7 +47,7 @@ function onChange(item, isVisible) {
 function handleRefresh(store, resolve, reject) {
   // do some async code here
   const success = store.refresh();
-  
+
   if (success) {
     resolve();
   } else {
@@ -60,14 +60,14 @@ function ItemList({ store }) {
 
   return (
     <div className="item-list">
-      {store.items.map((item, i) => (
-        <ReactPullToRefresh
-          onRefresh={(resolve, reject) => handleRefresh(store, resolve, reject)}
-          className="your-own-class-if-you-want"
-          style={{
-            textAlign: "center"
-          }}
-        >
+      <ReactPullToRefresh
+        onRefresh={(resolve, reject) => handleRefresh(store, resolve, reject)}
+        className="your-own-class-if-you-want"
+        style={{
+          textAlign: "center"
+        }}
+      >
+        {store.items.map((item, i) => (
           <VisibilitySensor
             key={item.publicId}
             onChange={isVisible => onChange(item, isVisible)}
@@ -104,8 +104,8 @@ function ItemList({ store }) {
               </CardContent>
             </Card>
           </VisibilitySensor>
-        </ReactPullToRefresh>
-      ))}
+        ))}
+      </ReactPullToRefresh>
     </div>
   );
 }
