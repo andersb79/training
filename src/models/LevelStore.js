@@ -91,6 +91,20 @@ const LevelStore = types
     height: null
   }))
   .actions(self => ({
+    async refresh(){
+      var items = await self.fetchItems();
+      
+      const data = [];      
+      
+
+      items.forEach(elm => {
+        data.push(elm.fields);
+      });
+
+      applySnapshot(self.items, data);
+
+      return true;
+    },
     setHeight(height) {
       self.height = height;
     },
