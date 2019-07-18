@@ -16,6 +16,10 @@ function Profile({ store, onLogout }) {
     onLogout();
   }
 
+  function update() {
+    document.location.reload();
+  }
+
   return (
     <>
       <div className="profile">
@@ -34,6 +38,12 @@ function Profile({ store, onLogout }) {
             </Button>
           </div>
         </div>
+      </div>
+      <br />
+      <div>
+        <Button variant="outlined" onClick={update}>
+          Uppdatera
+        </Button>
       </div>
       <br />
       <div>
