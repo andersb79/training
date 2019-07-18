@@ -53,7 +53,7 @@ export default function Game({ store }) {
         .map(level => {
           onChange(level, true);
         });
-    }, 2000);
+    }, 1);
   }, []);
 
   function handleExpandClick() {

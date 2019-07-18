@@ -21,11 +21,19 @@ code {
   padding: 0 !important;
 }
 
-.item-date{
+.item-date {
   color: gray;
   font-size: 12px;
   margin-left: 5px;
   margin-bottom: 5px;
+}
+
+.MuiTabs-root {
+  background-color: green;
+}
+
+.MuiTab-wrapper {
+  color: white;
 }
 
 .game {

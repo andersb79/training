@@ -73,7 +73,7 @@ function ItemList({ store }) {
         .map(items => {
           onChange(items, true);
         });
-    }, 2000);
+    }, 1);
   }, []);
 
   return (
@@ -127,9 +127,7 @@ function ItemList({ store }) {
                   />
                 </CardContent>
                 <CardContent>
-                  <div className="item-date">
-                    {item.date} - {item.isVisible ? "visible" : "none"}
-                  </div>
+                  <div className="item-date">{item.date}</div>
                 </CardContent>
               </Card>
             </VisibilitySensor>
