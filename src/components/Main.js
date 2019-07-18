@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 function Main({ store, onLogout }) {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = React.useState(3);
+  const [tabIndex, setTabIndex] = React.useState(0);
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
