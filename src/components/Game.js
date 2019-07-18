@@ -64,7 +64,7 @@ export default function Game({ store }) {
     var file = e.target.files[0];
 
     store.processFile(file, level, text => {
-      
+      alert('Uppladdning klar')
     });
   }
 
