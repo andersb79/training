@@ -214,7 +214,11 @@ const LevelStore = types
               name: user.name,
               userName: user.userName,
               password: user.password,
-              profileImage: user.profileImage
+              profileImage: user.profileImage,
+              favoriteTeam: user.favoriteTeam,
+              playerTeam: user.playerTeam,
+              position: user.position,
+              shirtNumber: user.shirtNumber
             }
           }),
           headers: new Headers({
