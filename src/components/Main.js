@@ -8,19 +8,12 @@ import Tab from "@material-ui/core/Tab";
 import StarIcon from "@material-ui/icons/Star";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
 import HomeIcon from "@material-ui/icons/Home";
-import UserIcon from "@material-ui/icons/SupervisedUserCircle";
 import PersonIcon from "@material-ui/icons/Person";
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Divider from "@material-ui/core/Divider";
-import { Image } from "cloudinary-react";
 import { observer } from "mobx-react-lite";
 import Profile from "./Profile";
+import HighScore from "./HighScore";
 
 function TabContainer(props) {
   return (
@@ -79,32 +72,7 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 2 && (
         <TabContainer>
-          <div className="profile">Topplista</div>
-          <div className="highscore">
-            <List className={classes.root}>
-              {store.users.map(user => (
-                <>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <Image
-                          cloudName="deolievif"
-                          publicId={user.profileImage}
-                          width="100%"
-                          height="100%"
-                        />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={user.name}
-                      secondary={user.highscore}
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </>
-              ))}
-            </List>
-          </div>
+          <HighScore store={store} />
         </TabContainer>
       )}
       {tabIndex === 3 && (

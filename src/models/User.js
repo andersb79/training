@@ -21,7 +21,7 @@ const User = types
       return self.levelStore.items.filter(x => x.userName === self.userName);
     },
     get highscore() {
-      return self.items.length === 0 ? 0 : self.items.length;
+      return self.items.length === 0 ? 0 : self.items.filter(x => x.isDone).length;
     },
     get nextChallange() {
       return self.levelStore.levels[self.items.length];
