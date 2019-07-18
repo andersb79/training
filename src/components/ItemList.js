@@ -36,15 +36,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function onChange(items, isVisible) {
-  items.setVisibility(isVisible);
-  const videoElm = document.getElementById(items.publicId);
+function onChange(item, isVisible) {
+  item.setVisibility(isVisible);
+  const videoElm = document.getElementById(item.publicId);
   if (videoElm) {
     if (isVisible) {
       videoElm.play();
     } else {
       videoElm.pause();
     }
+  } else {
+    console.log("not found");
   }
 }
 
@@ -66,11 +68,14 @@ function ItemList({ store }) {
 
   useEffect(() => {
     //Starta alla som är visible.
-    store.items
-      .filter(x => x.isVisible)
-      .map(items => {
-        onChange(items, true);
-      });
+    alert(store.initzialize);
+    if (store.initzialize) {
+      store.items
+        .filter(x => x.isVisible)
+        .map(items => {
+          onChange(items, true);
+        });
+    }
   }, []);
 
   return (
