@@ -36,12 +36,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function onChange(level, isVisible) {
-  level.setVisibility(isVisible);
-  if (isVisible) {
-    document.getElementById(level.publicId).play();
-  } else {
-    document.getElementById(level.publicId).pause();
+function onChange(items, isVisible) {
+  items.setVisibility(isVisible);
+  const videoElm = document.getElementById(items.publicId);
+  if (videoElm) {
+    if (isVisible) {
+      videoElm.play();
+    } else {
+      videoElm.pause();
+    }
   }
 }
 
@@ -60,12 +63,13 @@ function Items({ store }) {}
 
 function ItemList({ store }) {
   const classes = useStyles();
+
   useEffect(() => {
     //Starta alla som är visible.
-    store.levels
+    store.items
       .filter(x => x.isVisible)
-      .map(level => {
-        onChange(level, true);
+      .map(items => {
+        onChange(items, true);
       });
   }, []);
 

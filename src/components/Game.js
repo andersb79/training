@@ -48,10 +48,10 @@ export default function Game({ store }) {
 
   useEffect(() => {
     //Starta alla som är visible.
-    store.items
+    store.levels
       .filter(x => x.isVisible)
-      .map(item => {
-        onChange(item, true);
+      .map(level => {
+        onChange(level, true);
       });
   }, []);
 
@@ -67,12 +67,12 @@ export default function Game({ store }) {
     });
   }
 
-  function onChange(item, isVisible) {
-    item.setVisibility(isVisible);
+  function onChange(level, isVisible) {
+    level.setVisibility(isVisible);
     if (isVisible) {
-      document.getElementById(item.publicId).play();
+      document.getElementById(level.publicId).play();
     } else {
-      document.getElementById(item.publicId).pause();
+      document.getElementById(level.publicId).pause();
     }
   }
 
