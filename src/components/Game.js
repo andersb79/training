@@ -47,12 +47,13 @@ export default function Game({ store }) {
   const [expanded, setExpanded] = React.useState(true);
 
   useEffect(() => {
-    //Starta alla som är visible.
-    store.levels
-      .filter(x => x.isVisible)
-      .map(level => {
-        onChange(level, true);
-      });
+    setTimeout(() => {
+      store.levels
+        .filter(x => x.isVisible)
+        .map(level => {
+          onChange(level, true);
+        });
+    }, 2000);
   }, []);
 
   function handleExpandClick() {
@@ -69,10 +70,15 @@ export default function Game({ store }) {
 
   function onChange(level, isVisible) {
     level.setVisibility(isVisible);
-    if (isVisible) {
-      document.getElementById(level.publicId).play();
+    const videoElm = document.getElementById(level.publicId);
+    if (videoElm) {
+      if (isVisible) {
+        videoElm.play();
+      } else {
+        videoElm.pause();
+      }
     } else {
-      document.getElementById(level.publicId).pause();
+      console.log("not found");
     }
   }
 

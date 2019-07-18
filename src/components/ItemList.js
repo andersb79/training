@@ -67,15 +67,13 @@ function ItemList({ store }) {
   const classes = useStyles();
 
   useEffect(() => {
-    //Starta alla som är visible.
-    alert(store.initzialize);
-    if (store.initzialize) {
+    setTimeout(() => {
       store.items
         .filter(x => x.isVisible)
         .map(items => {
           onChange(items, true);
         });
-    }
+    }, 2000);
   }, []);
 
   return (
