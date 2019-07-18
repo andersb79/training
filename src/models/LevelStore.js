@@ -336,7 +336,8 @@ const LevelStore = types
 
         self.insertItem(item);
 
-        self.addItem(item);
+        self.refresh();
+        //self.addItem(item);
 
         console.log(self.items);
 
