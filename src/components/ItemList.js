@@ -36,17 +36,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function onChange(item, isVisible) {
-  item.setVisibility(isVisible);
+function onChange(level, isVisible) {
+  level.setVisibility(isVisible);
   if (isVisible) {
-    document.getElementById(item.publicId).play();
+    document.getElementById(level.publicId).play();
   } else {
-    document.getElementById(item.publicId).pause();
+    document.getElementById(level.publicId).pause();
   }
 }
 
 function onChangeRefresh(store, isVisible) {
-  if(isVisible) {
+  if (isVisible) {
     store.refresh();
   }
 }
@@ -56,62 +56,76 @@ function handleRefresh(store) {
   const success = store.refresh();
 }
 
-function Items({store}) {
-  
-}
+function Items({ store }) {}
 
 function ItemList({ store }) {
   const classes = useStyles();
+  useEffect(() => {
+    //Starta alla som är visible.
+    store.levels
+      .filter(x => x.isVisible)
+      .map(level => {
+        onChange(level, true);
+      });
+  }, []);
 
   return (
     <div className="item-container">
       <div className="item-list">
-        <VisibilitySensor offset={{top:80}} onChange={isVisible => onChangeRefresh(store, isVisible)}>
+        <VisibilitySensor
+          offset={{ top: 80 }}
+          onChange={isVisible => onChangeRefresh(store, isVisible)}
+        >
           <div className="refresh-div">dra för att ladda</div>
         </VisibilitySensor>
 
-{!store.selectedProfile && store.items.map((item, i) => (
-          <VisibilitySensor
-            key={item.publicId}
-            onChange={isVisible => onChange(item, isVisible)}
-          >
-            <Card key={item.publicId} className={classes.card}>
-              <CardHeader 
-                avatar={
-                  <Avatar aria-label="Recipe" className={classes.avatar}>
-                    <Image
-                      cloudName="deolievif"
-                      publicId={item.user.profileImage}
-                      width="100%"
-                      height="100%"
-                    />
-                  </Avatar>
-                }
-                action={item.isDone && <StarIcon />}
-                title={<div onClick={() => store.selectProfile(item.user)}>{item.user.name}</div> }
-                subheader={item.game.name}
-              />
-              <CardContent>
-                <Video
-                  id={item.publicId}
-                  cloudName="deolievif"
-                  publicId={item.publicId}
-                  width="100%"
-                  height="100%"
-                  loop
-                  muted
-                  playsInline
-                  preload="none"
-                  poster={item.poster}
+        {!store.selectedProfile &&
+          store.items.map((item, i) => (
+            <VisibilitySensor
+              key={item.publicId}
+              onChange={isVisible => onChange(item, isVisible)}
+            >
+              <Card key={item.publicId} className={classes.card}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="Recipe" className={classes.avatar}>
+                      <Image
+                        cloudName="deolievif"
+                        publicId={item.user.profileImage}
+                        width="100%"
+                        height="100%"
+                      />
+                    </Avatar>
+                  }
+                  action={item.isDone && <StarIcon />}
+                  title={
+                    <div onClick={() => store.selectProfile(item.user)}>
+                      {item.user.name}
+                    </div>
+                  }
+                  subheader={item.game.name}
                 />
-              </CardContent>
-              <CardContent>
-                <div className="item-date">{item.date}</div>
-              </CardContent>
-            </Card>
-          </VisibilitySensor>
-        ))}
-        {store.selectedProfile && <ProfileReadOnly store={store}/>}
+                <CardContent>
+                  <Video
+                    id={item.publicId}
+                    cloudName="deolievif"
+                    publicId={item.publicId}
+                    width="100%"
+                    height="100%"
+                    loop
+                    muted
+                    playsInline
+                    preload="none"
+                    poster={item.poster}
+                  />
+                </CardContent>
+                <CardContent>
+                  <div className="item-date">{item.date}</div>
+                </CardContent>
+              </Card>
+            </VisibilitySensor>
+          ))}
+        {store.selectedProfile && <ProfileReadOnly store={store} />}
       </div>
     </div>
   );

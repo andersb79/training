@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -12,10 +12,10 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import VideoIcon from "@material-ui/icons/VideoCall";
 import { Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import FilterListIcon from "@material-ui/icons/FilterList";
 
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
@@ -45,6 +45,15 @@ const useStyles = makeStyles(theme => ({
 export default function Game({ store }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(true);
+
+  useEffect(() => {
+    //Starta alla som är visible.
+    store.items
+      .filter(x => x.isVisible)
+      .map(item => {
+        onChange(item, true);
+      });
+  }, []);
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -87,7 +96,8 @@ export default function Game({ store }) {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <FilterListIcon />{store.levelFilter.text}
+        <FilterListIcon />
+        {store.levelFilter.text}
       </IconButton>
       <Menu
         id="long-menu"
