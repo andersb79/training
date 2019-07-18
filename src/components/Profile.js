@@ -131,6 +131,9 @@ function Profile({ store, onLogout }) {
       <Button variant="outlined" onClick={save}>
         Spara
       </Button>
+      <Button variant="outlined" onClick={logout}>
+        Logga ut
+      </Button>
       {/* <Button variant="outlined" onClick={update}>
            Uppdatera appen
       </Button> */}
