@@ -124,7 +124,9 @@ function ItemList({ store }) {
                   />
                 </CardContent>
                 <CardContent>
-                  <div className="item-date">{item.date}</div>
+                  <div className="item-date">
+                    {item.date} - {item.isVisible ? "visible" : "none"}
+                  </div>
                 </CardContent>
               </Card>
             </VisibilitySensor>
