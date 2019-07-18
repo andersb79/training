@@ -72,6 +72,22 @@ code {
   color: red;
 }
 
+.profileReadOnly {
+  margin-top: 20px;
+
+  
+}
+
+.left {
+  display: inline-block;
+  width: 40px;
+  margin-left:10px;
+}
+.right {
+  font-size: 20px;
+  display: inline-block;
+}
+
 .profile {
   margin-top: 50px;
   color: blue;
