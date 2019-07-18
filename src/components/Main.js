@@ -6,8 +6,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import StarIcon from "@material-ui/icons/Star";
+import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
+import HomeIcon from "@material-ui/icons/Home";
 import UserIcon from "@material-ui/icons/SupervisedUserCircle";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import PersonIcon from "@material-ui/icons/Person";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,7 +48,7 @@ function Main({ store, onLogout }) {
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
-  }  
+  }
 
   return (
     <div className={classes.root}>
@@ -59,10 +61,10 @@ function Main({ store, onLogout }) {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Flöde" icon={<FavoriteIcon />} />
-          <Tab label="Utmaningar" icon={<StarIcon />} />
-          <Tab label="Topplista" icon={<StarIcon />} />
-          <Tab label={store.loggedIn.userName} icon={<UserIcon />} />
+          <Tab icon={<HomeIcon />} />
+          <Tab icon={<StarIcon />} />
+          <Tab icon={<FormatListNumberedIcon />} />
+          <Tab icon={<PersonIcon />} />
         </Tabs>
       </AppBar>
       {tabIndex === 0 && (
@@ -107,7 +109,7 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 3 && (
         <TabContainer>
-         <Profile store={store} onLogout={onLogout} />
+          <Profile store={store} onLogout={onLogout} />
         </TabContainer>
       )}
     </div>
