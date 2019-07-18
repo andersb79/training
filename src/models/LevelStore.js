@@ -70,9 +70,9 @@ const userRequest = new Request(
 );
 
 const levelFilters = [
-  { id: 0, text: 'Alla'},
-  { id: 1, text: 'Ej klarade'},
-  { id: 2, text: 'Klarade'}  
+  { id: 0, text: "Alla" },
+  { id: 1, text: "Ej klarade" },
+  { id: 2, text: "Klarade" }
 ];
 
 const LevelStore = types
@@ -86,21 +86,21 @@ const LevelStore = types
       return "testing";
     },
     get filteredLevels() {
-      if(self.levelFilter.id === 0){
+      if (self.levelFilter.id === 0) {
         return self.levels;
       }
 
-      if(self.levelFilter.id === 1){
+      if (self.levelFilter.id === 1) {
         return self.levels.filter(x => !x.isDone);
       }
 
-       if(self.levelFilter.id === 2){
-         return self.levels.filter(x => x.isDone);
-       }
+      if (self.levelFilter.id === 2) {
+        return self.levels.filter(x => x.isDone);
+      }
 
       return [];
     },
-    get levelFilters(){
+    get levelFilters() {
       return levelFilters;
     }
   }))
@@ -112,21 +112,21 @@ const LevelStore = types
     levelFilter: self.levelFilters[0]
   }))
   .actions(self => ({
-    selectProfile(profile){
-      self.selectedProfile = profile; 
+    selectProfile(profile) {
+      self.selectedProfile = profile;
     },
-    setLevelFilter(filter){
-      self.levelFilter = filter; 
+    setLevelFilter(filter) {
+      self.levelFilter = filter;
     },
-    async refresh(){
+    async refresh() {
       var items = await self.fetchItems();
-      
-      const data = [];      
-      
+
+      const data = [];
+
       items.reverse();
 
       items.forEach(elm => {
-        elm.fields.id = elm.id;        
+        elm.fields.id = elm.id;
         elm.fields.createdTime = new Date(elm.createdTime);
         data.push(elm.fields);
       });
@@ -202,16 +202,18 @@ const LevelStore = types
       });
     },
     updateUser(user) {
-      const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/recPDEuzfAvPaJ5Jf`;
+      const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/${
+        user.id
+      }`;
       console.log(url);
       fetch(
         new Request(url, {
           method: "put",
           body: JSON.stringify({
             fields: {
-              name: "Gustav Karlsson",
-              userName: "gk",
-              password: "gk",
+              name: user.name,
+              userName: user.userName,
+              password: user.password,
               profileImage: user.profileImage
             }
           }),
@@ -256,7 +258,7 @@ const LevelStore = types
       items.reverse();
 
       items.forEach(elm => {
-        elm.fields.id = elm.id;        
+        elm.fields.id = elm.id;
         elm.fields.createdTime = new Date(elm.createdTime);
         data.items.push(elm.fields);
       });
