@@ -82,8 +82,15 @@ const LevelStore = types
     users: types.array(User)
   })
   .views(self => ({
-    get test() {
-      return "testing";
+    get highScoreList() {
+      //   return self.users.sort(x => x.highscore);
+      var byHighscore = self.users.slice(0);
+      byHighscore.sort((a, b) => {
+        var x = a.highscore;
+        var y = b.highscore;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      return byHighscore.reverse();
     },
     get filteredLevels() {
       if (self.levelFilter.id === 0) {

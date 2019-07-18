@@ -21,12 +21,12 @@ function HighScore({ store }) {
   const classes = useStyles();
   return (
     <>
-      <div className="profile">Topplista</div>
+      <div style={{marginTop: '60px', textAlign: 'center', fontSize: '20px'}}>Topplista</div>
       <div className="highscore">
         <List className={classes.root}>
-          {store.users.map(user => (
-            <>
-              <ListItem>
+          {store.highScoreList.map(user => (
+            <div key={user.id}>
+              <ListItem key={user.id}>
                 <ListItemAvatar>
                   <Avatar>
                     <Image
@@ -40,7 +40,7 @@ function HighScore({ store }) {
                 <ListItemText primary={user.name} secondary={user.highscore} />
               </ListItem>
               <Divider variant="inset" component="li" />
-            </>
+            </div>
           ))}
         </List>
       </div>

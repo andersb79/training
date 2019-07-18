@@ -79,7 +79,7 @@ function Profile({ store, onLogout }) {
           height="100%"
         />
         <TextField
-          id="standard-name"
+          id="name"
           label="Namn"
           className={classes.textField}
           value={values.name}
@@ -87,7 +87,7 @@ function Profile({ store, onLogout }) {
           margin="normal"
         />
         <TextField
-          id="standard-name"
+          id="password"
           type="password"
           label="Lösenord"
           className={classes.textField}
@@ -96,7 +96,7 @@ function Profile({ store, onLogout }) {
           margin="normal"
         />
         <TextField
-          id="standard-name"
+          id="favoriteTeam"
           label="Favoritlag"
           className={classes.textField}
           value={values.favoriteTeam}
@@ -104,7 +104,7 @@ function Profile({ store, onLogout }) {
           margin="normal"
         />
         <TextField
-          id="standard-name"
+          id="playerTeam"
           label="Lag"
           className={classes.textField}
           value={values.playerTeam}
@@ -112,7 +112,7 @@ function Profile({ store, onLogout }) {
           margin="normal"
         />
         <TextField
-          id="standard-name"
+          id="position"
           label="Position"
           className={classes.textField}
           value={values.position}
@@ -120,7 +120,7 @@ function Profile({ store, onLogout }) {
           margin="normal"
         />
         <TextField
-          id="standard-name"
+          id="shirtNumber"
           label="Tröjnummer"
           className={classes.textField}
           value={values.shirtNumber}

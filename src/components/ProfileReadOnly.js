@@ -3,9 +3,6 @@ import { observer } from "mobx-react";
 import { Image, Video } from "cloudinary-react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { makeStyles } from "@material-ui/core/styles";
-import ImageIcon from "@material-ui/icons/Image";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({

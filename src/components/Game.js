@@ -8,7 +8,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import VideoIcon from "@material-ui/icons/VideoCall";
 import { Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
