@@ -258,6 +258,7 @@ const LevelStore = types
       };
 
       levels.forEach(elm => {
+        elm.fields.id = elm.id;
         data.levels.push(elm.fields);
       });
 

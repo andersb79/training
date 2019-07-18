@@ -1,6 +1,7 @@
 import { types, getRoot } from "mobx-state-tree";
 const Level = types
   .model("Level", {
+    id: types.string,
     level: types.integer,
     details: types.string,
     name: types.string,

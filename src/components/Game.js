@@ -69,7 +69,7 @@ export default function Game({ store }) {
 
   function onChange(level, isVisible) {
     level.setVisibility(isVisible);
-    const videoElm = document.getElementById(level.publicId);
+    const videoElm = document.getElementById(level.id);
     if (videoElm) {
       if (isVisible) {
         videoElm.play();
@@ -130,7 +130,7 @@ export default function Game({ store }) {
 
       {store.filteredLevels.map((level, i) => (
         <VisibilitySensor
-          key={level.publicId}
+          key={level.id}
           onChange={isVisible => onChange(level, isVisible)}
         >
           <Card key={level.level} className={classes.card}>
@@ -146,7 +146,7 @@ export default function Game({ store }) {
 
             <CardContent>
               <Video
-                id={level.publicId}
+                id={level.id}
                 cloudName="deolievif"
                 publicId={level.publicId}
                 width="100%"
