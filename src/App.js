@@ -24,7 +24,7 @@ TabContainer.propTypes = {
 
 function App() {
   const [menuSelected, setMenuSelected] = useState("Login");
-  
+
   useEffect(() => {
     store.setHeight(window.innerHeight);
   }, []);
@@ -34,10 +34,10 @@ function App() {
     setMenuSelected("Login");
   }
 
-
-
   if (!store.initzialize) {
-    return <div>loading</div>;
+    return (
+      <div style={{ marginTop: "100px", textAlign: "center" }}>LADDAR...</div>
+    );
   }
 
   if (store.initzialize && store.loggedIn) {

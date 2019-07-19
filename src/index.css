@@ -29,6 +29,18 @@ code {
   margin: 70px 10px 10px 10px;
 }
 
+.login-img {
+  opacity: 1;
+  width: 100%;
+}
+
+.login-img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .login-password {
   text-align: left;
   margin-bottom: 10px;
@@ -55,7 +67,6 @@ code {
 }
 
 .login {
-  background-color: green;
 }
 
 .game {
