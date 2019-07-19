@@ -7,8 +7,13 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import VideoIcon from "@material-ui/icons/VideoCall";
 import PersonIcon from "@material-ui/icons/Person";
+import Button from "@material-ui/core/Button";
 
 function Help({ store }) {
+  function update() {
+    document.location.reload();
+  }
+
   return (
     <div className="help">
       <Typography paragraph>Säsong 1:</Typography>
@@ -84,6 +89,14 @@ function Help({ store }) {
           Här kan du ladda upp din profilbild och andra användarinställningar.
         </Typography>
       </div>
+
+      <Typography paragraph>
+        Om det finns nya uppdateringar kan du uppdatera här.
+      </Typography>
+
+      <Button variant="outlined" onClick={update}>
+        Uppdatera appen
+      </Button>
     </div>
   );
 }
