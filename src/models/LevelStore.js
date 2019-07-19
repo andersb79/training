@@ -105,8 +105,8 @@ const LevelStore = types
     },
     async refresh() {
       var items = await self.fetchItems();
-      var levels = await self.fetchItems();
-      var users = await self.fetchItems();
+      var levels = await self.fetchAirtable();
+      var users = await self.fetchUsers();
 
       const data = {
         users: [],
