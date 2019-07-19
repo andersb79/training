@@ -8,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,8 +22,14 @@ function HighScore({ store }) {
   const classes = useStyles();
   return (
     <>
-      <div style={{ marginTop: "60px", textAlign: "center", fontSize: "20px" }}>
-        Topplista säsong 1
+      <div style={{ marginTop: "60px", textAlign: "center" }}>
+        <Typography variant="h6" gutterBottom>
+          TOPPLISTA SÄSONG 1
+        </Typography>
+
+        <Typography variant="overline" style={{ color: "gray" }} gutterBottom>
+          max 200 poäng
+        </Typography>
       </div>
       <div className="highscore">
         <List className={classes.root}>
@@ -39,7 +46,10 @@ function HighScore({ store }) {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={user.name} secondary={user.highscore} />
+                <ListItemText
+                  primary={user.name}
+                  secondary={`Poäng: ${user.highscore}`}
+                />
               </ListItem>
               <Divider variant="inset" component="li" />
             </div>

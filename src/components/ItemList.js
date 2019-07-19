@@ -9,8 +9,12 @@ import Avatar from "@material-ui/core/Avatar";
 import { Image, Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ProfileReadOnly from "./ProfileReadOnly";
+import IconButton from "@material-ui/core/IconButton";
+import CardActions from "@material-ui/core/CardActions";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -56,13 +60,6 @@ function onChangeRefresh(store, isVisible) {
   }
 }
 
-function handleRefresh(store) {
-  // do some async code here
-  const success = store.refresh();
-}
-
-function Items({ store }) {}
-
 function ItemList({ store }) {
   const classes = useStyles();
 
@@ -75,6 +72,17 @@ function ItemList({ store }) {
         });
     }, 1);
   }, []);
+
+  function ItemStatusAction({ item }) {
+    if (item.isDone) {
+      return <StarIcon />;
+    }
+    if (item.isRejected) {
+      return <ThumbDownIcon />;
+    }
+
+    return <AccountCircleIcon />;
+  }
 
   return (
     <div className="item-container">
@@ -104,7 +112,7 @@ function ItemList({ store }) {
                       />
                     </Avatar>
                   }
-                  action={item.isDone && <StarIcon />}
+                  action={<ItemStatusAction item={item} />}
                   title={
                     <div onClick={() => store.selectProfile(item.user)}>
                       {item.user.name}
@@ -126,9 +134,12 @@ function ItemList({ store }) {
                     poster={item.poster}
                   />
                 </CardContent>
-                <CardContent>
-                  <div className="item-date">{item.date}</div>
-                </CardContent>
+
+                <CardActions>
+                  <Typography variant="overline" style={{ color: "gray" }}>
+                    {item.displayText}
+                  </Typography>
+                </CardActions>
               </Card>
             </VisibilitySensor>
           ))}

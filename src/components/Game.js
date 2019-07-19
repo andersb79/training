@@ -63,7 +63,7 @@ export default function Game({ store }) {
     var file = e.target.files[0];
 
     store.processFile(file, level, text => {
-      alert('Uppladdning klar')
+      alert("Uppladdning klar");
     });
   }
 
@@ -141,7 +141,7 @@ export default function Game({ store }) {
                 </Avatar>
               }
               title={level.name}
-              subheader={level.category}
+              subheader={level.displayText}
             />
 
             <CardContent>

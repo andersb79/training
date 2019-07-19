@@ -14,7 +14,7 @@ const Item = types
     userName: types.string,
     publicId: types.string,
     level: types.integer,
-    isDone: types.maybeNull(types.boolean)
+    status: types.string
   })
   .volatile(self => ({
     isVisible: false
@@ -25,6 +25,15 @@ const Item = types
     }
   }))
   .views(self => ({
+    get isDone() {
+      return self.status === "DONE";
+    },
+    get isRejected() {
+      return self.status === "REJECTED";
+    },
+    get isWaitingForApproval() {
+      return self.status === "WAITINGFORAPPROVAL";
+    },
     get date() {
       return (
         self.createdTime.getFullYear() +
@@ -41,6 +50,34 @@ const Item = types
     get game() {
       const levelStore = getRoot(self);
       return levelStore.levels.find(x => x.level === self.level);
+    },
+    get points() {
+      if (!self.isDone) {
+        return 0;
+      }
+
+      if (self.game.category === "EASY") {
+        return 5;
+      }
+
+      if (self.game.category === "MEDIUM") {
+        return 10;
+      }
+
+      if (self.game.category === "HARD") {
+        return 20;
+      }
+
+      return 0;
+    },
+    get displayText() {
+      if (self.isDone) {
+        return `${self.date} - ${self.game.categoryName} - ${
+          self.points
+        } POÄNG`;
+      }
+
+      return `${self.date}`;
     },
     get poster() {
       return { publicId: self.publicId + ".jpg", resourceType: "video" };

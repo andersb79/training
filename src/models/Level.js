@@ -1,4 +1,11 @@
 import { types, getRoot } from "mobx-state-tree";
+
+const Categories = {
+  EASY: "Lätt",
+  MEDIUM: "Medium",
+  HARD: "Svår"
+};
+
 const Level = types
   .model("Level", {
     id: types.string,
@@ -23,8 +30,8 @@ const Level = types
     }
   }))
   .views(self => ({
-    get status() {
-      return self.is_done ? "Done" : "Not Done";
+    get categoryName() {
+      return Categories[self.category];
     },
     get isDone() {
       const levelStore = getRoot(self);
@@ -34,6 +41,24 @@ const Level = types
           x.isDone &&
           x.level === self.level
       );
+    },
+    get points() {
+      if (self.category === "EASY") {
+        return 5;
+      }
+
+      if (self.category === "MEDIUM") {
+        return 10;
+      }
+
+      if (self.category === "HARD") {
+        return 20;
+      }
+
+      return 0;
+    },
+    get displayText() {
+      return `${self.categoryName} - ${self.points} POÄNG`;
     },
     get poster() {
       return { publicId: self.publicId + ".jpg", resourceType: "video" };

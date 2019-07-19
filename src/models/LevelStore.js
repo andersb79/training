@@ -338,8 +338,7 @@ const LevelStore = types
         const item = {
           userName: self.loggedIn.userName,
           publicId: myObj.public_id,
-          level: level.level,
-          isDone: false
+          level: level.level
         };
 
         self.insertItem(item);

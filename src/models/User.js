@@ -7,10 +7,10 @@ const User = types
     name: types.string,
     password: types.string,
     profileImage: types.string,
-    favoriteTeam: types.optional(types.string, ''),
-    playerTeam: types.optional(types.string, ''),
-    position: types.optional(types.string, ''),
-    shirtNumber: types.optional(types.string, '')
+    favoriteTeam: types.optional(types.string, ""),
+    playerTeam: types.optional(types.string, ""),
+    position: types.optional(types.string, ""),
+    shirtNumber: types.optional(types.string, "")
   })
   .views(self => ({
     get levelStore() {
@@ -21,7 +21,21 @@ const User = types
       return self.levelStore.items.filter(x => x.userName === self.userName);
     },
     get highscore() {
-      return self.items.length === 0 ? 0 : self.items.filter(x => x.isDone).length;
+      if (self.items.length === 0) {
+        return 0;
+      }
+
+      const easy =
+        self.items.filter(x => x.isDone && x.game.category === "EASY").length *
+        5;
+      const medium =
+        self.items.filter(x => x.isDone && x.game.category === "MEDIUM")
+          .length * 10;
+      const hard =
+        self.items.filter(x => x.isDone && x.game.category === "HARD").length *
+        20;
+
+      return easy + medium + hard;
     },
     get nextChallange() {
       return self.levelStore.levels[self.items.length];
