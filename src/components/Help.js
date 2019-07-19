@@ -6,6 +6,7 @@ import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import VideoIcon from "@material-ui/icons/VideoCall";
+import PersonIcon from "@material-ui/icons/Person";
 
 function Help({ store }) {
   return (
@@ -53,6 +54,9 @@ function Help({ store }) {
           Här visas flödet med alla säsongens utmaningar. Det finns 3 olika
           nivåer. Lätt, medium, svår.
         </Typography>
+        <Typography paragraph>10 lätta övningar, 5 poäng var</Typography>
+        <Typography paragraph>5 medium övningar, 10 poäng var</Typography>
+        <Typography paragraph>5 svåra övningar, 20 poäng var</Typography>
         <Typography paragraph>
           <VideoIcon />
           Klicka på denna för att ladda upp en film. Filma alltid i horisontellt
@@ -66,11 +70,19 @@ function Help({ store }) {
 
       <div style={{ margin: "10px" }}>
         <Typography paragraph>
-          Varje säsong består av maximalt 200 poäng.
+          Varje säsong består av maximalt 200 poäng. Här visas vem som fått
+          flest poäng.
         </Typography>
-        <Typography paragraph>10 lätta övningar, 5 poäng var</Typography>
-        <Typography paragraph>5 medium övningar, 10 poäng var</Typography>
-        <Typography paragraph>5 svåra övningar, 20 poäng var</Typography>
+      </div>
+
+      <Typography variant="h6" paragraph>
+        <PersonIcon /> Profil
+      </Typography>
+
+      <div style={{ margin: "10px" }}>
+        <Typography paragraph>
+          Här kan du ladda upp din profilbild och andra användarinställningar.
+        </Typography>
       </div>
     </div>
   );
