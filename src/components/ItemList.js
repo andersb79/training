@@ -55,9 +55,9 @@ function onChange(item, isVisible) {
 }
 
 function onChangeRefresh(store, isVisible) {
-  //if (isVisible) {
-  store.refresh();
-  //}
+  if (isVisible) {
+    store.refresh();
+  }
 }
 
 function ItemList({ store }) {
