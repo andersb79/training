@@ -93,35 +93,36 @@ export default function Login({ store, onLogin }) {
 
   return (
     <div className="login">
+      <img className="login-img" src="skillsta.jpg" alt="skillsta" />
+
       <div className="login-img-wrapper">
-        <img className="login-img" src="skillsta.jpg" />
+        <Typography paragraph variant="h3">
+          skillsta
+        </Typography>
+        <div className="login-user-name">
+          <CssTextField
+            id="standard-name"
+            label="Namn"
+            color="white"
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
+            margin="normal"
+          />
+        </div>
+        <div className="login-password">
+          <CssTextField
+            id="standard-name"
+            label="Lösenord"
+            color="white"
+            value={userName}
+            onChange={e => setPassword(e.target.value)}
+            margin="normal"
+          />
+        </div>
+        <Button variant="contained" onClick={e => onClick(e)}>
+          LOGIN
+        </Button>
       </div>
-      <Typography paragraph variant="h3">
-        skillsta
-      </Typography>
-      <div className="login-user-name">
-        <CssTextField
-          id="standard-name"
-          label="Namn"
-          color="white"
-          value={userName}
-          onChange={e => setUserName(e.target.value)}
-          margin="normal"
-        />
-      </div>
-      <div className="login-password">
-        <CssTextField
-          id="standard-name"
-          label="Lösenord"
-          color="white"
-          value={userName}
-          onChange={e => setPassword(e.target.value)}
-          margin="normal"
-        />
-      </div>
-      <Button variant="contained" onClick={e => onClick(e)}>
-        LOGIN
-      </Button>
     </div>
   );
 }

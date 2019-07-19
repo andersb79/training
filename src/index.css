@@ -34,11 +34,19 @@ code {
   width: 100%;
 }
 
-.login-img-wrapper {
+.login {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+}
+
+.login-img-wrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-password {
@@ -64,9 +72,6 @@ code {
 
 .MuiTab-wrapper {
   color: white;
-}
-
-.login {
 }
 
 .game {
@@ -97,7 +102,7 @@ code {
 }
 
 .highscore {
-  //color: red;
+  /* color: red; */
 }
 
 .profileReadOnly {
