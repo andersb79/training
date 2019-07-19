@@ -68,6 +68,9 @@ function Help({ store }) {
         <Typography paragraph>
           Varje säsong består av maximalt 200 poäng.
         </Typography>
+        <Typography paragraph>10 lätta övningar, 5 poäng var</Typography>
+        <Typography paragraph>5 medium övningar, 10 poäng var</Typography>
+        <Typography paragraph>5 svåra övningar, 20 poäng var</Typography>
       </div>
     </div>
   );
