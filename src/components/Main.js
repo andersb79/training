@@ -9,11 +9,13 @@ import StarIcon from "@material-ui/icons/Star";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
+import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { observer } from "mobx-react-lite";
 import Profile from "./Profile";
 import HighScore from "./HighScore";
+import Help from "./Help";
 
 function TabContainer(props) {
   return (
@@ -50,7 +52,7 @@ function Main({ store, onLogout }) {
           value={tabIndex}
           onChange={handleChange}
           variant="scrollable"
-          scrollButtons="on"
+          scrollButtons="off"
           indicatorColor="primary"
           textColor="primary"
         >
@@ -58,6 +60,7 @@ function Main({ store, onLogout }) {
           <Tab icon={<StarIcon />} />
           <Tab icon={<FormatListNumberedIcon />} />
           <Tab icon={<PersonIcon />} />
+          <Tab icon={<HelpIcon />} />
         </Tabs>
       </AppBar>
       {tabIndex === 0 && (
@@ -78,6 +81,11 @@ function Main({ store, onLogout }) {
       {tabIndex === 3 && (
         <TabContainer>
           <Profile store={store} onLogout={onLogout} />
+        </TabContainer>
+      )}
+      {tabIndex === 4 && (
+        <TabContainer>
+          <Help store={store} />
         </TabContainer>
       )}
     </div>

@@ -21,7 +21,9 @@ function HighScore({ store }) {
   const classes = useStyles();
   return (
     <>
-      <div style={{marginTop: '60px', textAlign: 'center', fontSize: '20px'}}>Topplista</div>
+      <div style={{ marginTop: "60px", textAlign: "center", fontSize: "20px" }}>
+        Topplista säsong 1
+      </div>
       <div className="highscore">
         <List className={classes.root}>
           {store.highScoreList.map(user => (

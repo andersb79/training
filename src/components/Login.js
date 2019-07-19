@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 
 export default function Login({ store, onLogin }) {
@@ -7,23 +7,6 @@ export default function Login({ store, onLogin }) {
   const [loggedIn, setLoggedIn] = useLocalStorage("loggedIn", {
     userName: undefined
   });
-
-  // useEffect(() => {
-  //   console.log(window.localStorage.getItem("loggedIn"));
-
-  //   if (!store.users.length) {
-  //     return;
-  //   }
-
-  //   if (window.localStorage.getItem("loggedIn")) {
-  //     if (store.login2(window.localStorage.getItem("loggedIn"))) {
-  //       console.log("logged in");
-  //       onLogin();
-  //     } else {
-  //       console.log(":(");
-  //     }
-  //   }
-  // });
 
   function useLocalStorage(key, initialValue) {
     // State to store our value
@@ -73,20 +56,22 @@ export default function Login({ store, onLogin }) {
   }
 
   return (
-    <div>
-      <div>
-        Användarnamn{" "}
+    <div className="login">
+      <div className="login-user-name">
+        Användarnamn
+        <br />
         <input value={userName} onInput={e => setUserName(e.target.value)} />
       </div>
-      <div>
-        Lösenord{" "}
+      <div className="login-password">
+        Lösenord
+        <br />
         <input
           type="password"
           value={password}
           onInput={e => setPassword(e.target.value)}
         />
       </div>
-      <Button variant="outlined" onClick={e => onClick(e)}>
+      <Button variant="contained" onClick={e => onClick(e)}>
         LOGIN
       </Button>
     </div>

@@ -212,7 +212,7 @@ const LevelStore = types
       const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/${
         user.id
       }`;
-      console.log(url);
+
       fetch(
         new Request(url, {
           method: "put",

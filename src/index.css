@@ -21,6 +21,19 @@ code {
   padding: 0 !important;
 }
 
+.login-user-name {
+  text-align: left;
+}
+
+.help {
+  margin-top: 50px;
+}
+
+.login-password {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
 .item-date {
   color: gray;
   font-size: 12px;
@@ -39,6 +52,10 @@ code {
 
 .MuiTab-wrapper {
   color: white;
+}
+
+.login {
+  background-color: green;
 }
 
 .game {
@@ -74,14 +91,12 @@ code {
 
 .profileReadOnly {
   margin-top: 20px;
-
-  
 }
 
 .left {
   display: inline-block;
   width: 40px;
-  margin-left:10px;
+  margin-left: 10px;
 }
 .right {
   font-size: 20px;
