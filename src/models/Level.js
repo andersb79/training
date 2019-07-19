@@ -13,7 +13,8 @@ const Level = types
     details: types.string,
     name: types.string,
     category: types.string,
-    publicId: types.string
+    publicId: types.string,
+    season: types.integer
   })
   .volatile(self => ({
     isVisible: false

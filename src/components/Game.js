@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500]
+    // backgroundColor: red[500]
   }
 }));
 
@@ -97,6 +97,18 @@ export default function Game({ store }) {
     document.getElementById(level.id).webkitEnterFullscreen();
   }
 
+  function getAvatarColor(level) {
+    if (level.category === "MEDIUM") {
+      return { backgroundColor: "orange" };
+    }
+
+    if (level.category === "HARD") {
+      return { backgroundColor: "red" };
+    }
+
+    return { backgroundColor: "green" };
+  }
+
   return (
     <div className="game">
       <IconButton
@@ -140,7 +152,11 @@ export default function Game({ store }) {
           <Card key={level.level} className={classes.card}>
             <CardHeader
               avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
+                <Avatar
+                  aria-label="Recipe"
+                  style={getAvatarColor(level)}
+                  className={classes.avatar}
+                >
                   {level.level}
                 </Avatar>
               }

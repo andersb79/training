@@ -75,7 +75,15 @@ function ItemList({ store }) {
 
   function ItemStatusAction({ item }) {
     if (item.isDone) {
-      return <StarIcon />;
+      const style = { color: "green" };
+      if (item.game.category === "MEDIUM") {
+        style.color = "orange";
+      }
+      if (item.game.category === "HARD") {
+        style.color = "red";
+      }
+
+      return <StarIcon style={style} />;
     }
     if (item.isRejected) {
       return <ThumbDownIcon />;
