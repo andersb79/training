@@ -80,12 +80,6 @@ export default function Login({ store, onLogin }) {
     return [storedValue, setValue];
   }
 
-  const handleChange = name => event => {
-    console.log(name);
-    setUserName(event.target.value);
-    //setValues({ ...values, [name]: event.target.value });
-  };
-
   function onClick(e) {
     e.preventDefault();
     if (store.login(userName.toLowerCase(), password)) {
@@ -107,6 +101,7 @@ export default function Login({ store, onLogin }) {
         </Typography>
         <div className="login-user-name">
           <input
+            placeholder="Användarnamn"
             className="login-input"
             value={userName}
             onChange={e => setUserName(e.target.value)}
@@ -114,6 +109,7 @@ export default function Login({ store, onLogin }) {
         </div>
         <div className="login-password">
           <input
+            placeholder="Lösenord"
             className="login-input"
             type="password"
             value={password}
