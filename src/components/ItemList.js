@@ -84,6 +84,10 @@ function ItemList({ store }) {
     return <AccountCircleIcon />;
   }
 
+  function goFullScreen(item) {
+    document.getElementById(item.publicId).webkitEnterFullscreen();
+  }
+
   return (
     <div className="item-container">
       <div className="item-list">
@@ -122,6 +126,7 @@ function ItemList({ store }) {
                 />
                 <CardContent>
                   <Video
+                    onClick={() => goFullScreen(item)}
                     id={item.publicId}
                     cloudName="deolievif"
                     publicId={item.publicId}
