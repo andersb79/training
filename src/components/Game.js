@@ -93,6 +93,10 @@ export default function Game({ store }) {
     setAnchorEl(null);
   }
 
+  function goFullScreen(level) {
+    document.getElementById(level.id).webkitEnterFullscreen();
+  }
+
   return (
     <div className="game">
       <IconButton
@@ -146,6 +150,7 @@ export default function Game({ store }) {
 
             <CardContent>
               <Video
+                onClick={() => goFullScreen(level)}
                 id={level.id}
                 cloudName="deolievif"
                 publicId={level.publicId}
