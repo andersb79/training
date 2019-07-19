@@ -80,6 +80,12 @@ export default function Login({ store, onLogin }) {
     return [storedValue, setValue];
   }
 
+  const handleChange = name => event => {
+    console.log(name);
+    setUserName(event.target.value);
+    //setValues({ ...values, [name]: event.target.value });
+  };
+
   function onClick(e) {
     e.preventDefault();
     if (store.login(userName.toLowerCase(), password)) {
@@ -100,23 +106,18 @@ export default function Login({ store, onLogin }) {
           skillsta
         </Typography>
         <div className="login-user-name">
-          <CssTextField
-            id="standard-name"
-            label="Namn"
-            color="white"
+          <input
+            className="login-input"
             value={userName}
             onChange={e => setUserName(e.target.value)}
-            margin="normal"
           />
         </div>
         <div className="login-password">
-          <CssTextField
-            id="standard-name"
-            label="Lösenord"
-            color="white"
-            value={userName}
+          <input
+            className="login-input"
+            type="password"
+            value={password}
             onChange={e => setPassword(e.target.value)}
-            margin="normal"
           />
         </div>
         <Button variant="contained" onClick={e => onClick(e)}>

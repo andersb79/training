@@ -41,6 +41,16 @@ code {
   right: 0;
 }
 
+.login-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 .login-img-wrapper {
   margin-top: 10px;
   display: flex;
