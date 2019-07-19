@@ -8,30 +8,8 @@ const config = {
   table: "Levels",
   view: "Grid%20view",
   apiKey: "keyHQ5GM7ktar7YtG",
-  maxRecords: 20
+  maxRecords: 100
 };
-
-const insertLevel = new Request(
-  `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Levels`,
-  {
-    method: "post",
-    body: JSON.stringify({
-      fields: {
-        level: 11,
-        name: "Bell Taps",
-        details:
-          "Transfer ball from side to side in a “bell ringing” motion, using the inside of both feet",
-        is_done: false,
-        publicId: "xriaksiq3gipz0dupgny",
-        category: "Beginner"
-      }
-    }),
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`,
-      "Content-Type": "application/json"
-    })
-  }
-);
 
 const request = new Request(
   `https://api.airtable.com/v0/${config.base}/${config.table}?maxRecords=${
@@ -127,18 +105,34 @@ const LevelStore = types
     },
     async refresh() {
       var items = await self.fetchItems();
+      var levels = await self.fetchItems();
+      var users = await self.fetchItems();
 
-      const data = [];
+      const data = {
+        users: [],
+        items: [],
+        levels: []
+      };
+
+      levels.forEach(elm => {
+        elm.fields.id = elm.id;
+        data.levels.push(elm.fields);
+      });
+
+      users.forEach(elm => {
+        elm.fields.id = elm.id;
+        data.users.push(elm.fields);
+      });
 
       items.reverse();
 
       items.forEach(elm => {
         elm.fields.id = elm.id;
         elm.fields.createdTime = new Date(elm.createdTime);
-        data.push(elm.fields);
+        data.items.push(elm.fields);
       });
 
-      applySnapshot(self.items, data);
+      applySnapshot(self, data);
 
       return true;
     },
