@@ -47,15 +47,13 @@ function ProfileReadOnly({ store }) {
         <div className="left">
           <ArrowBackIosIcon onClick={() => store.selectProfile()} />
         </div>
-        <div className="right">
-          {store.selectedProfile.name}
-        </div>
+        <div className="right">{store.selectedProfile.name}</div>
       </div>
 
       <form className={classes.container} noValidate autoComplete="off">
         <Image
           cloudName="deolievif"
-          publicId={store.loggedIn.profileImage}
+          publicId={store.selectedProfile.profileImage}
           width="100%"
           height="100%"
         />
