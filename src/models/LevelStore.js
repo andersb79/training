@@ -3,50 +3,6 @@ import Level from "./Level";
 import Item from "./Item";
 import User from "./User";
 
-const config = {
-  base: "appC7N77wl4iVEXGD",
-  table: "Levels",
-  view: "Grid%20view",
-  apiKey: "keyHQ5GM7ktar7YtG",
-  maxRecords: 100
-};
-
-const request = new Request(
-  `https://api.airtable.com/v0/${config.base}/${config.table}?maxRecords=${
-    config.maxRecords
-  }&view=${config.view}`,
-  {
-    method: "get",
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`
-    })
-  }
-);
-
-const itemsRequest = new Request(
-  `https://api.airtable.com/v0/${config.base}/Items?maxRecords=${
-    config.maxRecords
-  }&view=${config.view}`,
-  {
-    method: "get",
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`
-    })
-  }
-);
-
-const userRequest = new Request(
-  `https://api.airtable.com/v0/${config.base}/Users?maxRecords=${
-    config.maxRecords
-  }&view=${config.view}`,
-  {
-    method: "get",
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`
-    })
-  }
-);
-
 const levelFilters = [
   { id: 0, text: "Alla" },
   { id: 1, text: "Ej klarade" },
@@ -94,7 +50,8 @@ const LevelStore = types
     initzialize: false,
     height: null,
     selectedProfile: null,
-    levelFilter: self.levelFilters[0]
+    levelFilter: self.levelFilters[0],
+    api: null
   }))
   .actions(self => ({
     selectProfile(profile) {
@@ -103,10 +60,10 @@ const LevelStore = types
     setLevelFilter(filter) {
       self.levelFilter = filter;
     },
-    async refresh() {
-      var items = await self.fetchItems();
-      var levels = await self.fetchAirtable();
-      var users = await self.fetchUsers();
+    async fetchAll() {
+      var users = await self.api.getUsers();
+      var levels = await self.api.fetchLevels();
+      var items = await self.api.fetchItems();
 
       const data = {
         users: [],
@@ -131,6 +88,11 @@ const LevelStore = types
         elm.fields.createdTime = new Date(elm.createdTime);
         data.items.push(elm.fields);
       });
+
+      return data;
+    },
+    async refresh() {
+      const data = await self.fetchAll();
 
       applySnapshot(self, data);
 
@@ -168,106 +130,12 @@ const LevelStore = types
     addItem(item) {
       self.items.push(item);
     },
-    async fetchAirtable() {
-      var resp = await fetch(request).catch(err => {
-        console.log(err);
-      });
-      if (resp.status >= 200 && resp.status < 300) {
-        var json = await resp.json();
-        return json.records;
-      }
-    },
-    async fetchItems() {
-      var resp = await fetch(itemsRequest).catch(err => {
-        console.log(err);
-      });
-      if (resp.status >= 200 && resp.status < 300) {
-        var json = await resp.json();
-        return json.records;
-      }
-    },
-    insertItem(item) {
-      fetch(
-        new Request(`https://api.airtable.com/v0/appC7N77wl4iVEXGD/Items`, {
-          method: "post",
-          body: JSON.stringify({
-            fields: item
-          }),
-          headers: new Headers({
-            Authorization: `Bearer ${config.apiKey}`,
-            "Content-Type": "application/json"
-          })
-        })
-      ).catch(err => {
-        console.log(err);
-      });
-    },
     updateUser(user) {
-      const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/${
-        user.id
-      }`;
-
-      fetch(
-        new Request(url, {
-          method: "put",
-          body: JSON.stringify({
-            fields: {
-              name: user.name,
-              userName: user.userName,
-              password: user.password,
-              profileImage: user.profileImage,
-              favoriteTeam: user.favoriteTeam,
-              playerTeam: user.playerTeam,
-              position: user.position,
-              shirtNumber: user.shirtNumber
-            }
-          }),
-          headers: new Headers({
-            Authorization: `Bearer ${config.apiKey}`,
-            "Content-Type": "application/json"
-          })
-        })
-      ).catch(err => {
-        alert(err);
-      });
+      self.api.updateUser(user);
     },
-    async fetchUsers() {
-      var resp = await fetch(userRequest).catch(err => {
-        console.log(err);
-      });
-      if (resp.status >= 200 && resp.status < 300) {
-        var json = await resp.json();
-        return json.records;
-      }
-    },
-    init: flow(function* init(id) {
-      var levels = yield self.fetchAirtable();
-      var users = yield self.fetchUsers();
-      var items = yield self.fetchItems();
-
-      const data = {
-        users: [],
-        items: [],
-        levels: []
-      };
-
-      levels.forEach(elm => {
-        elm.fields.id = elm.id;
-        data.levels.push(elm.fields);
-      });
-
-      users.forEach(elm => {
-        elm.fields.id = elm.id;
-        data.users.push(elm.fields);
-      });
-
-      items.reverse();
-
-      items.forEach(elm => {
-        elm.fields.id = elm.id;
-        elm.fields.createdTime = new Date(elm.createdTime);
-        data.items.push(elm.fields);
-      });
+    init: flow(function* init(api, id) {
+      self.api = api;
+      const data = yield self.fetchAll();
 
       applySnapshot(self, data);
 
@@ -336,7 +204,7 @@ const LevelStore = types
           status: "WAITINGFORAPPROVAL"
         };
 
-        self.insertItem(item);
+        self.api.insertItem(item);
 
         self.refresh();
         //self.addItem(item);

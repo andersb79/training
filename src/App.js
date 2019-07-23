@@ -6,9 +6,10 @@ import LevelStore from "./models/LevelStore";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react-lite";
+import Api from "./Api/SkillstaApi";
 
 const store = LevelStore.create();
-store.init(window.localStorage.getItem("loggedIn"));
+store.init(Api, window.localStorage.getItem("loggedIn"));
 
 function TabContainer(props) {
   return (
