@@ -27,6 +27,7 @@ code {
 
 .help {
   margin: 70px 10px 10px 10px;
+  padding: 10px;
 }
 
 .login-img {
@@ -180,10 +181,20 @@ code {
 }
 
 .number {
-  font-size: 16em;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+}
+
+.inner-number {
+  font-size: 20em;
   margin: auto;
-  width: 50%;
   color: yellow;
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* Position and sizing of burger button */

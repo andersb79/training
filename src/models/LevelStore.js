@@ -9,6 +9,8 @@ const levelFilters = [
   { id: 2, text: "Klarade" }
 ];
 
+const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER" };
+
 const LevelStore = types
   .model("LevelStore", {
     levels: types.array(Level),
@@ -51,9 +53,13 @@ const LevelStore = types
     height: null,
     selectedProfile: null,
     levelFilter: self.levelFilters[0],
-    api: null
+    api: null,
+    appRunning: appRunning.MAIN
   }))
   .actions(self => ({
+    runNumber() {
+      self.appRunning = appRunning.NUMBER;
+    },
     selectProfile(profile) {
       self.selectedProfile = profile;
     },

@@ -15,17 +15,11 @@ class Number extends Component {
   };
 
   render() {
-    setTimeout(this.generateRandomNumber.bind(this, 1, 10), 3000);
-
-    console.log("numbers", this.props.store.levels);
-
-    if (this.props.visible) {
-       return <div className="number">{this.state.randomNumber}</div>;
-    }
+    setTimeout(this.generateRandomNumber.bind(this, 0, 9), 3000);
 
     return (
-      <div>
-        trams
+      <div className="number">
+        <div className="inner-number">{this.state.randomNumber}</div>
       </div>
     );
   }

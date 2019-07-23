@@ -7,15 +7,21 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import VideoIcon from "@material-ui/icons/VideoCall";
 import PersonIcon from "@material-ui/icons/Person";
+import TabletIcon from "@material-ui/icons/Tablet";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 
 function Help({ store }) {
   function update() {
     document.location.reload();
   }
 
+  function runNumber() {
+    store.runNumber();
+  }
+
   return (
-    <div className="help">
+    <Paper className="help">
       <Typography paragraph>Säsong 1:</Typography>
 
       <Typography paragraph>Varje säsong har 20 utmaningar.</Typography>
@@ -90,6 +96,14 @@ function Help({ store }) {
         </Typography>
       </div>
 
+      <Typography variant="h6" paragraph>
+        <TabletIcon /> Verktyg
+      </Typography>
+
+      <Button variant="outlined" onClick={runNumber}>
+        Nummer
+      </Button>
+
       <Typography paragraph>
         Om det finns nya uppdateringar kan du uppdatera här.
       </Typography>
@@ -97,7 +111,7 @@ function Help({ store }) {
       <Button variant="outlined" onClick={update}>
         Uppdatera appen
       </Button>
-    </div>
+    </Paper>
   );
 }
 

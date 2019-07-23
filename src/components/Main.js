@@ -16,6 +16,7 @@ import { observer } from "mobx-react-lite";
 import Profile from "./Profile";
 import HighScore from "./HighScore";
 import Help from "./Help";
+import Number from "./Number";
 
 function TabContainer(props) {
   return (
@@ -39,10 +40,16 @@ const useStyles = makeStyles(theme => ({
 
 function Main({ store, onLogout }) {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
+  }
+
+  console.log(store.appRunning);
+
+  if (store.appRunning === "NUMBER") {
+    return <Number visible={true} />;
   }
 
   return (
