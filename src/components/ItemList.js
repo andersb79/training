@@ -133,6 +133,22 @@ function ItemList({ store }) {
                   subheader={item.game.name}
                 />
                 <CardContent>
+                  {/* <video
+                    onClick={() => goFullScreen(item)}
+                    id={item.publicId}
+                    autoPlay
+                    loop
+                    playsInline
+                    preload="none"
+                    muted
+                    width="100%"
+                    height="100%"
+                  >
+                    <source
+                      src="https://www.dropbox.com/s/nyq71uinj8q3f2t/czh2lmab4bkqobxlkykg.mov?raw=1"
+                      type="video/mp4"
+                    />
+                  </video> */}
                   <Video
                     onClick={() => goFullScreen(item)}
                     id={item.publicId}

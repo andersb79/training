@@ -14,7 +14,8 @@ const Level = types
     name: types.string,
     category: types.string,
     publicId: types.string,
-    season: types.integer
+    season: types.integer,
+    sharedPath: types.maybeNull(types.string)
   })
   .volatile(self => ({
     isVisible: false
@@ -31,6 +32,14 @@ const Level = types
     }
   }))
   .views(self => ({
+    get hasSharedPath() {
+      return self.sharedPath ? true : false;
+    },
+    get dropboxLink() {
+      return `https://www.dropbox.com/s/${self.sharedPath}/${
+        self.publicId
+      }.mov?raw=1`;
+    },
     get categoryName() {
       return Categories[self.category];
     },
