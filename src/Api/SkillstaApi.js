@@ -3,48 +3,37 @@ const config = {
   table: "Levels",
   view: "Grid%20view",
   apiKey: "keyHQ5GM7ktar7YtG",
-  maxRecords: 100
+  maxRecords: 100,
+  url: "https://api.airtable.com/v0/appC7N77wl4iVEXGD"
 };
 
-const userRequest = new Request(
-  `https://api.airtable.com/v0/${config.base}/Users?maxRecords=${
-    config.maxRecords
-  }&view=${config.view}`,
-  {
-    method: "get",
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`
-    })
-  }
-);
-
-const request = new Request(
-  `https://api.airtable.com/v0/${config.base}/${config.table}?maxRecords=${
-    config.maxRecords
-  }&view=${config.view}`,
-  {
-    method: "get",
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`
-    })
-  }
-);
-
-const itemsRequest = new Request(
-  `https://api.airtable.com/v0/${config.base}/Items?maxRecords=${
-    config.maxRecords
-  }&view=${config.view}`,
-  {
-    method: "get",
-    headers: new Headers({
-      Authorization: `Bearer ${config.apiKey}`
-    })
-  }
-);
-
 export default {
-  async getUsers() {
-    var resp = await fetch(userRequest).catch(err => {
+  generalRequest({ maxRecords, table, view }) {
+    const conf = config;
+    if (maxRecords) {
+      conf.maxRecords = maxRecords;
+    }
+    if (view) {
+      conf.view = view;
+    }
+    if (table) {
+      conf.table = table;
+    }
+
+    return new Request(
+      `${config.url}/${conf.table}?maxRecords=${conf.maxRecords}&view=${
+        conf.view
+      }`,
+      {
+        method: "get",
+        headers: new Headers({
+          Authorization: `Bearer ${conf.apiKey}`
+        })
+      }
+    );
+  },
+  async response(conf) {
+    var resp = await fetch(this.generalRequest(conf)).catch(err => {
       console.log(err);
     });
     if (resp.status >= 200 && resp.status < 300) {
@@ -52,10 +41,11 @@ export default {
       return json.records;
     }
   },
+  async getUsers() {
+    return this.response({ table: "Users" });
+  },
   updateUser(user) {
-    const url = `https://api.airtable.com/v0/appC7N77wl4iVEXGD/Users/${
-      user.id
-    }`;
+    const url = `${config.url}/Users/${user.id}`;
 
     fetch(
       new Request(url, {
@@ -82,26 +72,14 @@ export default {
     });
   },
   async fetchLevels() {
-    var resp = await fetch(request).catch(err => {
-      console.log(err);
-    });
-    if (resp.status >= 200 && resp.status < 300) {
-      var json = await resp.json();
-      return json.records;
-    }
+    return this.response({ table: "Levels" });
   },
   async fetchItems() {
-    var resp = await fetch(itemsRequest).catch(err => {
-      console.log(err);
-    });
-    if (resp.status >= 200 && resp.status < 300) {
-      var json = await resp.json();
-      return json.records;
-    }
+    return this.response({ table: "Items" });
   },
   insertItem(item) {
     fetch(
-      new Request(`https://api.airtable.com/v0/appC7N77wl4iVEXGD/Items`, {
+      new Request(`${config.url}/Items`, {
         method: "post",
         body: JSON.stringify({
           fields: item

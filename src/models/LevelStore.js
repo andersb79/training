@@ -30,15 +30,19 @@ const LevelStore = types
     },
     get filteredLevels() {
       if (self.levelFilter.id === 0) {
-        return self.levels;
+        return self.levels.filter(x => x.season === self.currentSeason);
       }
 
       if (self.levelFilter.id === 1) {
-        return self.levels.filter(x => !x.isDone);
+        return self.levels.filter(
+          x => !x.isDone && x.season === self.currentSeason
+        );
       }
 
       if (self.levelFilter.id === 2) {
-        return self.levels.filter(x => x.isDone);
+        return self.levels.filter(
+          x => x.isDone && x.season === self.currentSeason
+        );
       }
 
       return [];
@@ -55,7 +59,8 @@ const LevelStore = types
     levelFilter: self.levelFilters[0],
     api: null,
     appRunning: appRunning.MAIN,
-    colorCount: 2
+    colorCount: 2,
+    currentSeason: 1
   }))
   .actions(self => ({
     setColorCount(count) {
