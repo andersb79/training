@@ -11,7 +11,7 @@ function VideoControl({ store, level }) {
     return (
       <video
         onClick={() => goFullScreen(level)}
-        id={level.publicId}
+        id={level.id}
         autoPlay
         loop
         playsInline
