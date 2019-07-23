@@ -4,12 +4,12 @@ import Item from "./Item";
 import User from "./User";
 
 const levelFilters = [
-  { id: 0, text: "Alla" },
-  { id: 1, text: "Ej klarade" },
-  { id: 2, text: "Klarade" }
+  { id: 0, text: "Alla utmaningar" },
+  { id: 1, text: "Ej klarade utmaningar" },
+  { id: 2, text: "Klarade utmaningar" }
 ];
 
-const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER" };
+const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER", COLOR: "COLOR" };
 
 const LevelStore = types
   .model("LevelStore", {
@@ -54,11 +54,15 @@ const LevelStore = types
     selectedProfile: null,
     levelFilter: self.levelFilters[0],
     api: null,
-    appRunning: appRunning.MAIN
+    appRunning: appRunning.MAIN,
+    colorCount: 2
   }))
   .actions(self => ({
-    runNumber() {
-      self.appRunning = appRunning.NUMBER;
+    setColorCount(count) {
+      self.colorCount = count;
+    },
+    setRunningApp(app) {
+      self.appRunning = app;
     },
     selectProfile(profile) {
       self.selectedProfile = profile;

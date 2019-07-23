@@ -46,10 +46,12 @@ function Main({ store, onLogout }) {
     setTabIndex(newValue);
   }
 
-  console.log(store.appRunning);
-
   if (store.appRunning === "NUMBER") {
-    return <Number visible={true} />;
+    return <Number store={store} />;
+  }
+
+  if (store.appRunning === "COLOR") {
+    return <Number store={store} colorCount={store.colorCount} />;
   }
 
   return (

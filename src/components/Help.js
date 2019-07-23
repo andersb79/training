@@ -16,8 +16,9 @@ function Help({ store }) {
     document.location.reload();
   }
 
-  function runNumber() {
-    store.runNumber();
+  function startColor(count) {
+    store.setColorCount(count);
+    store.setRunningApp("COLOR");
   }
 
   return (
@@ -100,8 +101,16 @@ function Help({ store }) {
         <TabletIcon /> Verktyg
       </Typography>
 
-      <Button variant="outlined" onClick={runNumber}>
+      <Button variant="outlined" onClick={() => store.setRunningApp("NUMBER")}>
         Nummer
+      </Button>
+
+      <Button variant="outlined" onClick={() => startColor(2)}>
+        Color 2 färger
+      </Button>
+
+      <Button variant="outlined" onClick={() => startColor(4)}>
+        Color 4 färger
       </Button>
 
       <Typography paragraph>

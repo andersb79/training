@@ -189,10 +189,18 @@ code {
   background-color: black;
 }
 
+.color {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .inner-number {
   font-size: 20em;
   margin: auto;
-  color: yellow;
+  /* color: yellow; */
   text-align: center;
   vertical-align: middle;
 }
