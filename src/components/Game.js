@@ -135,12 +135,9 @@ export default function Game({ store }) {
                   aria-label="Recipe"
                   style={getAvatarColor(level)}
                   className={classes.avatar}
-                >
-                  {level.level}
-                </Avatar>
+                />
               }
               title={level.name}
-              subheader={level.displayText}
             />
 
             <CardContent>
