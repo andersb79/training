@@ -62,7 +62,7 @@ export default function Login({ store, onLogin }) {
 
       <div className="login-img-wrapper">
         <Typography paragraph variant="h3">
-          skillsta
+          IF Lödde P10
         </Typography>
         <div className="login-user-name">
           <input
