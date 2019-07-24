@@ -186,7 +186,7 @@ const LevelStore = types
       };
       xhr.send(formdata);
     },
-    processFile(file, level, onProcessed) {
+    processFile(file, onProcessed) {
       var formdata = new FormData();
 
       formdata.append("file", file);
@@ -211,19 +211,17 @@ const LevelStore = types
         //level.setPublicId(myObj.public_id);
         console.log(this.responseText);
 
-        const item = {
-          userName: self.loggedIn.userName,
+        const level = {
+          name: "Namn",
           publicId: myObj.public_id,
-          level: level.level,
-          status: "WAITINGFORAPPROVAL"
+          category: self.selectedCategory.category,
+          details: "details",
+          season: 1
         };
 
-        self.api.insertItem(item);
+        self.api.insertLevel(level);
 
         self.refresh();
-        //self.addItem(item);
-
-        console.log(self.items);
 
         onProcessed(this.responseText);
       };

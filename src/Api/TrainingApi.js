@@ -77,12 +77,12 @@ export default {
   async fetchItems() {
     return this.response({ table: "Items" });
   },
-  insertItem(item) {
+  insertLevel(level) {
     fetch(
-      new Request(`${config.url}/Items`, {
+      new Request(`${config.url}/Levels`, {
         method: "post",
         body: JSON.stringify({
-          fields: item
+          fields: level
         }),
         headers: new Headers({
           Authorization: `Bearer ${config.apiKey}`,

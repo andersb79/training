@@ -55,10 +55,10 @@ export default function Game({ store }) {
     }, 1);
   });
 
-  function processFile(e, level) {
+  function processFile(e) {
     var file = e.target.files[0];
 
-    store.processFile(file, level, text => {
+    store.processFile(file, text => {
       alert("Uppladdning klar");
     });
   }
@@ -112,6 +112,16 @@ export default function Game({ store }) {
           <ArrowBackIosIcon onClick={() => store.selectCategory()} />
         </div>
         <div className="right">{store.selectedCategory.name}</div>
+      </div>
+      <div className="card-content2">
+        <div className="fileinputs">
+          <input type="file" className="file" onChange={e => processFile(e)} />
+          <div className="fakefile">
+            <Button variant="outlined">
+              Ladda upp <VideoIcon />
+            </Button>
+          </div>
+        </div>
       </div>
       {store.filteredLevels.map((level, i) => (
         <VisibilitySensor
