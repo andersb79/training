@@ -6,10 +6,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 import VideoIcon from "@material-ui/icons/VideoCall";
-import { Video } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
@@ -54,11 +52,7 @@ export default function Game({ store }) {
           onChange(level, true);
         });
     }, 1);
-  }, []);
-
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
+  });
 
   function processFile(e, level) {
     var file = e.target.files[0];
@@ -166,7 +160,7 @@ export default function Game({ store }) {
             />
 
             <CardContent>
-              <VideoControl store={store} level={level} />
+              <VideoControl store={store} settings={level} />
               <div className="card-content">
                 <Typography variant="body2" color="textSecondary" component="p">
                   {level.details}

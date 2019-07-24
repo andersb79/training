@@ -18,6 +18,11 @@ const LevelStore = types
     users: types.array(User)
   })
   .views(self => ({
+    get filteredItems() {
+      return self.items.filter(
+        x => x.isDone || x.userName === self.loggedIn.userName
+      );
+    },
     get highScoreList() {
       //   return self.users.sort(x => x.highscore);
       var byHighscore = self.users.slice(0);

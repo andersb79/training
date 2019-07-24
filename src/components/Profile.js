@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Image, Video } from "cloudinary-react";
+import { Image } from "cloudinary-react";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -55,10 +55,6 @@ function Profile({ store, onLogout }) {
 
   function save() {
     store.updateUser(values);
-  }
-
-  function update() {
-    document.location.reload();
   }
 
   return (
@@ -137,7 +133,7 @@ function Profile({ store, onLogout }) {
       {/* <Button variant="outlined" onClick={update}>
            Uppdatera appen
       </Button> */}
-    </div>    
+    </div>
   );
 }
 

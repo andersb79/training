@@ -72,6 +72,11 @@ code {
   margin-bottom: 5px;
 }
 
+.comments {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .MuiTabs-root {
   background-color: green;
 }

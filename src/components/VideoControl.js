@@ -2,17 +2,16 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Video } from "cloudinary-react";
 
-function VideoControl({ store, level }) {
+function VideoControl({ store, settings }) {
   function goFullScreen(level) {
-    document.getElementById(level.id).webkitEnterFullscreen();
+    document.getElementById(level.id).requestFullscreen();
   }
 
-  if (level.hasSharedPath) {
+  if (settings.hasSharedPath) {
     return (
       <video
-        onClick={() => goFullScreen(level)}
-        id={level.id}
-        autoPlay
+        onClick={() => goFullScreen(settings)}
+        id={settings.id}
         loop
         playsInline
         preload="none"
@@ -20,24 +19,24 @@ function VideoControl({ store, level }) {
         width="100%"
         height="100%"
       >
-        <source src={level.dropboxLink} type="video/mp4" />
+        <source src={settings.dropboxLink} type="video/mp4" />
       </video>
     );
   }
 
   return (
     <Video
-      onClick={() => goFullScreen(level)}
-      id={level.id}
+      onClick={() => goFullScreen(settings)}
+      id={settings.id}
       cloudName="deolievif"
-      publicId={level.publicId}
+      publicId={settings.publicId}
       width="100%"
       height="100%"
       loop
       muted
       playsInline
       preload="none"
-      poster={level.poster}
+      poster={settings.poster}
     />
   );
 }

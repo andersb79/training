@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react";
-import { Image, Video } from "cloudinary-react";
+import { Image } from "cloudinary-react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import VideoList from "./VideoList";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -36,10 +37,6 @@ function ProfileReadOnly({ store }) {
     position: store.selectedProfile.position,
     shirtNumber: store.selectedProfile.shirtNumber
   });
-
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
 
   return (
     <div className="profileReadOnly">
@@ -97,6 +94,7 @@ function ProfileReadOnly({ store }) {
           disabled
           margin="normal"
         />
+        <VideoList store={store} user={store.selectedProfile} />
       </form>
     </div>
   );

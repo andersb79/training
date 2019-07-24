@@ -20,6 +20,19 @@ const User = types
     get items() {
       return self.levelStore.items.filter(x => x.userName === self.userName);
     },
+    get videoList() {
+      const userItems = self.items.filter(
+        x => x.isDone && x.userName === self.userName
+      );
+      return userItems.map(x => ({
+        id: x.id,
+        img: `http://res.cloudinary.com/deolievif/video/upload/${
+          x.publicId
+        }.jpg`,
+        title: x.name,
+        challange: x.game.name
+      }));
+    },
     get highscore() {
       if (self.items.length === 0) {
         return 0;

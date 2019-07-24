@@ -14,7 +14,9 @@ const Item = types
     userName: types.string,
     publicId: types.string,
     level: types.integer,
-    status: types.string
+    status: types.string,
+    sharedPath: types.maybeNull(types.string),
+    comment: types.maybeNull(types.string)
   })
   .volatile(self => ({
     isVisible: false
@@ -25,6 +27,17 @@ const Item = types
     }
   }))
   .views(self => ({
+    get hasComment() {
+      return self.comment ? true : false;
+    },
+    get hasSharedPath() {
+      return self.sharedPath ? true : false;
+    },
+    get dropboxLink() {
+      return `https://www.dropbox.com/s/${self.sharedPath}/${
+        self.publicId
+      }.mov?raw=1`;
+    },
     get isDone() {
       return self.status === "DONE";
     },

@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import {
-  fade,
-  withStyles,
-  makeStyles,
-  createMuiTheme
-} from "@material-ui/core/styles";
 
 export default function Login({ store, onLogin }) {
   const [userName, setUserName] = useState("");
@@ -15,34 +8,6 @@ export default function Login({ store, onLogin }) {
   const [loggedIn, setLoggedIn] = useLocalStorage("loggedIn", {
     userName: undefined
   });
-
-  const CssTextField = withStyles({
-    root: {
-      "& label.Mui-focused": {
-        color: "white"
-      },
-      "& label.MuiFormLabel-root": {
-        color: "white"
-      },
-      "& .MuiInput-underline": {
-        borderBottomColor: "white"
-      },
-      "& .MuiInput-underline:after": {
-        borderBottomColor: "white"
-      },
-      "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-          borderColor: "red"
-        },
-        "&:hover fieldset": {
-          borderColor: "yellow"
-        },
-        "&.Mui-focused fieldset": {
-          borderColor: "white"
-        }
-      }
-    }
-  })(TextField);
 
   function useLocalStorage(key, initialValue) {
     // State to store our value

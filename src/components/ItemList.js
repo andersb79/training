@@ -6,13 +6,13 @@ import CardHeader from "@material-ui/core/CardHeader";
 import { red } from "@material-ui/core/colors";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-import { Image, Video } from "cloudinary-react";
+import { Image } from "cloudinary-react";
 import VisibilitySensor from "react-visibility-sensor";
 import StarIcon from "@material-ui/icons/Star";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ProfileReadOnly from "./ProfileReadOnly";
-import IconButton from "@material-ui/core/IconButton";
+import VideoControl from "./VideoControl";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 function onChange(item, isVisible) {
   item.setVisibility(isVisible);
-  const videoElm = document.getElementById(item.publicId);
+  const videoElm = document.getElementById(item.id);
   if (videoElm) {
     if (isVisible) {
       videoElm.play();
@@ -71,7 +71,7 @@ function ItemList({ store }) {
           onChange(items, true);
         });
     }, 1);
-  }, []);
+  });
 
   function ItemStatusAction({ item }) {
     if (item.isDone) {
@@ -92,10 +92,6 @@ function ItemList({ store }) {
     return <AccountCircleIcon />;
   }
 
-  function goFullScreen(item) {
-    document.getElementById(item.publicId).webkitEnterFullscreen();
-  }
-
   return (
     <div className="item-container">
       <div className="item-list">
@@ -107,7 +103,7 @@ function ItemList({ store }) {
         </VisibilitySensor>
 
         {!store.selectedProfile &&
-          store.items.map((item, i) => (
+          store.filteredItems.map((item, i) => (
             <VisibilitySensor
               key={item.publicId}
               onChange={isVisible => onChange(item, isVisible)}
@@ -133,35 +129,20 @@ function ItemList({ store }) {
                   subheader={item.game.name}
                 />
                 <CardContent>
-                  {/* <video
-                    onClick={() => goFullScreen(item)}
-                    id={item.publicId}
-                    autoPlay
-                    loop
-                    playsInline
-                    preload="none"
-                    muted
-                    width="100%"
-                    height="100%"
-                  >
-                    <source
-                      src="https://www.dropbox.com/s/nyq71uinj8q3f2t/czh2lmab4bkqobxlkykg.mov?raw=1"
-                      type="video/mp4"
-                    />
-                  </video> */}
-                  <Video
-                    onClick={() => goFullScreen(item)}
-                    id={item.publicId}
-                    cloudName="deolievif"
-                    publicId={item.publicId}
-                    width="100%"
-                    height="100%"
-                    loop
-                    muted
-                    playsInline
-                    preload="none"
-                    poster={item.poster}
-                  />
+                  <VideoControl store={store} settings={item} />
+                  {item.hasComment && (
+                    <div className="comments">
+                      <Typography
+                        variant="overline"
+                        style={{ color: "gray", fontSize: "10px" }}
+                      >
+                        Från tränaren:
+                      </Typography>
+                      <Typography variant="subtitle2">
+                        {item.comment}
+                      </Typography>
+                    </div>
+                  )}
                 </CardContent>
 
                 <CardActions>
