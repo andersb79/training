@@ -3,8 +3,8 @@ import { observer } from "mobx-react";
 import { Video } from "cloudinary-react";
 
 function VideoControl({ store, settings }) {
-  function goFullScreen(level) {
-    document.getElementById(level.id).requestFullscreen();
+  function goFullScreen(settings) {
+    document.getElementById(settings.id).requestFullscreen();
   }
 
   if (settings.hasSharedPath) {

@@ -80,19 +80,6 @@ export default function Game({ store }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose(option) {
-    store.setLevelFilter(option);
-    setAnchorEl(null);
-  }
-
-  function goFullScreen(level) {
-    document.getElementById(level.id).webkitEnterFullscreen();
-  }
-
   function getAvatarColor(level) {
     if (level.category === "MEDIUM") {
       return { backgroundColor: "orange" };
@@ -113,7 +100,7 @@ export default function Game({ store }) {
         </div>
         <div className="right">{store.selectedCategory.name}</div>
       </div>
-      <div className="card-content2">
+      {/* <div className="card-content2">
         <div className="fileinputs">
           <input type="file" className="file" onChange={e => processFile(e)} />
           <div className="fakefile">
@@ -122,7 +109,7 @@ export default function Game({ store }) {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
       {store.filteredLevels.map((level, i) => (
         <VisibilitySensor
           key={level.id}
