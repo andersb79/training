@@ -94,11 +94,13 @@ export default function Game({ store }) {
 
   return (
     <div className="game">
-      <div>
+      <div className="back">
         <div className="left">
           <ArrowBackIosIcon onClick={() => store.selectCategory()} />
         </div>
-        <div className="right">{store.selectedCategory.name}</div>
+        <div className="right">
+          {store.selectedCategory.name} ({store.filteredLevels.length} st)
+        </div>
       </div>
       {/* <div className="card-content2">
         <div className="fileinputs">
@@ -122,7 +124,9 @@ export default function Game({ store }) {
                   aria-label="Recipe"
                   style={getAvatarColor(level)}
                   className={classes.avatar}
-                />
+                >
+                  {level.displayIdentifier}
+                </Avatar>
               }
               title={level.name}
             />

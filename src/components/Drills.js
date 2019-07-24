@@ -48,7 +48,7 @@ function Drills({ store }) {
             <ListItem key={cat.id} onClick={() => goToDrill(cat)}>
               <ListItemAvatar>
                 <Avatar>
-                  <FolderIcon />
+                  <img className="login-img" src="0.jpg" alt="Träningar" />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText

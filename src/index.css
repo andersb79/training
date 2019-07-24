@@ -95,7 +95,7 @@ code {
 }
 
 .game {
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 .card-content {
@@ -131,10 +131,15 @@ code {
 }
 
 .left {
-  display: inline-block;
-  width: 40px;
+  position: absolute;
+  left: 0;
   margin-left: 10px;
 }
+
+.back {
+  text-align: center;
+}
+
 .right {
   font-size: 20px;
   display: inline-block;
