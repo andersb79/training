@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Game from "./Game";
+import Drills from "./Drills";
 import ItemList from "./ItemList";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -65,34 +66,23 @@ function Main({ store, onLogout }) {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab icon={<HomeIcon />} />
           <Tab icon={<StarIcon />} />
-          <Tab icon={<FormatListNumberedIcon />} />
           <Tab icon={<PersonIcon />} />
           <Tab icon={<HelpIcon />} />
         </Tabs>
       </AppBar>
+
       {tabIndex === 0 && (
         <TabContainer>
-          <ItemList store={store} />
+          <Drills store={store} />
         </TabContainer>
       )}
       {tabIndex === 1 && (
         <TabContainer>
-          <Game store={store} />
-        </TabContainer>
-      )}
-      {tabIndex === 2 && (
-        <TabContainer>
-          <HighScore store={store} />
-        </TabContainer>
-      )}
-      {tabIndex === 3 && (
-        <TabContainer>
           <Profile store={store} onLogout={onLogout} />
         </TabContainer>
       )}
-      {tabIndex === 4 && (
+      {tabIndex === 2 && (
         <TabContainer>
           <Help store={store} />
         </TabContainer>

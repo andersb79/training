@@ -9,6 +9,11 @@ const levelFilters = [
   { id: 2, text: "Klarade utmaningar" }
 ];
 
+const categories = [
+  { id: 0, category: "CONEDRILLS", name: "Code drills" },
+  { id: 1, category: "BALLMASTERY", name: "Ball mastery" }
+];
+
 const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER", COLOR: "COLOR" };
 
 const LevelStore = types
@@ -18,6 +23,9 @@ const LevelStore = types
     users: types.array(User)
   })
   .views(self => ({
+    get listCategories() {
+      return categories;
+    },
     get filteredItems() {
       return self.items.filter(
         x => x.isDone || x.userName === self.loggedIn.userName
@@ -34,23 +42,9 @@ const LevelStore = types
       return byHighscore.reverse();
     },
     get filteredLevels() {
-      if (self.levelFilter.id === 0) {
-        return self.levels.filter(x => x.season === self.currentSeason);
-      }
-
-      if (self.levelFilter.id === 1) {
-        return self.levels.filter(
-          x => !x.isDone && x.season === self.currentSeason
-        );
-      }
-
-      if (self.levelFilter.id === 2) {
-        return self.levels.filter(
-          x => x.isDone && x.season === self.currentSeason
-        );
-      }
-
-      return [];
+      return self.levels.filter(
+        x => x.category === self.selectedCategory.category
+      );
     },
     get levelFilters() {
       return levelFilters;
@@ -60,7 +54,7 @@ const LevelStore = types
     loggedIn: null,
     initzialize: false,
     height: null,
-    selectedProfile: null,
+    selectedCategory: null,
     levelFilter: self.levelFilters[0],
     api: null,
     appRunning: appRunning.MAIN,
@@ -74,8 +68,8 @@ const LevelStore = types
     setRunningApp(app) {
       self.appRunning = app;
     },
-    selectProfile(profile) {
-      self.selectedProfile = profile;
+    selectCategory(category) {
+      self.selectedCategory = category;
     },
     setLevelFilter(filter) {
       self.levelFilter = filter;

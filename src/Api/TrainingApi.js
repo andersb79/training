@@ -1,10 +1,10 @@
 const config = {
-  base: "appC7N77wl4iVEXGD",
+  base: "app9IO48CYcfaIY4Z",
   table: "Levels",
   view: "Grid%20view",
   apiKey: "keyHQ5GM7ktar7YtG",
   maxRecords: 100,
-  url: "https://api.airtable.com/v0/appC7N77wl4iVEXGD"
+  url: "https://api.airtable.com/v0/app9IO48CYcfaIY4Z"
 };
 
 export default {

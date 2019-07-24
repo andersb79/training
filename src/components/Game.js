@@ -14,6 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import VideoControl from "./VideoControl";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
@@ -106,39 +107,12 @@ export default function Game({ store }) {
 
   return (
     <div className="game">
-      <IconButton
-        aria-label="More"
-        aria-controls="long-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <FilterListIcon />
-        {store.levelFilter.text}
-      </IconButton>
-      <Menu
-        id="long-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: 200
-          }
-        }}
-      >
-        {store.levelFilters.map(option => (
-          <MenuItem
-            key={option.id}
-            selected={option.id === store.levelFilter}
-            onClick={() => handleClose(option)}
-          >
-            {option.text}
-          </MenuItem>
-        ))}
-      </Menu>
-
+      <div>
+        <div className="left">
+          <ArrowBackIosIcon onClick={() => store.selectCategory()} />
+        </div>
+        <div className="right">{store.selectedCategory.name}</div>
+      </div>
       {store.filteredLevels.map((level, i) => (
         <VisibilitySensor
           key={level.id}
@@ -167,24 +141,6 @@ export default function Game({ store }) {
                 </Typography>
               </div>
             </CardContent>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <div className="card-content2">
-                  <div className="fileinputs">
-                    <input
-                      type="file"
-                      className="file"
-                      onChange={e => processFile(e, level)}
-                    />
-                    <div className="fakefile">
-                      <Button variant="outlined">
-                        Ladda upp <VideoIcon />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Collapse>
           </Card>
         </VisibilitySensor>
       ))}
