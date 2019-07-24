@@ -10,7 +10,7 @@ const levelFilters = [
 ];
 
 const categories = [
-  { id: 0, category: "CONEDRILLS", name: "Code drills" },
+  { id: 0, category: "CONEDRILLS", name: "Cone drills" },
   { id: 1, category: "BALLMASTERY", name: "Ball mastery" }
 ];
 

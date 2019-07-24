@@ -18,6 +18,7 @@ function VideoControl({ store, settings }) {
         muted
         width="100%"
         height="100%"
+        poster={settings.dropboxPoster}
       >
         <source src={settings.dropboxLink} type="video/mp4" />
       </video>
