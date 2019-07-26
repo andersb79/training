@@ -13,7 +13,8 @@ const categories = [
   { id: 0, category: "CONEDRILLS", name: "Cone drills" },
   { id: 1, category: "BALLMASTERY", name: "Ball mastery" },
   { id: 2, category: "PASSINGDRILLS", name: "Passing drills" },
-  { id: 3, category: "SHOOTING", name: "Ball mastery" }
+  { id: 3, category: "SHOOTING", name: "Ball mastery" },
+  { id: 4, category: "ATTACKING", name: "Attack" }
 ];
 
 const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER", COLOR: "COLOR" };

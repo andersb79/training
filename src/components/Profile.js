@@ -91,38 +91,6 @@ function Profile({ store, onLogout }) {
           onChange={handleChange("password")}
           margin="normal"
         />
-        <TextField
-          id="favoriteTeam"
-          label="Favoritlag"
-          className={classes.textField}
-          value={values.favoriteTeam}
-          onChange={handleChange("favoriteTeam")}
-          margin="normal"
-        />
-        <TextField
-          id="playerTeam"
-          label="Lag"
-          className={classes.textField}
-          value={values.playerTeam}
-          onChange={handleChange("playerTeam")}
-          margin="normal"
-        />
-        <TextField
-          id="position"
-          label="Position"
-          className={classes.textField}
-          value={values.position}
-          onChange={handleChange("position")}
-          margin="normal"
-        />
-        <TextField
-          id="shirtNumber"
-          label="Tröjnummer"
-          className={classes.textField}
-          value={values.shirtNumber}
-          onChange={handleChange("shirtNumber")}
-          margin="normal"
-        />
       </form>
       <Button variant="outlined" onClick={save}>
         Spara
