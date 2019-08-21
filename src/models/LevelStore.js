@@ -10,10 +10,10 @@ const levelFilters = [
 ];
 
 const categories = [
-  { id: 0, category: "PASSINGDRILLS", name: "Teknik/Passningar" },
-  { id: 1, category: "BALLMASTERY", name: "Kombinationer" },
-  { id: 2, category: "POSSESION", name: "Possession/spel" },
-  { id: 3, category: "CONEDRILLS", name: "slask" }
+  { id: 0, category: "BALLMASTERY", name: "DEL 1 - Teknik/Passningar" },
+  { id: 1, category: "PASSINGDRILLS", name: "DEL 2 - Kombinationer" },
+  { id: 2, category: "POSSESION", name: "DEL 3 - Possession/spel" }
+  // { id: 3, category: "CONEDRILLS", name: "slask" }
   // { id: 4, category: "ATTACKING", name: "Attack" },
   // { id: 5, category: "POSESSION", name: "Posesion" }
 ];
