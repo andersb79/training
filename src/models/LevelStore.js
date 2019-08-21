@@ -10,11 +10,12 @@ const levelFilters = [
 ];
 
 const categories = [
-  { id: 0, category: "CONEDRILLS", name: "Cone drills" },
-  { id: 1, category: "BALLMASTERY", name: "Ball mastery" },
-  { id: 2, category: "PASSINGDRILLS", name: "Passing drills" },
-  { id: 3, category: "SHOOTING", name: "Ball mastery" },
-  { id: 4, category: "ATTACKING", name: "Attack" }
+  { id: 0, category: "CONEDRILLS", name: "Teknik/Passningar" },
+  { id: 1, category: "BALLMASTERY", name: "Kombinationer" },
+  { id: 2, category: "PASSINGDRILLS", name: "Possession/spel" }
+  // { id: 3, category: "SHOOTING", name: "Ball mastery" },
+  // { id: 4, category: "ATTACKING", name: "Attack" },
+  // { id: 5, category: "POSESSION", name: "Posesion" }
 ];
 
 const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER", COLOR: "COLOR" };
@@ -58,6 +59,7 @@ const LevelStore = types
     initzialize: false,
     height: null,
     selectedCategory: null,
+    selectedDrill: null,
     levelFilter: self.levelFilters[0],
     api: null,
     appRunning: appRunning.MAIN,
@@ -73,6 +75,9 @@ const LevelStore = types
     },
     selectCategory(category) {
       self.selectedCategory = category;
+    },
+    selectDrill(level) {
+      self.selectedDrill = level;
     },
     setLevelFilter(filter) {
       self.levelFilter = filter;

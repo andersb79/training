@@ -58,7 +58,7 @@ export default function Login({ store, onLogin }) {
 
   return (
     <div className="login">
-      <img className="login-img" src="soccertraining.jpg" alt="Träningar" />
+      <img className="login-img" src="loddelogo.jpg" alt="Träningar" />
 
       <div className="login-img-wrapper">
         <Typography paragraph variant="h3">

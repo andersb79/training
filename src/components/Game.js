@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { observer } from "mobx-react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -15,6 +16,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import VideoControl from "./VideoControl";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Drill from "./Drill";
+import { observable } from "mobx";
 
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
@@ -41,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Game({ store }) {
+function Game({ store }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(true);
 
@@ -92,56 +95,66 @@ export default function Game({ store }) {
     return { backgroundColor: "green" };
   }
 
+  function goToDrill(level) {
+    store.selectDrill(level);
+  }
+
   return (
     <div className="game">
-      <div className="back">
-        <div className="left">
-          <ArrowBackIosIcon onClick={() => store.selectCategory()} />
-        </div>
-        <div className="right">
-          {store.selectedCategory.name} ({store.filteredLevels.length} st)
-        </div>
-      </div>
-      {/* <div className="card-content2">
-        <div className="fileinputs">
-          <input type="file" className="file" onChange={e => processFile(e)} />
-          <div className="fakefile">
-            <Button variant="outlined">
-              Ladda upp <VideoIcon />
-            </Button>
+      {!store.selectedDrill && (
+        <div>
+          <div className="back">
+            <div className="left">
+              <ArrowBackIosIcon onClick={() => store.selectCategory()} />
+            </div>
+            <div className="right">
+              {store.selectedCategory.name} ({store.filteredLevels.length} st)
+            </div>
           </div>
-        </div>
-      </div> */}
-      {store.filteredLevels.map((level, i) => (
-        <VisibilitySensor
-          key={level.id}
-          onChange={isVisible => onChange(level, isVisible)}
-        >
-          <Card key={level.level} className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar
-                  aria-label="Recipe"
-                  style={getAvatarColor(level)}
-                  className={classes.avatar}
-                >
-                  {level.displayIdentifier}
-                </Avatar>
-              }
-              title={level.name}
-            />
+          {store.filteredLevels.map((level, i) => (
+            <VisibilitySensor
+              key={level.id}
+              onChange={isVisible => onChange(level, isVisible)}
+            >
+              <Card
+                key={level.level}
+                className={classes.card}
+                onClick={() => goToDrill(level)}
+              >
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      aria-label="Recipe"
+                      style={getAvatarColor(level)}
+                      className={classes.avatar}
+                    >
+                      {level.displayIdentifier}
+                    </Avatar>
+                  }
+                  title={level.name}
+                />
 
-            <CardContent>
-              <VideoControl store={store} settings={level} />
-              <div className="card-content">
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {level.details}
-                </Typography>
-              </div>
-            </CardContent>
-          </Card>
-        </VisibilitySensor>
-      ))}
+                <CardContent>
+                  <VideoControl store={store} settings={level} />
+                  <div className="card-content">
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {level.details}
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            </VisibilitySensor>
+          ))}
+        </div>
+      )}
+
+      {store.selectedDrill && <Drill store={store} />}
     </div>
   );
 }
+
+export default observer(Game);
