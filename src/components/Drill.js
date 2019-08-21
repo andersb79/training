@@ -7,6 +7,8 @@ import Avatar from "@material-ui/core/Avatar";
 import CardContent from "@material-ui/core/CardContent";
 import VideoControl from "./VideoControl";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
+import { Image } from "cloudinary-react";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -56,10 +58,23 @@ export default function Drill({ store }) {
         />
 
         <CardContent>
-          <VideoControl store={store} settings={drill} />
+          {drill.fileType === "mp4" && (
+            <VideoControl store={store} settings={drill} />
+          )}
+          {drill.fileType === "jpg" && <img src={drill.src} />}
+
           <div className="card-content">
             <Typography variant="body2" color="textSecondary" component="p">
+              <Chip label={drill.playerCount} />
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
               {drill.details}
+            </Typography>
+            <Typography variant="h6" color="textSecondary" component="p">
+              Gör så här
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {drill.description}
             </Typography>
           </div>
         </CardContent>

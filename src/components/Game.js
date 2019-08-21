@@ -18,6 +18,7 @@ import VideoControl from "./VideoControl";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import Drill from "./Drill";
 import { observable } from "mobx";
+import Chip from "@material-ui/core/Chip";
 
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
@@ -119,7 +120,7 @@ function Game({ store }) {
               <Card
                 key={level.level}
                 className={classes.card}
-                onClick={() => goToDrill(level)}
+                // onClick={() => goToDrill(level)}
               >
                 <CardHeader
                   avatar={
@@ -135,14 +136,34 @@ function Game({ store }) {
                 />
 
                 <CardContent>
-                  <VideoControl store={store} settings={level} />
+                  {level.fileType === "mp4" && (
+                    <VideoControl store={store} settings={level} />
+                  )}
+                  {(level.fileType === "jpg" || level.fileType === "gif") && (
+                    <img src={level.src} />
+                  )}
                   <div className="card-content">
                     <Typography
                       variant="body2"
                       color="textSecondary"
                       component="p"
                     >
+                      <Chip label={level.playerCount} />
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
                       {level.details}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {level.description}
                     </Typography>
                   </div>
                 </CardContent>

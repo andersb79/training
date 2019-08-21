@@ -10,7 +10,8 @@ const Level = types
   .model("Level", {
     id: types.string,
     level: types.integer,
-    details: types.string,
+    details: types.maybeNull(types.string),
+    description: types.maybeNull(types.string),
     name: types.string,
     category: types.string,
     publicId: types.maybeNull(types.string),
@@ -18,7 +19,9 @@ const Level = types
     sharedPath: types.maybeNull(types.string),
     fileType: types.maybeNull(types.string),
     posterPath: types.maybeNull(types.string),
-    displayIdentifier: types.integer
+    displayIdentifier: types.integer,
+    minPlayers: types.maybeNull(types.integer),
+    maxPlayers: types.maybeNull(types.integer)
   })
   .volatile(self => ({
     isVisible: false
@@ -35,6 +38,20 @@ const Level = types
     }
   }))
   .views(self => ({
+    get src() {
+      return `https://www.dropbox.com/s/${self.sharedPath}/Lpass.${
+        self.fileType
+      }?raw=1`;
+    },
+    get playerCount() {
+      if (!self.minPlayers) {
+        return "Alla";
+      }
+      if (self.minPlayers === self.maxPlayers) {
+        return `Antal spelare: ${self.minPlayers}`;
+      }
+      return `Antal spelare: ${self.minPlayers} - ${self.maxPlayers}`;
+    },
     get hasSharedPath() {
       return self.sharedPath ? true : false;
     },

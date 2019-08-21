@@ -7,6 +7,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import StarIcon from "@material-ui/icons/Star";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
@@ -66,9 +67,9 @@ function Main({ store, onLogout }) {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab icon={<StarIcon />} />
-          <Tab icon={<PersonIcon />} />
+          <Tab icon={<FormatListBulletedIcon />} />
           <Tab icon={<HelpIcon />} />
+          <Tab icon={<PersonIcon />} />
         </Tabs>
       </AppBar>
 
@@ -79,12 +80,12 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 1 && (
         <TabContainer>
-          <Profile store={store} onLogout={onLogout} />
+          <Help store={store} />
         </TabContainer>
       )}
       {tabIndex === 2 && (
         <TabContainer>
-          <Help store={store} />
+          <Profile store={store} onLogout={onLogout} />
         </TabContainer>
       )}
     </div>
