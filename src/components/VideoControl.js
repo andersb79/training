@@ -17,7 +17,7 @@ function VideoControl({ store, settings }) {
         enablejsapi: 1
       }
     };
-    return <YouTube id={settings.id} videoId="7Y9nDetV0us" opts={opts} />;
+    return <YouTube id={settings.id} videoId={settings.videoId} opts={opts} />;
   }
 
   if (settings.hasSharedPath) {
