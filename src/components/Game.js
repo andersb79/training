@@ -68,13 +68,18 @@ function Game({ store }) {
   }
 
   function onChange(level, isVisible) {
+    if (level.videoId) {
+      return;
+    }
     level.setVisibility(isVisible);
     const videoElm = document.getElementById(level.id);
     if (videoElm) {
-      if (isVisible) {
-        videoElm.play();
-      } else {
-        videoElm.pause();
+      if (videoElm.play) {
+        if (isVisible) {
+          videoElm.play();
+        } else {
+          videoElm.pause();
+        }
       }
     } else {
       console.log("not found");
@@ -143,13 +148,8 @@ function Game({ store }) {
                     <img src={level.src} />
                   )}
                   <div className="card-content">
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      <Chip label={level.playerCount} />
-                    </Typography>
+                    <Chip label={level.playerCount} />
+
                     <Typography
                       variant="body2"
                       color="textSecondary"

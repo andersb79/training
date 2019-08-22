@@ -21,7 +21,8 @@ const Level = types
     posterPath: types.maybeNull(types.string),
     displayIdentifier: types.integer,
     minPlayers: types.maybeNull(types.integer),
-    maxPlayers: types.maybeNull(types.integer)
+    maxPlayers: types.maybeNull(types.integer),
+    videoId: types.maybeNull(types.string)
   })
   .volatile(self => ({
     isVisible: false
