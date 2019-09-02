@@ -145,6 +145,10 @@ code {
   display: inline-block;
 }
 
+.action {
+  display: inline-block;
+}
+
 .profile {
   margin-top: 50px;
   color: blue;

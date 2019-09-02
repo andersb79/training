@@ -16,6 +16,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import VideoControl from "./VideoControl";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Drill from "./Drill";
 import { observable } from "mobx";
 import Chip from "@material-ui/core/Chip";
@@ -88,6 +89,7 @@ function Game({ store }) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [newDrill, setNewDrill] = React.useState(false);
 
   function getAvatarColor(level) {
     if (level.category === "MEDIUM") {
@@ -101,13 +103,13 @@ function Game({ store }) {
     return { backgroundColor: "green" };
   }
 
-  function goToDrill(level) {
-    store.selectDrill(level);
+  function addDrill() {
+    setNewDrill(true);
   }
 
   return (
     <div className="game">
-      {!store.selectedDrill && (
+      {!newDrill && (
         <div>
           <div className="back">
             <div className="left">
@@ -115,6 +117,9 @@ function Game({ store }) {
             </div>
             <div className="right">
               {store.selectedCategory.name} ({store.filteredLevels.length} st)
+            </div>
+            <div className="action">
+              <AddCircleIcon onClick={addDrill} />
             </div>
           </div>
           {store.filteredLevels.map((level, i) => (
@@ -173,7 +178,7 @@ function Game({ store }) {
         </div>
       )}
 
-      {store.selectedDrill && <Drill store={store} />}
+      {newDrill && <Drill store={store} />}
     </div>
   );
 }

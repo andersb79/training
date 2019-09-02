@@ -7,23 +7,23 @@ class Number extends Component {
     return random;
   };
   generateColor = () => {
-    const min = 1;
+    const min = 0;
     const max = this.props.colorCount * 10;
     const random = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    if (random < 10) {
+    if (random <= 10) {
       return "yellow";
     }
 
-    if (random < 20) {
+    if (random <= 20) {
       return "red";
     }
 
-    if (random < 30) {
+    if (random <= 30) {
       return "blue";
     }
 
-    if (random < 40) {
+    if (random <= 40) {
       return "white";
     }
   };
