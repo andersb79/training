@@ -194,23 +194,30 @@ const LevelStore = types
       };
       xhr.send(formdata);
     },
-    processFile(file, onProcessed) {
+    processFile(file, values, onProcessed) {
       var formdata = new FormData();
+
+      const isImage =
+        file.type === "image/jpeg" || file.type === "image/png" ? true : false;
 
       formdata.append("file", file);
       formdata.append("cloud_name", "deolievif");
       formdata.append("upload_preset", "kv0do7lj");
-      formdata.append("resource_type", "raw");
+
+      if (!isImage) {
+        formdata.append("resource_type", "raw");
+      }
+
       formdata.append("title", self.loggedIn.userName);
       //formdata.append("public_id", level.level);
       formdata.append("tags", self.loggedIn.userName);
 
+      const uploadUrl = isImage
+        ? "https://api.cloudinary.com/v1_1/deolievif/image/upload"
+        : "https://api.cloudinary.com/v1_1/deolievif/video/upload/";
+
       var xhr = new XMLHttpRequest();
-      xhr.open(
-        "POST",
-        "https://api.cloudinary.com/v1_1/deolievif/video/upload/",
-        true
-      );
+      xhr.open("POST", uploadUrl, true);
 
       xhr.onload = function() {
         // do something to response
@@ -220,11 +227,13 @@ const LevelStore = types
         console.log(this.responseText);
 
         const level = {
-          name: "Namn",
+          name: values.name,
+          description: values.description,
           publicId: myObj.public_id,
           category: self.selectedCategory.category,
           details: "details",
-          season: 1
+          season: 1,
+          fileType: isImage ? "jpg" : "mp4"
         };
 
         self.api.insertLevel(level);

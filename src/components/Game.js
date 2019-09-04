@@ -20,6 +20,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Drill from "./Drill";
 import { observable } from "mobx";
 import Chip from "@material-ui/core/Chip";
+import { Image } from "cloudinary-react";
 
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
@@ -138,9 +139,7 @@ function Game({ store }) {
                       aria-label="Recipe"
                       style={getAvatarColor(level)}
                       className={classes.avatar}
-                    >
-                      {level.displayIdentifier}
-                    </Avatar>
+                    ></Avatar>
                   }
                   title={level.name}
                 />
@@ -149,9 +148,19 @@ function Game({ store }) {
                   {level.fileType === "mp4" && (
                     <VideoControl store={store} settings={level} />
                   )}
-                  {(level.fileType === "jpg" || level.fileType === "gif") && (
-                    <img src={level.src} />
-                  )}
+                  {(level.fileType === "jpg" || level.fileType === "gif") &&
+                    level.hasSharedPath && <img src={level.src} />}
+
+                  {(level.fileType === "jpg" || level.fileType === "gif") &&
+                    !level.hasSharedPath && (
+                      <Image
+                        cloudName="deolievif"
+                        publicId={level.publicId}
+                        width="100%"
+                        height="100%"
+                      />
+                    )}
+
                   <div className="card-content">
                     <Chip label={level.playerCount} />
 
@@ -178,7 +187,7 @@ function Game({ store }) {
         </div>
       )}
 
-      {newDrill && <Drill store={store} />}
+      {newDrill && <Drill store={store} onBack={() => setNewDrill(false)} />}
     </div>
   );
 }

@@ -19,7 +19,6 @@ const Level = types
     sharedPath: types.maybeNull(types.string),
     fileType: types.maybeNull(types.string),
     posterPath: types.maybeNull(types.string),
-    displayIdentifier: types.integer,
     minPlayers: types.maybeNull(types.integer),
     maxPlayers: types.maybeNull(types.integer),
     videoId: types.maybeNull(types.string)
@@ -40,9 +39,7 @@ const Level = types
   }))
   .views(self => ({
     get src() {
-      return `https://www.dropbox.com/s/${self.sharedPath}/Lpass.${
-        self.fileType
-      }?raw=1`;
+      return `https://www.dropbox.com/s/${self.sharedPath}/Lpass.${self.fileType}?raw=1`;
     },
     get playerCount() {
       if (!self.minPlayers) {
@@ -57,14 +54,10 @@ const Level = types
       return self.sharedPath ? true : false;
     },
     get dropboxLink() {
-      return `https://www.dropbox.com/s/${self.sharedPath}/${self.publicId}.${
-        self.fileType
-      }?raw=1`;
+      return `https://www.dropbox.com/s/${self.sharedPath}/${self.publicId}.${self.fileType}?raw=1`;
     },
     get dropboxPoster() {
-      return `https://www.dropbox.com/s/${
-        self.posterPath
-      }/ConeDrill1.jpg?raw=1`;
+      return `https://www.dropbox.com/s/${self.posterPath}/ConeDrill1.jpg?raw=1`;
     },
     get categoryName() {
       return Categories[self.category];

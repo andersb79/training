@@ -21,9 +21,7 @@ export default {
     }
 
     return new Request(
-      `${config.url}/${conf.table}?maxRecords=${conf.maxRecords}&view=${
-        conf.view
-      }`,
+      `${config.url}/${conf.table}?maxRecords=${conf.maxRecords}&view=${conf.view}`,
       {
         method: "get",
         headers: new Headers({
@@ -76,6 +74,22 @@ export default {
   },
   async fetchItems() {
     return this.response({ table: "Items" });
+  },
+  addNewDrill(level) {
+    fetch(
+      new Request(`${config.url}/Levels`, {
+        method: "post",
+        body: JSON.stringify({
+          fields: level
+        }),
+        headers: new Headers({
+          Authorization: `Bearer ${config.apiKey}`,
+          "Content-Type": "application/json"
+        })
+      })
+    ).catch(err => {
+      console.log(err);
+    });
   },
   insertLevel(level) {
     fetch(
