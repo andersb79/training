@@ -4,6 +4,7 @@ import Item from "./Item";
 import User from "./User";
 import Training from "./Training";
 import Player from "./Player";
+import Rating from "./Rating";
 
 const levelFilters = [
   { id: 0, text: "Alla utmaningar" },
@@ -28,7 +29,8 @@ const LevelStore = types
     items: types.array(Item),
     users: types.array(User),
     trainings: types.array(Training),
-    players: types.array(Player)
+    players: types.array(Player),
+    ratings: types.array(Rating)
   })
   .views(self => ({
     get listCategories() {
@@ -54,6 +56,11 @@ const LevelStore = types
         x => x.category === self.selectedCategory.category
       );
     },
+    get filteredPlayers() {
+      return self.players.filter(x =>
+        self.ratings.find(xx => xx.selected && xx.id === x.rating)
+      );
+    },
     get levelFilters() {
       return levelFilters;
     },
@@ -66,6 +73,7 @@ const LevelStore = types
     initzialize: false,
     height: null,
     selectedCategory: null,
+    selectedPlayer: null,
     selectedDrill: null,
     levelFilter: self.levelFilters[0],
     api: null,
@@ -83,6 +91,9 @@ const LevelStore = types
     selectCategory(category) {
       self.selectedCategory = category;
     },
+    selectPlayer(player) {
+      self.selectedPlayer = player;
+    },
     selectDrill(level) {
       self.selectedDrill = level;
     },
@@ -93,7 +104,8 @@ const LevelStore = types
       var users = await self.api.getUsers();
       var levels = await self.api.fetchLevels();
       var items = await self.api.fetchItems();
-
+      var players = await self.api.fetchPlayers();
+      console.log(players);
       const data = {
         users: [],
         items: [],
@@ -104,8 +116,19 @@ const LevelStore = types
           { id: "2", description: "14 oktober", active: false },
           { id: "2", description: "16 oktober", active: false }
         ],
-        players: [{ id: "1", name: "Gustav" }, { id: "2", name: "Oskar" }]
+        players: [],
+        ratings: [
+          { id: "1", name: "Nivå 1", selected: true },
+          { id: "2", name: "Nivå 2", selected: true },
+          { id: "3", name: "Nivå 3", selected: true },
+          { id: "4", name: "Nivå 4", selected: true }
+        ]
       };
+
+      players.forEach(elm => {
+        elm.fields.id = elm.id;
+        data.players.push(elm.fields);
+      });
 
       levels.forEach(elm => {
         elm.fields.id = elm.id;
@@ -168,6 +191,9 @@ const LevelStore = types
     },
     updateUser(user) {
       self.api.updateUser(user);
+    },
+    updatePlayer(player) {
+      self.api.updatePlayer(player);
     },
     init: flow(function* init(api, id) {
       self.api = api;

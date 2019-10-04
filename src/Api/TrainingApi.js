@@ -69,8 +69,32 @@ export default {
       alert(err);
     });
   },
+  updatePlayer(player) {
+    const url = `${config.url}/Players/${player.id}`;
+
+    fetch(
+      new Request(url, {
+        method: "put",
+        body: JSON.stringify({
+          fields: {
+            player: player.player,
+            rating: player.rating
+          }
+        }),
+        headers: new Headers({
+          Authorization: `Bearer ${config.apiKey}`,
+          "Content-Type": "application/json"
+        })
+      })
+    ).catch(err => {
+      alert(err);
+    });
+  },
   async fetchLevels() {
     return this.response({ table: "Levels" });
+  },
+  async fetchPlayers() {
+    return this.response({ table: "Players" });
   },
   async fetchItems() {
     return this.response({ table: "Items" });
