@@ -2,7 +2,8 @@ import { types } from "mobx-state-tree";
 
 const Training = types.model("Training", {
   id: types.string,
-  description: types.string
+  trainingId: types.integer,
+ date: types.string
 });
 
 export default Training;

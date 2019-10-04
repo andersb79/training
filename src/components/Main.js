@@ -9,7 +9,7 @@ import Tab from "@material-ui/core/Tab";
 import StarIcon from "@material-ui/icons/Star";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
-import HomeIcon from "@material-ui/icons/Home";
+import GroupIcon from "@material-ui/icons/Group";
 import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import HelpIcon from "@material-ui/icons/Help";
@@ -73,7 +73,7 @@ function Main({ store, onLogout }) {
         >
           <Tab icon={<FormatListBulletedIcon />} />
           <Tab icon={<CalendarTodayIcon />} />
-          <Tab icon={<HelpIcon />} />
+          <Tab icon={<GroupIcon />} />
           <Tab icon={<SettingsIcon />} />
           <Tab icon={<PersonIcon />} />
         </Tabs>

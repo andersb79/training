@@ -93,6 +93,12 @@ export default {
   async fetchLevels() {
     return this.response({ table: "Levels" });
   },
+  async fetchTrainings() {
+    return this.response({ table: "Trainings" });
+  },
+  async fetchStats() {
+    return this.response({ table: "Stat" });
+  },
   async fetchPlayers() {
     return this.response({ table: "Players" });
   },
@@ -121,6 +127,37 @@ export default {
         method: "post",
         body: JSON.stringify({
           fields: level
+        }),
+        headers: new Headers({
+          Authorization: `Bearer ${config.apiKey}`,
+          "Content-Type": "application/json"
+        })
+      })
+    ).catch(err => {
+      console.log(err);
+    });
+  },
+  removeStat(stat) {
+    
+    fetch(
+      new Request(`${config.url}/Stat`, {
+        method: "DELETE",
+        body: JSON.stringify({records: [stat.id]}),
+        headers: new Headers({
+          Authorization: `Bearer ${config.apiKey}`,
+          "Content-Type": "application/json"
+        })
+      })
+    ).catch(err => {
+      console.log(err);
+    });
+  },
+  insertStat(stat) {
+    fetch(
+      new Request(`${config.url}/Stat`, {
+        method: "post",
+        body: JSON.stringify({
+          fields: stat
         }),
         headers: new Headers({
           Authorization: `Bearer ${config.apiKey}`,

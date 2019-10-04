@@ -5,6 +5,7 @@ import User from "./User";
 import Training from "./Training";
 import Player from "./Player";
 import Rating from "./Rating";
+import Stat from "./Stat";
 
 const levelFilters = [
   { id: 0, text: "Alla utmaningar" },
@@ -30,7 +31,8 @@ const LevelStore = types
     users: types.array(User),
     trainings: types.array(Training),
     players: types.array(Player),
-    ratings: types.array(Rating)
+    ratings: types.array(Rating),
+    stats: types.array(Stat)
   })
   .views(self => ({
     get listCategories() {
@@ -73,7 +75,9 @@ const LevelStore = types
       return levelFilters;
     },
     get currentTraining() {
-      return self.trainings[0];
+      const training = self.trainings[0];
+      console.log(training);
+      return training;
     }
   }))
   .volatile(self => ({
@@ -113,17 +117,16 @@ const LevelStore = types
       var levels = await self.api.fetchLevels();
       var items = await self.api.fetchItems();
       var players = await self.api.fetchPlayers();
-      console.log(players);
+      var trainings = await self.api.fetchTrainings();
+      var stats = await self.api.fetchStats();
+      console.log(stats);
       const data = {
         users: [],
         items: [],
         levels: [],
-        trainings: [
-          { id: "1", description: "7 oktober", active: true },
-          { id: "2", description: "9 oktober", active: false },
-          { id: "2", description: "14 oktober", active: false },
-          { id: "2", description: "16 oktober", active: false }
-        ],
+        trainings: [],        
+        trainings: [],
+        stats: [],
         players: [],
         ratings: [
           { id: "1", name: "Nivå 1", selected: true },
@@ -132,6 +135,16 @@ const LevelStore = types
           { id: "4", name: "Nivå 4", selected: true }
         ]
       };
+
+      stats.forEach(elm => {
+        elm.fields.id = elm.id;
+        data.stats.push(elm.fields);
+      });
+
+      trainings.forEach(elm => {
+        elm.fields.id = elm.id;
+        data.trainings.push(elm.fields);
+      });
 
       players.forEach(elm => {
         elm.fields.id = elm.id;
@@ -202,6 +215,12 @@ const LevelStore = types
     },
     updatePlayer(player) {
       self.api.updatePlayer(player);
+    },
+    insertStat(stat) {
+      self.api.insertStat(stat);
+    },
+    removeStat(stat) {
+      self.api.removeStat(stat);
     },
     init: flow(function* init(api, id) {
       self.api = api;

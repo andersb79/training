@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { types, getRoot } from "mobx-state-tree";
 
 const Player = types
   .model("Player", {
@@ -14,6 +14,16 @@ const Player = types
   .actions(self => ({
     setRating(rating) {
       self.rating = rating;
+    },
+    toggleTraining() {
+      const levelStore = getRoot(self);
+      const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
+      if(stat) {
+        levelStore.removeStat(stat);
+      } else {
+        levelStore.insertStat({trainingId: levelStore.currentTraining.trainingId, player: self.player});
+      }
+      
     }
   }));
 

@@ -29,10 +29,10 @@ function Trainings({ store }) {
 
   return (
     <div className={classes.root}>
-      <div>{store.currentTraining.description}</div>
+      <div>{store.currentTraining.date}</div>
       <List className={classes.paper}>
         {store.players.map(player => (
-          <ListItem>
+          <ListItem onClick={() => player.toggleTraining()}>
             <ListItemAvatar>
               <Avatar>
                 <ImageIcon />
