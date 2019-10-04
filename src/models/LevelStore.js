@@ -57,9 +57,17 @@ const LevelStore = types
       );
     },
     get filteredPlayers() {
-      return self.players.filter(x =>
+      var players = self.players.filter(x =>
         self.ratings.find(xx => xx.selected && xx.id === x.rating)
       );
+
+      var byRating = players.slice(0);
+      byRating.sort((a, b) => {
+        var x = a.rating;
+        var y = b.rating;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      return byRating.reverse();
     },
     get levelFilters() {
       return levelFilters;
