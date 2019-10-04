@@ -16,7 +16,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import FolderIcon from "@material-ui/icons/Folder";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import Game from "./Game";
+import Game2 from "./Game2";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,7 +64,7 @@ function Drills({ store }) {
           ))}
         </List>
       )}
-      {store.selectedCategory && <Game store={store} />}
+      {store.selectedCategory && <Game2 store={store} />}
     </div>
   );
 }

@@ -17,7 +17,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import VideoControl from "./VideoControl";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import Drill from "./Drill";
+import EditDrill from "./EditDrill";
 import { observable } from "mobx";
 import Chip from "@material-ui/core/Chip";
 import { Image } from "cloudinary-react";
@@ -187,7 +187,9 @@ function Game({ store }) {
         </div>
       )}
 
-      {newDrill && <Drill store={store} onBack={() => setNewDrill(false)} />}
+      {newDrill && (
+        <EditDrill store={store} onBack={() => setNewDrill(false)} />
+      )}
     </div>
   );
 }

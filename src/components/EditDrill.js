@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { observer } from "mobx-react";
 
-function Drill({ store, onBack }) {
+function EditDrill({ store, onBack }) {
   const [values, setValues] = React.useState({
     name: "",
     description: "",
@@ -67,4 +67,4 @@ function Drill({ store, onBack }) {
   );
 }
 
-export default observer(Drill);
+export default observer(EditDrill);

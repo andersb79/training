@@ -31,3 +31,16 @@
     transform: rotate(360deg);
   }
 }
+
+.drill-header {
+  font-size: 18px;
+}
+
+.drill-desc {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.drill {
+  background: white;
+}

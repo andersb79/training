@@ -2,6 +2,8 @@ import { types, flow, applySnapshot } from "mobx-state-tree";
 import Level from "./Level";
 import Item from "./Item";
 import User from "./User";
+import Training from "./Training";
+import Player from "./Player";
 
 const levelFilters = [
   { id: 0, text: "Alla utmaningar" },
@@ -24,7 +26,9 @@ const LevelStore = types
   .model("LevelStore", {
     levels: types.array(Level),
     items: types.array(Item),
-    users: types.array(User)
+    users: types.array(User),
+    trainings: types.array(Training),
+    players: types.array(Player)
   })
   .views(self => ({
     get listCategories() {
@@ -52,6 +56,9 @@ const LevelStore = types
     },
     get levelFilters() {
       return levelFilters;
+    },
+    get currentTraining() {
+      return self.trainings[0];
     }
   }))
   .volatile(self => ({
@@ -90,7 +97,14 @@ const LevelStore = types
       const data = {
         users: [],
         items: [],
-        levels: []
+        levels: [],
+        trainings: [
+          { id: "1", description: "7 oktober", active: true },
+          { id: "2", description: "9 oktober", active: false },
+          { id: "2", description: "14 oktober", active: false },
+          { id: "2", description: "16 oktober", active: false }
+        ],
+        players: [{ id: "1", name: "Gustav" }, { id: "2", name: "Oskar" }]
       };
 
       levels.forEach(elm => {
