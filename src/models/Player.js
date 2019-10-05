@@ -10,6 +10,22 @@ const Player = types
     get ratingText() {
       return `Nivå ${self.rating}`;
     },
+    get allStat() {
+      const levelStore = getRoot(self);
+      const stat = levelStore.stats.find(x => x.player === self.player);
+      if(stat){
+      return stat;
+      }
+      return null;
+    },
+    get currentStat() {
+      const levelStore = getRoot(self);
+      const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
+      if(stat){
+      return stat;
+      }
+      return null;
+    },
     get isTraining(){
       const levelStore = getRoot(self);
       const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);

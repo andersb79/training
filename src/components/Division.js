@@ -33,7 +33,7 @@ function Division({store }) {
             <ImageIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={player.player} secondary={player.type} />
+        <ListItemText primary={player.player} secondary={player.currentStat.level} />
         
       </ListItem>
        <Divider />
