@@ -63,6 +63,27 @@ const LevelStore = types
 
       return players;
     },
+    get filteredPlayersInTrainingEasy() {
+      var players = self.players.filter(
+        x => x.isTraining && x.currentStat.level === 1
+      );
+
+      return players;
+    },
+    get filteredPlayersInTrainingHard() {
+      var players = self.players.filter(
+        x => x.isTraining && x.currentStat.level === 2
+      );
+
+      return players;
+    },
+    get filteredPlayersInTrainingUn() {
+      var players = self.orderedPlayers.filter(
+        x => x.isTraining && x.currentStat.level === null
+      );
+
+      return players;
+    },
     get filteredPlayers() {
       var players = self.players.filter(x =>
         self.ratings.find(xx => xx.selected && xx.id === x.rating)
@@ -90,6 +111,16 @@ const LevelStore = types
       );
 
       return stat ? true : false;
+    },
+    get orderedPlayers() {
+      var orderdPlayers = self.filteredPlayersInTraining.slice(0);
+      orderdPlayers.sort((a, b) => {
+        var x = a.failRate;
+        var y = b.failRate;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+
+      return orderdPlayers;
     }
   }))
   .volatile(self => ({
@@ -106,6 +137,69 @@ const LevelStore = types
     currentSeason: 1
   }))
   .actions(self => ({
+    updateLevelOnStat() {
+      const count = self.filteredPlayersInTraining.length;
+      const easy = count / 2;
+      let easyCount = 0;
+
+      //lägg på rating 1 användare
+      self.orderedPlayers
+        .filter(x => x.rating === "1")
+        .forEach(x => {
+          x.currentStat.setLevel(1);
+          easyCount++;
+
+          self.updateStat(x.currentStat);
+        });
+
+      //lägg på rating 2 användare
+      self.orderedPlayers
+        .filter(x => x.rating === "2")
+        .forEach(x => {
+          if (easyCount >= easy) {
+            x.currentStat.setLevel(2);
+          } else {
+            x.currentStat.setLevel(1);
+            easyCount++;
+          }
+
+          self.updateStat(x.currentStat);
+        });
+
+      //lägg på rating 3 användare
+      self.orderedPlayers
+        .filter(x => x.rating === "3")
+        .forEach(x => {
+          if (easyCount >= easy) {
+            x.currentStat.setLevel(2);
+          } else {
+            x.currentStat.setLevel(x.nextLevel);
+            if (x.nextLevel === 1) {
+              easyCount++;
+            }
+          }
+
+          self.updateStat(x.currentStat);
+        });
+
+      //lägg på rating 4 användare
+      self.orderedPlayers
+        .filter(x => x.rating === "4")
+        .forEach(x => {
+          if (easyCount >= easy) {
+            x.currentStat.setLevel(2);
+          } else {
+            x.currentStat.setLevel(x.nextLevel);
+            if (x.nextLevel === 1) {
+              easyCount++;
+            }
+          }
+
+          self.updateStat(x.currentStat);
+        });
+
+      self.refresh();
+    },
     startTraining() {
       self.players.forEach(x => {
         self.api.insertStat({

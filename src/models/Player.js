@@ -32,6 +32,20 @@ const Player = types
 
       return { easy: 100 - al, hard: al };
     },
+    get failRate() {
+      if (self.rating === "1") {
+        return 100 - self.myRatio.easy;
+      }
+      if (self.rating === "2") {
+        return 75 - self.myRatio.easy;
+      }
+      if (self.rating === "3") {
+        return 50 - self.myRatio.easy;
+      }
+      if (self.rating === "4") {
+        return 25 - self.myRatio.easy;
+      }
+    },
     get myRatioText() {
       return (
         self.myRatio.easy +
@@ -48,13 +62,13 @@ const Player = types
         return 1;
       }
       if (self.rating === "2") {
-        return myRatio.easy > 75 ? 2 : 1;
+        return myRatio.easy < 75 ? 1 : 2;
       }
       if (self.rating === "3") {
-        return myRatio.easy > 50 ? 2 : 1;
+        return myRatio.easy < 50 ? 1 : 2;
       }
       if (self.rating === "4") {
-        return myRatio.easy > 75 ? 1 : 2;
+        return myRatio.easy < 25 ? 1 : 2;
       }
       return 1;
     },
@@ -112,7 +126,7 @@ const Player = types
       );
       if (stat) {
         stat.toggleIsTraining();
-        stat.setLevel(self.nextLevel);
+        //stat.setLevel(self.nextLevel);
         levelStore.updateStat(stat);
       } else {
         levelStore.insertStat({
