@@ -48,7 +48,10 @@ function Presence({ store }) {
                 <ImageIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={player.player} secondary={player.ratio} />
+            <ListItemText
+              primary={player.player}
+              secondary={player.myRatioText}
+            />
             <ListItemSecondaryAction>
               {player.isTraining ? <VerifiedUserOutlinedIcon /> : ""}
             </ListItemSecondaryAction>

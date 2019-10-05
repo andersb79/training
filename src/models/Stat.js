@@ -12,6 +12,9 @@ const Stat = types
   .actions(self => ({
     toggleIsTraining() {
       self.isTraining = !self.isTraining;
+    },
+    setLevel(level) {
+      self.level = level;
     }
   }));
 
