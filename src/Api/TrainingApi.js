@@ -137,19 +137,27 @@ export default {
       console.log(err);
     });
   },
-  removeStat(stat) {
-    
+  updateStat(stat) {    
+    const url = `${config.url}/Stat/${stat.id}`;
+
     fetch(
-      new Request(`${config.url}/Stat`, {
-        method: "DELETE",
-        body: JSON.stringify({records: [stat.id]}),
+      new Request(url, {
+        method: "put",
+        body: JSON.stringify({
+          fields: {            
+            trainingId: stat.trainingId,
+            player : stat.player,
+            isTraining : stat.isTraining,
+            level: stat.level
+          }
+        }),
         headers: new Headers({
           Authorization: `Bearer ${config.apiKey}`,
           "Content-Type": "application/json"
         })
       })
     ).catch(err => {
-      console.log(err);
+      alert(err);
     });
   },
   insertStat(stat) {

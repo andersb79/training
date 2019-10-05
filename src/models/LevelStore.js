@@ -58,6 +58,12 @@ const LevelStore = types
         x => x.category === self.selectedCategory.category
       );
     },
+    get filteredPlayersInTraining() {
+      var players = self.players.filter(x =>
+        x.isTraining);
+
+      return players;
+    },
     get filteredPlayers() {
       var players = self.players.filter(x =>
         self.ratings.find(xx => xx.selected && xx.id === x.rating)
@@ -218,9 +224,11 @@ const LevelStore = types
     },
     insertStat(stat) {
       self.api.insertStat(stat);
+
+      self.refresh();
     },
-    removeStat(stat) {
-      self.api.removeStat(stat);
+    updateStat(stat) {
+      self.api.updateStat(stat);
     },
     init: flow(function* init(api, id) {
       self.api = api;

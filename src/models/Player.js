@@ -9,6 +9,14 @@ const Player = types
   .views(self => ({
     get ratingText() {
       return `Nivå ${self.rating}`;
+    },
+    get isTraining(){
+      const levelStore = getRoot(self);
+      const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
+      if(stat){
+      return stat.isTraining;
+      }
+      return false;
     }
   }))
   .actions(self => ({
@@ -19,11 +27,11 @@ const Player = types
       const levelStore = getRoot(self);
       const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
       if(stat) {
-        levelStore.removeStat(stat);
+        stat.toggleIsTraining();
+        levelStore.updateStat(stat);
       } else {
-        levelStore.insertStat({trainingId: levelStore.currentTraining.trainingId, player: self.player});
-      }
-      
+        levelStore.insertStat({trainingId: levelStore.currentTraining.trainingId, player: self.player, isTraining: true, level: 1});
+      }      
     }
   }));
 
