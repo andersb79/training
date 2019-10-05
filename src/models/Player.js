@@ -12,25 +12,39 @@ const Player = types
     },
     get allStat() {
       const levelStore = getRoot(self);
-      const stat = levelStore.stats.find(x => x.player === self.player);
-      if(stat){
-      return stat;
+      const stat = levelStore.stats.filter(
+        x => x.player === self.player && x.isTraining
+      );
+      if (stat) {
+        return stat;
       }
       return null;
+    },
+    get ratio() {
+      const allStat = self.allStat;
+      return "50% 50%";
     },
     get currentStat() {
       const levelStore = getRoot(self);
-      const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
-      if(stat){
-      return stat;
+      const stat = levelStore.stats.find(
+        x =>
+          x.trainingId === levelStore.currentTraining.trainingId &&
+          x.player === self.player
+      );
+      if (stat) {
+        return stat;
       }
       return null;
     },
-    get isTraining(){
+    get isTraining() {
       const levelStore = getRoot(self);
-      const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
-      if(stat){
-      return stat.isTraining;
+      const stat = levelStore.stats.find(
+        x =>
+          x.trainingId === levelStore.currentTraining.trainingId &&
+          x.player === self.player
+      );
+      if (stat) {
+        return stat.isTraining;
       }
       return false;
     }
@@ -41,13 +55,22 @@ const Player = types
     },
     toggleTraining() {
       const levelStore = getRoot(self);
-      const stat = levelStore.stats.find(x => x.trainingId === levelStore.currentTraining.trainingId && x.player === self.player);
-      if(stat) {
+      const stat = levelStore.stats.find(
+        x =>
+          x.trainingId === levelStore.currentTraining.trainingId &&
+          x.player === self.player
+      );
+      if (stat) {
         stat.toggleIsTraining();
         levelStore.updateStat(stat);
       } else {
-        levelStore.insertStat({trainingId: levelStore.currentTraining.trainingId, player: self.player, isTraining: true, level: 1});
-      }      
+        levelStore.insertStat({
+          trainingId: levelStore.currentTraining.trainingId,
+          player: self.player,
+          isTraining: true,
+          level: 1
+        });
+      }
     }
   }));
 

@@ -8,8 +8,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ImageIcon from "@material-ui/icons/Image";
 import Divider from "@material-ui/core/Divider";
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import VerifiedUserOutlinedIcon from '@material-ui/icons/VerifiedUserOutlined';
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,27 +22,41 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Presence({store }) {
+function Presence({ store }) {
   const classes = useStyles();
-   return (
+  const hasStat = store.hasStats;
+
+  if (!hasStat) {
+    return (
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => store.startTraining()}
+      >
+        Starta närvaro
+      </Button>
+    );
+  }
+
+  return (
     <List className={classes.paper}>
-    {store.players.map(player => (
-      <>
-      <ListItem onClick={() => player.toggleTraining()}>
-        <ListItemAvatar>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary={player.player} secondary={player.type} />
-        <ListItemSecondaryAction>
-        {player.isTraining ? <VerifiedUserOutlinedIcon  />: ""}
-       </ListItemSecondaryAction>
-      </ListItem>
-       <Divider />
-       </>
-    ))}
-  </List>
+      {store.players.map(player => (
+        <>
+          <ListItem onClick={() => player.toggleTraining()}>
+            <ListItemAvatar>
+              <Avatar>
+                <ImageIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={player.player} secondary={player.ratio} />
+            <ListItemSecondaryAction>
+              {player.isTraining ? <VerifiedUserOutlinedIcon /> : ""}
+            </ListItemSecondaryAction>
+          </ListItem>
+          <Divider />
+        </>
+      ))}
+    </List>
   );
 }
 

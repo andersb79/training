@@ -137,17 +137,17 @@ export default {
       console.log(err);
     });
   },
-  updateStat(stat) {    
+  updateStat(stat) {
     const url = `${config.url}/Stat/${stat.id}`;
 
     fetch(
       new Request(url, {
         method: "put",
         body: JSON.stringify({
-          fields: {            
+          fields: {
             trainingId: stat.trainingId,
-            player : stat.player,
-            isTraining : stat.isTraining,
+            player: stat.player,
+            isTraining: stat.isTraining,
             level: stat.level
           }
         }),

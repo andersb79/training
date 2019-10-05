@@ -14,8 +14,8 @@ import ImageIcon from "@material-ui/icons/Image";
 import WorkIcon from "@material-ui/icons/Work";
 import Divider from "@material-ui/core/Divider";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import VerifiedUserOutlinedIcon from '@material-ui/icons/VerifiedUserOutlined';
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Presence from "./Presence";
 import Division from "./Division";
@@ -30,40 +30,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
 function Trainings({ store }) {
   const classes = useStyles();
   const [menu, setMenu] = React.useState(0);
-  
+
   function Roll({ classes, store }) {
-    return (
-    <div>roll</div>);
+    return <div>roll</div>;
   }
 
   return (
     <div className={classes.root}>
-      <div>{store.currentTraining.date} - {menu}</div>
-      <ButtonGroup>       
-          <Button
-           
-            variant="contained"
-            color="secondary"
-            onClick={() => setMenu(0)}
-          >
-            Närvaro
-          </Button>
-          <Button
-            
-            variant="contained"
-            color="secondary"
-            onClick={() => setMenu(1)}
-          >
-            Dagens indelning
-          </Button>
+      <div>
+        {store.currentTraining.date} - {menu}
+      </div>
+      <ButtonGroup>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setMenu(0)}
+        >
+          Närvaro
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setMenu(1)}
+        >
+          Dagens indelning
+        </Button>
       </ButtonGroup>
-      {menu === 0 && <Presence classes={classes} store={store}/>}
-      {menu === 1 && <Division classes={classes} store={store}/>}
+      {menu === 0 && <Presence classes={classes} store={store} />}
+      {menu === 1 && <Division classes={classes} store={store} />}
     </div>
   );
 }

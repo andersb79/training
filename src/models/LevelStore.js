@@ -59,8 +59,7 @@ const LevelStore = types
       );
     },
     get filteredPlayersInTraining() {
-      var players = self.players.filter(x =>
-        x.isTraining);
+      var players = self.players.filter(x => x.isTraining);
 
       return players;
     },
@@ -84,6 +83,13 @@ const LevelStore = types
       const training = self.trainings[0];
       console.log(training);
       return training;
+    },
+    get hasStats() {
+      const stat = self.stats.find(
+        x => x.trainingId === self.currentTraining.trainingId
+      );
+
+      return stat ? true : false;
     }
   }))
   .volatile(self => ({
@@ -100,6 +106,17 @@ const LevelStore = types
     currentSeason: 1
   }))
   .actions(self => ({
+    startTraining() {
+      self.players.forEach(x => {
+        self.api.insertStat({
+          trainingId: self.currentTraining.trainingId,
+          player: x.player,
+          isTraining: false
+        });
+      });
+
+      self.refresh();
+    },
     setColorCount(count) {
       self.colorCount = count;
     },
@@ -130,7 +147,7 @@ const LevelStore = types
         users: [],
         items: [],
         levels: [],
-        trainings: [],        
+        trainings: [],
         trainings: [],
         stats: [],
         players: [],
