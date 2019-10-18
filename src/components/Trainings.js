@@ -41,7 +41,21 @@ function Trainings({ store }) {
   return (
     <div className={classes.root}>
       <div>
-        {store.currentTraining.date} - {menu}
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => store.setPrevTraining()}
+        >
+          -
+        </Button>
+        {store.currentTraining.date} {store.currentTraining.trainingId} - {menu}
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => store.setNextTraining()}
+        >
+          +
+        </Button>
       </div>
       <ButtonGroup>
         <Button

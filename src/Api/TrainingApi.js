@@ -1,14 +1,16 @@
+import { all } from "q";
+
 const config = {
   base: "app9IO48CYcfaIY4Z",
   table: "Levels",
   view: "Grid%20view",
   apiKey: "keyHQ5GM7ktar7YtG",
-  maxRecords: 100,
+  maxRecords: 1000,
   url: "https://api.airtable.com/v0/app9IO48CYcfaIY4Z"
 };
 
 export default {
-  generalRequest({ maxRecords, table, view }) {
+  generalRequest({ maxRecords, table, view, offset }) {
     const conf = config;
     if (maxRecords) {
       conf.maxRecords = maxRecords;
@@ -20,16 +22,38 @@ export default {
       conf.table = table;
     }
 
-    return new Request(
-      `${config.url}/${conf.table}?maxRecords=${conf.maxRecords}&view=${conf.view}`,
-      {
-        method: "get",
-        headers: new Headers({
-          Authorization: `Bearer ${conf.apiKey}`
-        })
-      }
-    );
+    let url = `${config.url}/${conf.table}?maxRecords=${conf.maxRecords}&view=${conf.view}`;
+
+    if (offset) {
+      url = `${url}&offset=${offset}`;
+    }
+
+    return new Request(url, {
+      method: "get",
+      headers: new Headers({
+        Authorization: `Bearer ${conf.apiKey}`
+      })
+    });
   },
+
+  async fetchAllWithOffset(conf, allRecords) {
+    var resp = await fetch(this.generalRequest(conf)).catch(err => {
+      console.log(err);
+    });
+    if (resp.status >= 200 && resp.status < 300) {
+      var json = await resp.json();
+      if (json.offset) {
+        conf.offset = json.offset;
+        allRecords.push.apply(
+          allRecords,
+          this.fetchAllWithOffset(conf, allRecords)
+        );
+      }
+
+      return allRecords;
+    }
+  },
+
   async response(conf) {
     var resp = await fetch(this.generalRequest(conf)).catch(err => {
       console.log(err);
@@ -37,6 +61,14 @@ export default {
     if (resp.status >= 200 && resp.status < 300) {
       var json = await resp.json();
       return json.records;
+      // let allRecords = json.records;
+
+      // if (json.offset) {
+      //   conf.offset = json.offset;
+      //   allRecords = await this.fetchAllWithOffset(conf, allRecords);
+      // }
+
+      // return allRecords;
     }
   },
   async getUsers() {

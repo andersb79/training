@@ -101,9 +101,7 @@ const LevelStore = types
       return levelFilters;
     },
     get currentTraining() {
-      const training = self.trainings[0];
-      console.log(training);
-      return training;
+      return self.trainings[self.trainingIndex];
     },
     get hasStats() {
       const stat = self.stats.find(
@@ -115,8 +113,8 @@ const LevelStore = types
     get orderedPlayers() {
       var orderdPlayers = self.filteredPlayersInTraining.slice(0);
       orderdPlayers.sort((a, b) => {
-        var x = a.failRate;
-        var y = b.failRate;
+        var x = a.diff;
+        var y = b.diff;
         return x < y ? -1 : x > y ? 1 : 0;
       });
 
@@ -134,9 +132,24 @@ const LevelStore = types
     api: null,
     appRunning: appRunning.MAIN,
     colorCount: 2,
-    currentSeason: 1
+    currentSeason: 1,
+    trainingIndex: 3
   }))
   .actions(self => ({
+    setPrevTraining() {
+      console.log(self.trainingIndex);
+      if (self.trainingIndex !== 0) {
+        self.trainingIndex--;
+      }
+    },
+    setNextTraining() {
+      if (self.trainings.length - 1 !== self.trainingIndex) {
+        self.trainingIndex++;
+      }
+    },
+    setTrainingIndex(index) {
+      self.trainingIndex = index;
+    },
     updateLevelOnStat() {
       const count = self.filteredPlayersInTraining.length;
       const easy = count / 2;
@@ -344,6 +357,13 @@ const LevelStore = types
     init: flow(function* init(api, id) {
       self.api = api;
       const data = yield self.fetchAll();
+
+      const date = new Date();
+      const findNextTraining = data.trainings.find(
+        x => new Date(x.date) > date
+      );
+
+      self.trainingIndex = data.trainings.indexOf(findNextTraining);
 
       applySnapshot(self, data);
 

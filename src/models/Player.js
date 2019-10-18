@@ -8,12 +8,15 @@ const Player = types
   })
   .views(self => ({
     get ratingText() {
-      return `Nivå ${self.rating}`;
+      return `Nivå ${self.rating} - ${self.benchmarkHard}, ${self.benchmarkHardValue}`;
     },
     get allStat() {
       const levelStore = getRoot(self);
       const stat = levelStore.stats.filter(
-        x => x.player === self.player && x.isTraining
+        x =>
+          x.player === self.player &&
+          x.isTraining &&
+          x.trainingId !== levelStore.currentTraining.trainingId
       );
       if (stat) {
         return stat;
@@ -30,7 +33,17 @@ const Player = types
 
       const al = allHard % trainings;
 
-      return { easy: 100 - al, hard: al };
+      const a = { easy: 100 - al, hard: al };
+
+      if (isNaN(a.easy)) {
+        a.easy = 0;
+      }
+
+      if (isNaN(a.hard)) {
+        a.hard = 0;
+      }
+
+      return a;
     },
     get failRate() {
       if (self.rating === "1") {
@@ -45,6 +58,48 @@ const Player = types
       if (self.rating === "4") {
         return 25 - self.myRatio.easy;
       }
+      return 1;
+    },
+    get benchmarkHard() {
+      if (self.rating === "1") {
+        return 0;
+      }
+      if (self.rating === "2") {
+        return 25;
+      }
+      if (self.rating === "3") {
+        return 50;
+      }
+      if (self.rating === "4") {
+        return 75;
+      }
+      return 1;
+    },
+    get benchmarkHardValue() {
+      const allStat = self.allStat;
+      const levelStore = getRoot(self);
+      if (self.player == "Arvid Lilja") {
+        const a = "b";
+      }
+
+      const allHard = allStat.filter(
+        x =>
+          x.level === 2 &&
+          x.trainingId !== levelStore.currentTraining.trainingId
+      ).length;
+
+      const trainings = allStat.length;
+
+      if (!trainings) {
+        return self.benchmarkHard;
+      }
+
+      const al = (allHard / trainings) * 100;
+
+      return al;
+    },
+    get diff() {
+      return self.benchmarkHard - self.benchmarkHardValue;
     },
     get myRatioText() {
       return (
@@ -61,6 +116,11 @@ const Player = types
       if (self.rating === "1") {
         return 1;
       }
+
+      if (self.benchmarkHard < self.benchmarkHardValue) {
+        return 2;
+      }
+
       if (self.rating === "2") {
         return myRatio.easy < 75 ? 1 : 2;
       }
