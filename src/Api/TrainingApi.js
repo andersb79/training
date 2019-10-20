@@ -82,30 +82,54 @@ export default {
     return this.response({ table: "Users" });
   },
   updateUser(user) {
-    const url = `${config.url}/Users/${user.id}`;
+    // const url = `${config.url}/Users/${user.id}`;
 
-    fetch(
-      new Request(url, {
-        method: "put",
-        body: JSON.stringify({
-          fields: {
-            name: user.name,
-            userName: user.userName,
-            password: user.password,
-            profileImage: user.profileImage,
-            favoriteTeam: user.favoriteTeam,
-            playerTeam: user.playerTeam,
-            position: user.position,
-            shirtNumber: user.shirtNumber
-          }
-        }),
-        headers: new Headers({
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json"
-        })
-      })
-    ).catch(err => {
-      alert(err);
+    // fetch(
+    //   new Request(url, {
+    //     method: "put",
+    //     body: JSON.stringify({
+    //       fields: {
+    //         name: user.name,
+    //         userName: user.userName,
+    //         password: user.password,
+    //         profileImage: user.profileImage,
+    //         favoriteTeam: user.favoriteTeam,
+    //         playerTeam: user.playerTeam,
+    //         position: user.position,
+    //         shirtNumber: user.shirtNumber
+    //       }
+    //     }),
+    //     headers: new Headers({
+    //       Authorization: `Bearer ${config.apiKey}`,
+    //       "Content-Type": "application/json"
+    //     })
+    //   })
+    // ).catch(err => {
+    //   alert(err);
+    // });
+    //Update user på user model skickar bara in fel prop
+    console.log(user.JSON);
+    const u = {
+      id: user.id,
+      fields: {
+        name: user.name,
+        userName: user.userName,
+        password: user.password,
+        profileImage: user.profileImage,
+        favoriteTeam: user.favoriteTeam,
+        playerTeam: user.playerTeam,
+        position: user.position,
+        shirtNumber: user.shirtNumber
+      }
+    };
+    base("Users").update([u], function(err, records) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach(function(record) {
+        console.log(record.get("name"));
+      });
     });
   },
   updatePlayer(player) {
@@ -130,10 +154,20 @@ export default {
     });
   },
   async fetchLevels() {
-    return this.response({ table: "Levels" });
+    const data = await base("Levels")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
   },
   async fetchTrainings() {
-    return this.response({ table: "Trainings" });
+    const data = await base("Trainings")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
+
+    //return this.response({ table: "Trainings" });
   },
   async fetchStats() {
     const data = await base("Stat")
@@ -145,10 +179,18 @@ export default {
     // return this.response({ table: "Stat" });
   },
   async fetchPlayers() {
-    return this.response({ table: "Players" });
+    const data = await base("Players")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
   },
   async fetchItems() {
-    return this.response({ table: "Items" });
+    const data = await base("Items")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
   },
   addNewDrill(level) {
     fetch(
