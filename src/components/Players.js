@@ -61,7 +61,7 @@ function Players({ store }) {
                 </ListItemAvatar>
                 <ListItemText
                   primary={player.player}
-                  secondary={player.ratingText}
+                  secondary={player.myRatioText}
                 />
               </ListItem>
               <Divider />

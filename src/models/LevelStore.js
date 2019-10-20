@@ -118,6 +118,14 @@ const LevelStore = types
         return x < y ? -1 : x > y ? 1 : 0;
       });
 
+      orderdPlayers.reverse();
+
+      orderdPlayers.forEach(x => {
+        console.log(
+          `Namn: ${x.player} Nuvarande diff: ${x.diff} _ Ska ha:  ${x.benchmarkHard} svår _ har ${x.benchmarkHardValue}`
+        );
+      });
+
       return orderdPlayers;
     }
   }))
@@ -165,51 +173,63 @@ const LevelStore = types
           self.updateStat(x.currentStat);
         });
 
-      //lägg på rating 2 användare
       self.orderedPlayers
-        .filter(x => x.rating === "2")
+        .filter(x => x.rating !== "1")
         .forEach(x => {
-          if (easyCount >= easy) {
-            x.currentStat.setLevel(2);
-          } else {
+          if (x.nextLevel === 1 && easyCount <= easy) {
             x.currentStat.setLevel(1);
             easyCount++;
-          }
-
-          self.updateStat(x.currentStat);
-        });
-
-      //lägg på rating 3 användare
-      self.orderedPlayers
-        .filter(x => x.rating === "3")
-        .forEach(x => {
-          if (easyCount >= easy) {
-            x.currentStat.setLevel(2);
           } else {
-            x.currentStat.setLevel(x.nextLevel);
-            if (x.nextLevel === 1) {
-              easyCount++;
-            }
-          }
-
-          self.updateStat(x.currentStat);
-        });
-
-      //lägg på rating 4 användare
-      self.orderedPlayers
-        .filter(x => x.rating === "4")
-        .forEach(x => {
-          if (easyCount >= easy) {
             x.currentStat.setLevel(2);
-          } else {
-            x.currentStat.setLevel(x.nextLevel);
-            if (x.nextLevel === 1) {
-              easyCount++;
-            }
           }
-
           self.updateStat(x.currentStat);
         });
+
+      //lägg på rating 2 användare
+      // self.orderedPlayers
+      //   .filter(x => x.rating === "2")
+      //   .forEach(x => {
+      //     if (easyCount >= easy) {
+      //       x.currentStat.setLevel(2);
+      //     } else {
+      //       x.currentStat.setLevel(1);
+      //       easyCount++;
+      //     }
+
+      //     self.updateStat(x.currentStat);
+      //   });
+
+      // //lägg på rating 3 användare
+      // self.orderedPlayers
+      //   .filter(x => x.rating === "3")
+      //   .forEach(x => {
+      //     if (easyCount >= easy) {
+      //       x.currentStat.setLevel(2);
+      //     } else {
+      //       x.currentStat.setLevel(x.nextLevel);
+      //       if (x.nextLevel === 1) {
+      //         easyCount++;
+      //       }
+      //     }
+
+      //     self.updateStat(x.currentStat);
+      //   });
+
+      // //lägg på rating 4 användare
+      // self.orderedPlayers
+      //   .filter(x => x.rating === "4")
+      //   .forEach(x => {
+      //     if (easyCount >= easy) {
+      //       x.currentStat.setLevel(2);
+      //     } else {
+      //       x.currentStat.setLevel(x.nextLevel);
+      //       if (x.nextLevel === 1) {
+      //         easyCount++;
+      //       }
+      //     }
+
+      //     self.updateStat(x.currentStat);
+      //   });
 
       self.refresh();
     },

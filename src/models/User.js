@@ -26,9 +26,7 @@ const User = types
       );
       return userItems.map(x => ({
         id: x.id,
-        img: `http://res.cloudinary.com/deolievif/video/upload/${
-          x.publicId
-        }.jpg`,
+        img: `http://res.cloudinary.com/deolievif/video/upload/${x.publicId}.jpg`,
         title: x.name,
         challange: x.game.name
       }));

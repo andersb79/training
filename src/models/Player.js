@@ -31,7 +31,7 @@ const Player = types
 
       const trainings = allStat.length;
 
-      const al = allHard % trainings;
+      const al = (allHard / trainings) * 100;
 
       const a = { easy: 100 - al, hard: al };
 
@@ -99,7 +99,12 @@ const Player = types
       return al;
     },
     get diff() {
-      return self.benchmarkHard - self.benchmarkHardValue;
+      // Hur mycket svår tränbing de ska ha minus så mycket de har haft
+      let val = self.benchmarkHard - self.benchmarkHardValue;
+      if (val < 0) {
+        val = val * -1;
+      }
+      return val;
     },
     get myRatioText() {
       return (
@@ -117,7 +122,7 @@ const Player = types
         return 1;
       }
 
-      if (self.benchmarkHard < self.benchmarkHardValue) {
+      if (self.benchmarkHardValue < self.benchmarkHard) {
         return 2;
       }
 
