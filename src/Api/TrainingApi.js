@@ -1,4 +1,11 @@
 import { all } from "q";
+import Airtable from "airtable";
+
+const base = new Airtable({ apiKey: "keyHQ5GM7ktar7YtG" }).base(
+  "app9IO48CYcfaIY4Z"
+);
+
+Airtable.configure({ apiKey: "YOUR_SECRET_API_KEY" });
 
 const config = {
   base: "app9IO48CYcfaIY4Z",
@@ -129,7 +136,13 @@ export default {
     return this.response({ table: "Trainings" });
   },
   async fetchStats() {
-    return this.response({ table: "Stat" });
+    const data = await base("Stat")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
+
+    // return this.response({ table: "Stat" });
   },
   async fetchPlayers() {
     return this.response({ table: "Players" });

@@ -255,7 +255,6 @@ const LevelStore = types
         items: [],
         levels: [],
         trainings: [],
-        trainings: [],
         stats: [],
         players: [],
         ratings: [
