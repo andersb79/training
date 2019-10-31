@@ -44,6 +44,15 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
+
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 const useStyles = makeStyles(theme => ({
@@ -53,8 +62,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   media: {
-    height: 0,
-    paddingTop: "56.25%" // 16:9
+    height: 0
+    // paddingTop: "56.25%" // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
@@ -114,22 +123,34 @@ function Game2({ store }) {
                   title={level.name}
                   subheader="September 14, 2016"
                 />
+                <CarouselProvider
+                  naturalSlideWidth={100}
+                  naturalSlideHeight={125}
+                  totalSlides={3}
+                >
+                  <Slider>
+                    <Slide index={0}>
+                      {level.fileType === "mp4" && (
+                        <VideoControl store={store} settings={level} />
+                      )}
+                      {(level.fileType === "jpg" || level.fileType === "gif") &&
+                        level.hasSharedPath && <img src={level.src} />}
 
-                {level.fileType === "mp4" && (
-                  <VideoControl store={store} settings={level} />
-                )}
-                {(level.fileType === "jpg" || level.fileType === "gif") &&
-                  level.hasSharedPath && <img src={level.src} />}
+                      {(level.fileType === "jpg" || level.fileType === "gif") &&
+                        !level.hasSharedPath && (
+                          <Image
+                            cloudName="deolievif"
+                            publicId={level.publicId}
+                            width="100%"
+                            height="100%"
+                          />
+                        )}
+                    </Slide>
+                    <Slide index={1}>I am the second Slide.</Slide>
+                    <Slide index={2}>I am the third Slide.</Slide>
+                  </Slider>
+                </CarouselProvider>
 
-                {(level.fileType === "jpg" || level.fileType === "gif") &&
-                  !level.hasSharedPath && (
-                    <Image
-                      cloudName="deolievif"
-                      publicId={level.publicId}
-                      width="100%"
-                      height="100%"
-                    />
-                  )}
                 <CardContent>
                   <Typography
                     variant="body2"

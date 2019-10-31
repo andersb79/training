@@ -13,6 +13,7 @@
     "mobx": "^5.11.0",
     "mobx-react": "^6.1.1",
     "mobx-state-tree": "^3.14.0",
+    "pure-react-carousel": "^1.23.2",
     "react": "^16.8.6",
     "react-burger-menu": "^2.6.10",
     "react-dom": "^16.8.6",
