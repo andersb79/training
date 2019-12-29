@@ -263,7 +263,7 @@ const LevelStore = types
       self.levelFilter = filter;
     },
     async fetchAll() {
-      var users = await self.api.getUsers();
+      var users = await self.api.fetchUsers();
       var levels = await self.api.fetchLevels();
       var items = await self.api.fetchItems();
       var players = await self.api.fetchPlayers();
