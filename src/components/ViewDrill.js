@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import VideoControl from "./VideoControl";
@@ -9,6 +9,34 @@ var Carousel = require("react-responsive-carousel").Carousel;
 
 function ViewDrill({ store, onBack }) {
   const level = store.selectedDrill;
+  const [mediaSelected, setMediaSelected] = useState("Login");
+
+  function onChange(index, item) {
+    console.log(index);
+
+    if (index < 1) {
+      return;
+    }
+
+    var media = store.levelMedias[index - 1];
+    console.log(media.id);
+    const videoElm = document.getElementById(media.id);
+    console.log(videoElm);
+    if (videoElm) {
+      console.log("play");
+      videoElm.play();
+    }
+    // if (videoElm) {
+    //   if (isVisible) {
+    //     videoElm.play();
+    //   } else {
+    //     videoElm.pause();
+    //   }
+    // } else {
+    //   console.log("not found");
+    // }
+  }
+
   return (
     <div className="game">
       <div>
@@ -22,6 +50,7 @@ function ViewDrill({ store, onBack }) {
           <div>{store.selectedDrill.name}</div>
 
           <Carousel
+            onChange={onChange}
             showThumbs={false}
             showArrows={true}
             showIndicators={level.medias.length > 1}
@@ -38,9 +67,7 @@ function ViewDrill({ store, onBack }) {
                     src={media.src}
                   />
                 )}
-                {media.description && (
-                  <p className="legend">{media.description}</p>
-                )}
+                {media.description && <p className="legend">{media.id}</p>}
               </div>
             ))}
           </Carousel>

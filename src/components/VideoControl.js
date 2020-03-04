@@ -8,50 +8,20 @@ function VideoControl({ store, settings }) {
     document.getElementById(settings.id).webkitEnterFullscreen();
   }
 
-  if (settings.videoId) {
-    const opts = {
-      width: "100%",
-      playerVars: {
-        // https://developers.google.com/youtube/player_parameters
-        autoplay: 1,
-        enablejsapi: 1
-      }
-    };
-    return <YouTube id={settings.id} videoId={settings.videoId} opts={opts} />;
-  }
-
-  if (settings.hasSharedPath) {
-    return (
-      <video
-        onClick={() => goFullScreen(settings)}
-        id={settings.id}
-        loop
-        playsInline
-        preload="none"
-        muted
-        width="100%"
-        height="100%"
-        poster={settings.dropboxPoster}
-      >
-        <source src={settings.dropboxLink} type="video/mp4" />
-      </video>
-    );
-  }
-
   return (
-    <Video
+    <video
       onClick={() => goFullScreen(settings)}
       id={settings.id}
-      cloudName="deolievif"
-      publicId={settings.publicId}
-      width="100%"
-      height="100%"
       loop
-      muted
       playsInline
       preload="none"
-      poster={settings.poster}
-    />
+      muted
+      width="100%"
+      height="100%"
+      poster={settings.dropboxPoster}
+    >
+      <source src={settings.dropboxLink} type="video/mp4" />
+    </video>
   );
 }
 
