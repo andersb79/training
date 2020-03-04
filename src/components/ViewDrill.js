@@ -21,9 +21,11 @@ function ViewDrill({ store, onBack }) {
             <VideoControl store={store} settings={level} />
           )}
           {(level.fileType === "jpg" || level.fileType === "gif") &&
-            level.hasSharedPath && <img src={level.src} />}
+            level.hasSharedPath && (
+              <img style={{ width: "100%", height: "100%" }} src={level.src} />
+            )}
 
-          {(level.fileType === "jpg" || level.fileType === "gif") &&
+          {/* {(level.fileType === "jpg" || level.fileType === "gif") &&
             !level.hasSharedPath && (
               <Image
                 cloudName="deolievif"
@@ -31,7 +33,7 @@ function ViewDrill({ store, onBack }) {
                 width="100%"
                 height="100%"
               />
-            )}
+            )} */}
           <div className="desc">Setup</div>
           <div className="desc">{level.details}</div>
           <div>{level.minPlayers}</div>
