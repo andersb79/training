@@ -24,16 +24,16 @@ function ViewDrill({ store, onBack }) {
           <Carousel showThumbs={false} showArrows={true}>
             {level.medias.map(media => (
               <div>
-                {level.fileType === "mp4" && (
-                  <VideoControl store={store} settings={level} />
+                {media.fileType === "mp4" && (
+                  <VideoControl store={store} settings={media} />
                 )}
-                {(level.fileType === "jpg" || level.fileType === "gif") &&
-                  level.hasSharedPath && (
-                    <img
-                      style={{ width: "100%", height: "100%" }}
-                      src={level.src}
-                    />
-                  )}
+                {(media.fileType === "jpg" || media.fileType === "gif") && (
+                  <img
+                    style={{ width: "100%", height: "100%" }}
+                    src={media.src}
+                  />
+                )}
+                <p className="legend">{media.description}</p>
               </div>
             ))}
           </Carousel>
