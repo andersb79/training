@@ -63,6 +63,10 @@ const Level = types
     get categoryName() {
       return Categories[self.category];
     },
+    get medias() {
+      const levelStore = getRoot(self);
+      return levelStore.levelMedias.filter(x => x.level === this.level);
+    },
     get isDone() {
       const levelStore = getRoot(self);
       return levelStore.items.some(

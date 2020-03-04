@@ -31,6 +31,13 @@ export default {
 
     return data;
   },
+  async fetchLevelMedias() {
+    const data = await base("LevelMedia")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
+  },
   async fetchTrainings() {
     const data = await base("Trainings")
       .select({ view: "Grid view" })

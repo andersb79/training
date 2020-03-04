@@ -1,5 +1,6 @@
 import { types, flow, applySnapshot } from "mobx-state-tree";
 import Level from "./Level";
+import LevelMedia from "./LevelMedia";
 import Item from "./Item";
 import User from "./User";
 import Training from "./Training";
@@ -27,6 +28,7 @@ const appRunning = { MAIN: "MAIN", NUMBER: "NUMBER", COLOR: "COLOR" };
 const LevelStore = types
   .model("LevelStore", {
     levels: types.array(Level),
+    levelMedias: types.array(LevelMedia),
     items: types.array(Item),
     users: types.array(User),
     trainings: types.array(Training),
@@ -265,15 +267,17 @@ const LevelStore = types
     async fetchAll() {
       var users = await self.api.fetchUsers();
       var levels = await self.api.fetchLevels();
+      var levelMedias = await self.api.fetchLevelMedias();
       var items = await self.api.fetchItems();
       var players = await self.api.fetchPlayers();
       var trainings = await self.api.fetchTrainings();
       var stats = await self.api.fetchStats();
-      console.log(stats);
+      console.log(levelMedias);
       const data = {
         users: [],
         items: [],
         levels: [],
+        levelMedias: [],
         trainings: [],
         stats: [],
         players: [],
@@ -303,6 +307,11 @@ const LevelStore = types
       levels.forEach(elm => {
         elm.fields.id = elm.id;
         data.levels.push(elm.fields);
+      });
+
+      levelMedias.forEach(elm => {
+        elm.fields.id = elm.id;
+        data.levelMedias.push(elm.fields);
       });
 
       users.forEach(elm => {

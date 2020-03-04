@@ -42,6 +42,9 @@ function ViewDrill({ store, onBack }) {
           </div>
           <div className="desc">Organisation</div>
           <div className="drill-desc">{level.organisation}</div>
+          {/* {level.medias.map(media => (
+            <>{media.sharedPath}</>
+          ))} */}
         </div>
       </div>
     </div>
