@@ -3,6 +3,9 @@ import { observer } from "mobx-react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import VideoControl from "./VideoControl";
 import { Image } from "cloudinary-react";
+import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
+
+var Carousel = require("react-responsive-carousel").Carousel;
 
 function ViewDrill({ store, onBack }) {
   const level = store.selectedDrill;
@@ -45,6 +48,26 @@ function ViewDrill({ store, onBack }) {
           {/* {level.medias.map(media => (
             <>{media.sharedPath}</>
           ))} */}
+          <Carousel showThumbs={false} showArrows={true}>
+            <div>
+              <img className="login-img" src="0.jpg" alt="Träningar" />
+            </div>
+            <div>
+              <img className="login-img" src="0.jpg" alt="Träningar" />
+            </div>
+            <div>
+              <img className="login-img" src="0.jpg" alt="Träningar" />
+            </div>
+            <div>
+              <img className="login-img" src="0.jpg" alt="Träningar" />
+            </div>
+            <div>
+              <img className="login-img" src="0.jpg" alt="Träningar" />
+            </div>
+            <div>
+              <img className="login-img" src="0.jpg" alt="Träningar" />
+            </div>
+          </Carousel>
         </div>
       </div>
     </div>
