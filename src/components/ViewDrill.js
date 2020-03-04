@@ -21,7 +21,12 @@ function ViewDrill({ store, onBack }) {
         <div className="drill">
           <div>{store.selectedDrill.name}</div>
 
-          <Carousel showThumbs={false} showArrows={true}>
+          <Carousel
+            showThumbs={false}
+            showArrows={true}
+            showIndicators={level.medias.length > 1}
+            showStatus={level.medias.length > 1}
+          >
             {level.medias.map(media => (
               <div>
                 {media.fileType === "mp4" && (
@@ -33,7 +38,9 @@ function ViewDrill({ store, onBack }) {
                     src={media.src}
                   />
                 )}
-                <p className="legend">{media.description}</p>
+                {media.description && (
+                  <p className="legend">{media.description}</p>
+                )}
               </div>
             ))}
           </Carousel>
