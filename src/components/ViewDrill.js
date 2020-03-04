@@ -20,23 +20,24 @@ function ViewDrill({ store, onBack }) {
         </div>
         <div className="drill">
           <div>{store.selectedDrill.name}</div>
-          {level.fileType === "mp4" && (
-            <VideoControl store={store} settings={level} />
-          )}
-          {(level.fileType === "jpg" || level.fileType === "gif") &&
-            level.hasSharedPath && (
-              <img style={{ width: "100%", height: "100%" }} src={level.src} />
-            )}
 
-          {/* {(level.fileType === "jpg" || level.fileType === "gif") &&
-            !level.hasSharedPath && (
-              <Image
-                cloudName="deolievif"
-                publicId={level.publicId}
-                width="100%"
-                height="100%"
-              />
-            )} */}
+          <Carousel showThumbs={false} showArrows={true}>
+            {level.medias.map(media => (
+              <div>
+                {level.fileType === "mp4" && (
+                  <VideoControl store={store} settings={level} />
+                )}
+                {(level.fileType === "jpg" || level.fileType === "gif") &&
+                  level.hasSharedPath && (
+                    <img
+                      style={{ width: "100%", height: "100%" }}
+                      src={level.src}
+                    />
+                  )}
+              </div>
+            ))}
+          </Carousel>
+
           <div className="desc">Setup</div>
           <div className="drill-desc">{level.details}</div>
           <div className="desc">Spelare</div>
@@ -45,29 +46,6 @@ function ViewDrill({ store, onBack }) {
           </div>
           <div className="desc">Organisation</div>
           <div className="drill-desc">{level.organisation}</div>
-          {/* {level.medias.map(media => (
-            <>{media.sharedPath}</>
-          ))} */}
-          <Carousel showThumbs={false} showArrows={true}>
-            <div>
-              <img className="login-img" src="0.jpg" alt="Träningar" />
-            </div>
-            <div>
-              <img className="login-img" src="0.jpg" alt="Träningar" />
-            </div>
-            <div>
-              <img className="login-img" src="0.jpg" alt="Träningar" />
-            </div>
-            <div>
-              <img className="login-img" src="0.jpg" alt="Träningar" />
-            </div>
-            <div>
-              <img className="login-img" src="0.jpg" alt="Träningar" />
-            </div>
-            <div>
-              <img className="login-img" src="0.jpg" alt="Träningar" />
-            </div>
-          </Carousel>
         </div>
       </div>
     </div>
