@@ -35,9 +35,13 @@ function ViewDrill({ store, onBack }) {
               />
             )} */}
           <div className="desc">Setup</div>
-          <div className="desc">{level.details}</div>
-          <div>{level.minPlayers}</div>
-          <div>{level.maxPlayers}</div>
+          <div className="drill-desc">{level.details}</div>
+          <div className="desc">Spelare</div>
+          <div className="drill-desc">
+            {level.minPlayers}-{level.maxPlayers}
+          </div>
+          <div className="desc">Organisation</div>
+          <div className="drill-desc">{level.organisation}</div>
         </div>
       </div>
     </div>

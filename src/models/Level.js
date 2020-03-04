@@ -11,6 +11,7 @@ const Level = types
     id: types.string,
     level: types.integer,
     details: types.maybeNull(types.string),
+    organisation: types.maybeNull(types.string),
     description: types.maybeNull(types.string),
     name: types.string,
     category: types.string,
