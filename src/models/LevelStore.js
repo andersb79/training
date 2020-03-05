@@ -15,9 +15,24 @@ const levelFilters = [
 ];
 
 const categories = [
-  { id: 0, category: "BALLMASTERY", name: "DEL 1 - Teknik/Passningar" },
-  { id: 1, category: "PASSINGDRILLS", name: "DEL 2 - Kombinationer" },
-  { id: 2, category: "POSSESION", name: "DEL 3 - Possession/spel" }
+  {
+    id: 0,
+    category: "BALLMASTERY",
+    name: "DEL 1 - Teknik/Passningar",
+    image: "BAL.jpg"
+  },
+  {
+    id: 1,
+    category: "PASSINGDRILLS",
+    name: "DEL 2 - Kombinationer",
+    image: "DRI.jpg"
+  },
+  {
+    id: 2,
+    category: "POSSESION",
+    name: "DEL 3 - Possession/spel",
+    image: "THE.jpg"
+  }
   // { id: 3, category: "CONEDRILLS", name: "slask" }
   // { id: 4, category: "ATTACKING", name: "Attack" },
   // { id: 5, category: "POSESSION", name: "Posesion" }
