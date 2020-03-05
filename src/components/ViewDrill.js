@@ -9,32 +9,25 @@ var Carousel = require("react-responsive-carousel").Carousel;
 
 function ViewDrill({ store, onBack }) {
   const level = store.selectedDrill;
-  const [mediaSelected, setMediaSelected] = useState("Login");
 
-  function onChange(index, item) {
-    console.log(index);
+  useEffect(() => {
+    setTimeout(() => {
+      onChange(0);
+    }, 1);
+  });
 
-    if (index < 1) {
+  function onChange(index) {
+    if (index < 0) {
       return;
     }
 
-    var media = store.levelMedias[index - 1];
-    console.log(media.id);
+    var media = store.selectedDrill.medias[index];
     const videoElm = document.getElementById(media.id);
-    console.log(videoElm);
+
     if (videoElm) {
       console.log("play");
       videoElm.play();
     }
-    // if (videoElm) {
-    //   if (isVisible) {
-    //     videoElm.play();
-    //   } else {
-    //     videoElm.pause();
-    //   }
-    // } else {
-    //   console.log("not found");
-    // }
   }
 
   return (
@@ -67,7 +60,9 @@ function ViewDrill({ store, onBack }) {
                     src={media.src}
                   />
                 )}
-                {media.description && <p className="legend">{media.id}</p>}
+                {media.description && (
+                  <p className="legend">{media.description}</p>
+                )}
               </div>
             ))}
           </Carousel>
