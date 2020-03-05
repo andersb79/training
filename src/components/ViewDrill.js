@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import VideoControl from "./VideoControl";
+import Box from "@material-ui/core/Box";
 import { Image } from "cloudinary-react";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -9,6 +10,7 @@ var Carousel = require("react-responsive-carousel").Carousel;
 
 function ViewDrill({ store, onBack }) {
   const level = store.selectedDrill;
+  const [selectedItem, setSelectedItem] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -22,7 +24,11 @@ function ViewDrill({ store, onBack }) {
     }
 
     var media = store.selectedDrill.medias[index];
+
     const videoElm = document.getElementById(media.id);
+
+    const placeHolder = document.getElementById("legend");
+    placeHolder.innerHTML = media.description;
 
     if (videoElm) {
       console.log("play");
@@ -43,6 +49,7 @@ function ViewDrill({ store, onBack }) {
           <div>{store.selectedDrill.name}</div>
 
           <Carousel
+            selectedItem={selectedItem}
             onChange={onChange}
             showThumbs={false}
             showArrows={true}
@@ -60,21 +67,20 @@ function ViewDrill({ store, onBack }) {
                     src={media.src}
                   />
                 )}
-                {media.description && (
-                  <p className="legend">{media.description}</p>
-                )}
               </div>
             ))}
           </Carousel>
-
-          <div className="desc">Setup</div>
-          <div className="drill-desc">{level.details}</div>
-          <div className="desc">Spelare</div>
-          <div className="drill-desc">
-            {level.minPlayers}-{level.maxPlayers}
-          </div>
-          <div className="desc">Organisation</div>
-          <div className="drill-desc">{level.organisation}</div>
+          <Box padding={2}>
+            <Box textAlign="center" id="legend"></Box>
+            <Box fontWeight="fontWeightBold">Setup</Box>
+            <Box className="drill-desc">{level.details}</Box>
+            <Box fontWeight="fontWeightBold">Spelare</Box>
+            <Box className="drill-desc">
+              {level.minPlayers}-{level.maxPlayers}
+            </Box>
+            <Box fontWeight="fontWeightBold">Organisation</Box>
+            <Box className="drill-desc">{level.organisation}</Box>
+          </Box>
         </div>
       </div>
     </div>
