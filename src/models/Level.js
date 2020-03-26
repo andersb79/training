@@ -11,6 +11,7 @@ const Level = types
     id: types.string,
     level: types.integer,
     details: types.maybeNull(types.string),
+    organisation: types.maybeNull(types.string),
     description: types.maybeNull(types.string),
     name: types.string,
     category: types.string,
@@ -61,6 +62,10 @@ const Level = types
     },
     get categoryName() {
       return Categories[self.category];
+    },
+    get medias() {
+      const levelStore = getRoot(self);
+      return levelStore.levelMedias.filter(x => x.level === this.level);
     },
     get isDone() {
       const levelStore = getRoot(self);

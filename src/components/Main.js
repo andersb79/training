@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 function Main({ store, onLogout }) {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = useState(2);
+  const [tabIndex, setTabIndex] = useState(0);
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
@@ -72,10 +72,10 @@ function Main({ store, onLogout }) {
           textColor="primary"
         >
           <Tab icon={<FormatListBulletedIcon />} />
-          <Tab icon={<CalendarTodayIcon />} />
-          <Tab icon={<GroupIcon />} />
           <Tab icon={<SettingsIcon />} />
           <Tab icon={<PersonIcon />} />
+          {/* <Tab icon={<CalendarTodayIcon />} />
+          <Tab icon={<GroupIcon />} /> */}
         </Tabs>
       </AppBar>
 
@@ -86,22 +86,22 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 1 && (
         <TabContainer>
-          <Trainings store={store} />
+          <Help store={store} />
         </TabContainer>
       )}
       {tabIndex === 2 && (
         <TabContainer>
-          <Players store={store} />
+          <Profile store={store} onLogout={onLogout} />
         </TabContainer>
       )}
       {tabIndex === 3 && (
         <TabContainer>
-          <Help store={store} />
+          <Trainings store={store} />
         </TabContainer>
       )}
       {tabIndex === 4 && (
         <TabContainer>
-          <Profile store={store} onLogout={onLogout} />
+          <Players store={store} />
         </TabContainer>
       )}
     </div>

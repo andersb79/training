@@ -17,144 +17,22 @@ const config = {
 };
 
 export default {
-  generalRequest({ maxRecords, table, view, offset }) {
-    const conf = config;
-    if (maxRecords) {
-      conf.maxRecords = maxRecords;
-    }
-    if (view) {
-      conf.view = view;
-    }
-    if (table) {
-      conf.table = table;
-    }
+  async fetchUsers() {
+    const data = await base("Users")
+      .select({ view: "Grid view" })
+      .all();
 
-    let url = `${config.url}/${conf.table}?maxRecords=${conf.maxRecords}&view=${conf.view}`;
-
-    if (offset) {
-      url = `${url}&offset=${offset}`;
-    }
-
-    return new Request(url, {
-      method: "get",
-      headers: new Headers({
-        Authorization: `Bearer ${conf.apiKey}`
-      })
-    });
-  },
-
-  async fetchAllWithOffset(conf, allRecords) {
-    var resp = await fetch(this.generalRequest(conf)).catch(err => {
-      console.log(err);
-    });
-    if (resp.status >= 200 && resp.status < 300) {
-      var json = await resp.json();
-      if (json.offset) {
-        conf.offset = json.offset;
-        allRecords.push.apply(
-          allRecords,
-          this.fetchAllWithOffset(conf, allRecords)
-        );
-      }
-
-      return allRecords;
-    }
-  },
-
-  async response(conf) {
-    var resp = await fetch(this.generalRequest(conf)).catch(err => {
-      console.log(err);
-    });
-    if (resp.status >= 200 && resp.status < 300) {
-      var json = await resp.json();
-      return json.records;
-      // let allRecords = json.records;
-
-      // if (json.offset) {
-      //   conf.offset = json.offset;
-      //   allRecords = await this.fetchAllWithOffset(conf, allRecords);
-      // }
-
-      // return allRecords;
-    }
-  },
-  async getUsers() {
-    return this.response({ table: "Users" });
-  },
-  updateUser(user) {
-    // const url = `${config.url}/Users/${user.id}`;
-
-    // fetch(
-    //   new Request(url, {
-    //     method: "put",
-    //     body: JSON.stringify({
-    //       fields: {
-    //         name: user.name,
-    //         userName: user.userName,
-    //         password: user.password,
-    //         profileImage: user.profileImage,
-    //         favoriteTeam: user.favoriteTeam,
-    //         playerTeam: user.playerTeam,
-    //         position: user.position,
-    //         shirtNumber: user.shirtNumber
-    //       }
-    //     }),
-    //     headers: new Headers({
-    //       Authorization: `Bearer ${config.apiKey}`,
-    //       "Content-Type": "application/json"
-    //     })
-    //   })
-    // ).catch(err => {
-    //   alert(err);
-    // });
-    //Update user på user model skickar bara in fel prop
-    console.log(user.JSON);
-    const u = {
-      id: user.id,
-      fields: {
-        name: user.name,
-        userName: user.userName,
-        password: user.password,
-        profileImage: user.profileImage,
-        favoriteTeam: user.favoriteTeam,
-        playerTeam: user.playerTeam,
-        position: user.position,
-        shirtNumber: user.shirtNumber
-      }
-    };
-    base("Users").update([u], function(err, records) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      records.forEach(function(record) {
-        console.log(record.get("name"));
-      });
-    });
-  },
-  updatePlayer(player) {
-    const url = `${config.url}/Players/${player.id}`;
-
-    fetch(
-      new Request(url, {
-        method: "put",
-        body: JSON.stringify({
-          fields: {
-            player: player.player,
-            rating: player.rating
-          }
-        }),
-        headers: new Headers({
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json"
-        })
-      })
-    ).catch(err => {
-      alert(err);
-    });
+    return data;
   },
   async fetchLevels() {
     const data = await base("Levels")
+      .select({ view: "Grid view" })
+      .all();
+
+    return data;
+  },
+  async fetchLevelMedias() {
+    const data = await base("LevelMedia")
       .select({ view: "Grid view" })
       .all();
 
@@ -166,8 +44,6 @@ export default {
       .all();
 
     return data;
-
-    //return this.response({ table: "Trainings" });
   },
   async fetchStats() {
     const data = await base("Stat")
@@ -175,8 +51,6 @@ export default {
       .all();
 
     return data;
-
-    // return this.response({ table: "Stat" });
   },
   async fetchPlayers() {
     const data = await base("Players")
@@ -192,36 +66,32 @@ export default {
 
     return data;
   },
-  addNewDrill(level) {
-    fetch(
-      new Request(`${config.url}/Levels`, {
-        method: "post",
-        body: JSON.stringify({
-          fields: level
-        }),
-        headers: new Headers({
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json"
-        })
-      })
-    ).catch(err => {
-      console.log(err);
-    });
-  },
   insertLevel(level) {
-    fetch(
-      new Request(`${config.url}/Levels`, {
-        method: "post",
-        body: JSON.stringify({
-          fields: level
-        }),
-        headers: new Headers({
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json"
-        })
-      })
-    ).catch(err => {
-      console.log(err);
+    console.log("insert level");
+    const u = {
+      id: level.id,
+      fields: level
+    };
+    this.create("Levels", u);
+  },
+  insertStat(stat) {
+    console.log("insert stat");
+    const u = {
+      id: stat.id,
+      fields: stat
+    };
+
+    this.create("Stat", u);
+  },
+  create(table, item) {
+    base(table).create([item], function(err, records) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach(function(record) {
+        console.log(record.getId());
+      });
     });
   },
   updateStat(stat) {
@@ -247,20 +117,43 @@ export default {
       alert(err);
     });
   },
-  insertStat(stat) {
-    fetch(
-      new Request(`${config.url}/Stat`, {
-        method: "post",
-        body: JSON.stringify({
-          fields: stat
-        }),
-        headers: new Headers({
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json"
-        })
-      })
-    ).catch(err => {
-      console.log(err);
+  updateUser(user) {
+    console.log(user.JSON);
+    const u = {
+      id: user.id,
+      fields: {
+        name: user.name,
+        userName: user.userName,
+        password: user.password,
+        profileImage: user.profileImage,
+        favoriteTeam: user.favoriteTeam,
+        playerTeam: user.playerTeam,
+        position: user.position,
+        shirtNumber: user.shirtNumber
+      }
+    };
+
+    this.update("Users", u);
+  },
+  updatePlayer(player) {
+    const u = {
+      id: player.id,
+      fields: {
+        player: player.player,
+        rating: player.rating
+      }
+    };
+    this.update("Players", u);
+  },
+  update(table, item) {
+    base(table).update([item], function(err, records) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach(function(record) {
+        console.log(record.get("name"));
+      });
     });
   }
 };
