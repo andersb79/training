@@ -101,6 +101,56 @@ const LevelStore = types
 
       return players;
     },
+
+    get filteredPlayersOnLevel2Teams() {
+      var players = self.filteredPlayers.filter(
+        (x) => x.isTraining && x.currentStat.level === null
+      );
+
+      const teamCount = players.length / 2;
+
+      const team1 = { name: "lag1", players: players.slice(0, teamCount) };
+      const team2 = {
+        name: "lag2",
+        players: players.slice(teamCount, players.length),
+      };
+
+      return [team1, team2];
+    },
+
+    get filteredPlayersOnNoLevel2Teams() {
+      const ratedPlayers = self.filteredPlayersOnLevel2Teams;
+
+      const highPlayers = self.shuffle(ratedPlayers[0].players);
+      const lowPlayers = self.shuffle(ratedPlayers[1].players);
+
+      const highPlayersHalfCount = highPlayers.length / 2;
+      const lowPlayersHalfCount = lowPlayers.length / 2;
+
+      const playersTeam1High = highPlayers.slice(0, highPlayersHalfCount);
+      const playersTeam2High = highPlayers.slice(
+        highPlayersHalfCount,
+        highPlayers.count
+      );
+
+      const playersTeam1Low = lowPlayers.slice(0, lowPlayersHalfCount);
+      const playersTeam2Low = lowPlayers.slice(
+        lowPlayersHalfCount,
+        lowPlayers.count
+      );
+
+      const team1 = {
+        name: "lag1",
+        players: playersTeam1High.concat(playersTeam2Low),
+      };
+      const team2 = {
+        name: "lag2",
+        players: playersTeam2High.concat(playersTeam1Low),
+      };
+
+      return [team1, team2];
+    },
+
     get filteredPlayers() {
       var players = self.players.filter((x) =>
         self.ratings.find((xx) => xx.selected && xx.id === x.rating)
@@ -442,6 +492,25 @@ const LevelStore = types
         onProcessed(this.responseText);
       };
       xhr.send(formdata);
+    },
+    shuffle(array) {
+      var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
     },
     processFile(file, values, onProcessed) {
       var formdata = new FormData();

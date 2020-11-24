@@ -23,6 +23,7 @@ import Help from "./Help";
 import Trainings from "./Trainings";
 import Players from "./Players";
 import Number from "./Number";
+import Training from "./Training";
 
 function TabContainer(props) {
   return (
@@ -33,15 +34,15 @@ function TabContainer(props) {
 }
 
 TabContainer.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: "#f5f5f5"
-  }
+    backgroundColor: "#f5f5f5",
+  },
 }));
 
 function Main({ store, onLogout }) {
@@ -76,6 +77,7 @@ function Main({ store, onLogout }) {
           <Tab icon={<PersonIcon />} />
           {/* <Tab icon={<CalendarTodayIcon />} />
           <Tab icon={<GroupIcon />} /> */}
+          <Tab icon={<PersonIcon />} />
         </Tabs>
       </AppBar>
 
@@ -96,10 +98,15 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 3 && (
         <TabContainer>
-          <Trainings store={store} />
+          <Training store={store} />
         </TabContainer>
       )}
       {tabIndex === 4 && (
+        <TabContainer>
+          <Trainings store={store} />
+        </TabContainer>
+      )}
+      {tabIndex === 5 && (
         <TabContainer>
           <Players store={store} />
         </TabContainer>

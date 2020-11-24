@@ -12,83 +12,65 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: "60px"
+    marginTop: "60px",
   },
   paper: {
     width: "100%",
-    backgroundColor: theme.palette.background.paper
-  }
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
 function Division({ store }) {
   const classes = useStyles();
   return (
     <>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => store.updateLevelOnStat()}
-      >
-        Dela in
-      </Button>
-      {store.filteredPlayersInTrainingUn.length > 0 && (
-        <span>okatogoriserade</span>
-      )}
+      Nivå 2 lag
       <List className={classes.paper}>
-        {store.filteredPlayersInTrainingUn.map(player => (
+        {store.filteredPlayersOnLevel2Teams.map((teams) => (
           <>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={player.player}
-                secondary={player.failRate}
-              />
-            </ListItem>
-            <Divider />
+            {teams.name}
+            {teams.players.map((player) => (
+              <>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={player.player}
+                    secondary={player.rating}
+                  />
+                </ListItem>
+                <Divider />
+              </>
+            ))}
           </>
         ))}
       </List>
-      Lätt {store.filteredPlayersInTrainingEasy.length}
+      Blandat 2 lag
       <List className={classes.paper}>
-        {store.filteredPlayersInTrainingEasy.map(player => (
+        {store.filteredPlayersOnNoLevel2Teams.map((teams) => (
           <>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={player.player}
-                secondary={player.currentStat.level}
-              />
-            </ListItem>
-            <Divider />
-          </>
-        ))}
-      </List>
-      Svår {store.filteredPlayersInTrainingHard.length}
-      <List className={classes.paper}>
-        {store.filteredPlayersInTrainingHard.map(player => (
-          <>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={player.player}
-                secondary={player.currentStat.level}
-              />
-            </ListItem>
-            <Divider />
+            {teams.name}
+            {teams.players.map((player) => (
+              <>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={player.player}
+                    secondary={player.rating}
+                  />
+                </ListItem>
+                <Divider />
+              </>
+            ))}
           </>
         ))}
       </List>
