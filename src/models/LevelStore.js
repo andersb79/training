@@ -11,7 +11,7 @@ import Stat from "./Stat";
 const levelFilters = [
   { id: 0, text: "Alla utmaningar" },
   { id: 1, text: "Ej klarade utmaningar" },
-  { id: 2, text: "Klarade utmaningar" }
+  { id: 2, text: "Klarade utmaningar" },
 ];
 
 const categories = [
@@ -19,20 +19,20 @@ const categories = [
     id: 0,
     category: "BALLMASTERY",
     name: "DEL 1 - Teknik/Passningar",
-    image: "BAL.jpg"
+    image: "BAL.jpg",
   },
   {
     id: 1,
     category: "PASSINGDRILLS",
     name: "DEL 2 - Kombinationer",
-    image: "DRI.jpg"
+    image: "DRI.jpg",
   },
   {
     id: 2,
     category: "POSSESION",
     name: "DEL 3 - Possession/spel",
-    image: "THE.jpg"
-  }
+    image: "THE.jpg",
+  },
   // { id: 3, category: "CONEDRILLS", name: "slask" }
   // { id: 4, category: "ATTACKING", name: "Attack" },
   // { id: 5, category: "POSESSION", name: "Posesion" }
@@ -49,15 +49,15 @@ const LevelStore = types
     trainings: types.array(Training),
     players: types.array(Player),
     ratings: types.array(Rating),
-    stats: types.array(Stat)
+    stats: types.array(Stat),
   })
-  .views(self => ({
+  .views((self) => ({
     get listCategories() {
       return categories;
     },
     get filteredItems() {
       return self.items.filter(
-        x => x.isDone || x.userName === self.loggedIn.userName
+        (x) => x.isDone || x.userName === self.loggedIn.userName
       );
     },
     get highScoreList() {
@@ -72,38 +72,38 @@ const LevelStore = types
     },
     get filteredLevels() {
       return self.levels.filter(
-        x => x.category === self.selectedCategory.category
+        (x) => x.category === self.selectedCategory.category
       );
     },
     get filteredPlayersInTraining() {
-      var players = self.players.filter(x => x.isTraining);
+      var players = self.players.filter((x) => x.isTraining);
 
       return players;
     },
     get filteredPlayersInTrainingEasy() {
       var players = self.players.filter(
-        x => x.isTraining && x.currentStat.level === 1
+        (x) => x.isTraining && x.currentStat.level === 1
       );
 
       return players;
     },
     get filteredPlayersInTrainingHard() {
       var players = self.players.filter(
-        x => x.isTraining && x.currentStat.level === 2
+        (x) => x.isTraining && x.currentStat.level === 2
       );
 
       return players;
     },
     get filteredPlayersInTrainingUn() {
       var players = self.orderedPlayers.filter(
-        x => x.isTraining && x.currentStat.level === null
+        (x) => x.isTraining && x.currentStat.level === null
       );
 
       return players;
     },
     get filteredPlayers() {
-      var players = self.players.filter(x =>
-        self.ratings.find(xx => xx.selected && xx.id === x.rating)
+      var players = self.players.filter((x) =>
+        self.ratings.find((xx) => xx.selected && xx.id === x.rating)
       );
 
       var byRating = players.slice(0);
@@ -122,7 +122,7 @@ const LevelStore = types
     },
     get hasStats() {
       const stat = self.stats.find(
-        x => x.trainingId === self.currentTraining.trainingId
+        (x) => x.trainingId === self.currentTraining.trainingId
       );
 
       return stat ? true : false;
@@ -137,16 +137,16 @@ const LevelStore = types
 
       orderdPlayers.reverse();
 
-      orderdPlayers.forEach(x => {
+      orderdPlayers.forEach((x) => {
         console.log(
           `Namn: ${x.player} Nuvarande diff: ${x.diff} _ Ska ha:  ${x.benchmarkHard} svår _ har ${x.benchmarkHardValue}`
         );
       });
 
       return orderdPlayers;
-    }
+    },
   }))
-  .volatile(self => ({
+  .volatile((self) => ({
     loggedIn: null,
     initzialize: false,
     height: null,
@@ -158,9 +158,9 @@ const LevelStore = types
     appRunning: appRunning.MAIN,
     colorCount: 2,
     currentSeason: 1,
-    trainingIndex: 3
+    trainingIndex: 3,
   }))
-  .actions(self => ({
+  .actions((self) => ({
     setPrevTraining() {
       console.log(self.trainingIndex);
       if (self.trainingIndex !== 0) {
@@ -182,8 +182,8 @@ const LevelStore = types
 
       //lägg på rating 1 användare
       self.orderedPlayers
-        .filter(x => x.rating === "1")
-        .forEach(x => {
+        .filter((x) => x.rating === "1")
+        .forEach((x) => {
           x.currentStat.setLevel(1);
           easyCount++;
 
@@ -191,8 +191,8 @@ const LevelStore = types
         });
 
       self.orderedPlayers
-        .filter(x => x.rating !== "1")
-        .forEach(x => {
+        .filter((x) => x.rating !== "1")
+        .forEach((x) => {
           if (x.nextLevel === 1 && easyCount <= easy) {
             x.currentStat.setLevel(1);
             easyCount++;
@@ -251,11 +251,11 @@ const LevelStore = types
       self.refresh();
     },
     startTraining() {
-      self.players.forEach(x => {
+      self.players.forEach((x) => {
         self.api.insertStat({
           trainingId: self.currentTraining.trainingId,
           player: x.player,
-          isTraining: false
+          isTraining: false,
         });
       });
 
@@ -300,43 +300,43 @@ const LevelStore = types
           { id: "1", name: "Nivå 1", selected: true },
           { id: "2", name: "Nivå 2", selected: true },
           { id: "3", name: "Nivå 3", selected: true },
-          { id: "4", name: "Nivå 4", selected: true }
-        ]
+          { id: "4", name: "Nivå 4", selected: true },
+        ],
       };
 
-      stats.forEach(elm => {
+      stats.forEach((elm) => {
         elm.fields.id = elm.id;
         data.stats.push(elm.fields);
       });
 
-      trainings.forEach(elm => {
+      trainings.forEach((elm) => {
         elm.fields.id = elm.id;
         data.trainings.push(elm.fields);
       });
 
-      players.forEach(elm => {
+      players.forEach((elm) => {
         elm.fields.id = elm.id;
         data.players.push(elm.fields);
       });
 
-      levels.forEach(elm => {
+      levels.forEach((elm) => {
         elm.fields.id = elm.id;
         data.levels.push(elm.fields);
       });
 
-      levelMedias.forEach(elm => {
+      levelMedias.forEach((elm) => {
         elm.fields.id = elm.id;
         data.levelMedias.push(elm.fields);
       });
 
-      users.forEach(elm => {
+      users.forEach((elm) => {
         elm.fields.id = elm.id;
         data.users.push(elm.fields);
       });
 
       items.reverse();
 
-      items.forEach(elm => {
+      items.forEach((elm) => {
         elm.fields.id = elm.id;
         elm.fields.createdTime = new Date(elm.createdTime);
         data.items.push(elm.fields);
@@ -359,7 +359,7 @@ const LevelStore = types
     },
     login(userName, password) {
       self.loggedIn = self.users.find(
-        x => x.userName === userName && x.password === password
+        (x) => x.userName === userName && x.password === password
       );
 
       if (self.loggedIn) {
@@ -369,7 +369,7 @@ const LevelStore = types
       return false;
     },
     login2(id) {
-      self.loggedIn = self.users.find(x => x.id === JSON.parse(id));
+      self.loggedIn = self.users.find((x) => x.id === JSON.parse(id));
 
       if (self.loggedIn) {
         return true;
@@ -403,7 +403,7 @@ const LevelStore = types
 
       const date = new Date();
       const findNextTraining = data.trainings.find(
-        x => new Date(x.date) > date
+        (x) => new Date(x.date) > date
       );
 
       self.trainingIndex = data.trainings.indexOf(findNextTraining);
@@ -432,7 +432,7 @@ const LevelStore = types
         true
       );
 
-      xhr.onload = function() {
+      xhr.onload = function () {
         // do something to response
 
         var myObj = JSON.parse(this.responseText);
@@ -468,7 +468,7 @@ const LevelStore = types
       var xhr = new XMLHttpRequest();
       xhr.open("POST", uploadUrl, true);
 
-      xhr.onload = function() {
+      xhr.onload = function () {
         // do something to response
         var myObj = JSON.parse(this.responseText);
         console.log(myObj);
@@ -482,7 +482,7 @@ const LevelStore = types
           category: self.selectedCategory.category,
           details: "details",
           season: 1,
-          fileType: isImage ? "jpg" : "mp4"
+          fileType: isImage ? "jpg" : "mp4",
         };
 
         self.api.insertLevel(level);
@@ -492,6 +492,6 @@ const LevelStore = types
         onProcessed(this.responseText);
       };
       xhr.send(formdata);
-    }
+    },
   }));
 export default LevelStore;
