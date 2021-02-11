@@ -7,9 +7,16 @@ const DrillContainer = types
     drillNumber: types.integer,
   })
   .views((self) => ({
-    get drillContainers() {
+    get drill() {
       const levelStore = getRoot(self);
-      const a = levelStore.drillContainers.filter(
+      const a = levelStore.drills.find(
+        (x) => x.drillNumber === this.drillNumber
+      );
+      return a;
+    },
+    get drills() {
+      const levelStore = getRoot(self);
+      const a = levelStore.drills.filter(
         (x) => x.drillNumber === this.drillNumber
       );
       return a;

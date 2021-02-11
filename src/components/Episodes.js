@@ -19,6 +19,7 @@ import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Presence from "./Presence";
 import Division from "./Division";
+import ViewDrill2 from "./ViewDrill2";
 import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     margin: "10px",
+    padding: "5px",
   },
 }));
 
@@ -43,10 +45,12 @@ function Episodes({ store }) {
       {!store.selectedEpisode && (
         <div>
           {store.episodes.map((episode, i) => (
-            <div onClick={() => store.selectEpisode(episode)}>
-              {episode.episodeNumber}
+            <Card
+              className={classes.card}
+              onClick={() => store.selectEpisode(episode)}
+            >
               {episode.episodeName}
-            </div>
+            </Card>
           ))}
         </div>
       )}
@@ -57,7 +61,10 @@ function Episodes({ store }) {
 
           <div>
             {store.selectedEpisode.containers.map((container, i) => (
-              <Card className={classes.card}>
+              <Card
+                onClick={() => store.selectContainer(container)}
+                className={classes.card}
+              >
                 {container.containerName}
                 {container.drillContainers.map((drill, i) => (
                   <div>Övning {drill.drillNumber}</div>
@@ -65,6 +72,20 @@ function Episodes({ store }) {
               </Card>
             ))}
           </div>
+        </div>
+      )}
+
+      {store.selectedContainer && (
+        <div>
+          {store.selectedContainer.containerName}
+
+          {store.selectedContainer.drillContainers.map((drillContainer, i) => (
+            <Card className={classes.card}>
+              Övning {drillContainer.drillNumber} ahhh
+              {drillContainer.drill.description}
+              <ViewDrill2 store={store} drill={drillContainer.drill} />
+            </Card>
+          ))}
         </div>
       )}
     </div>

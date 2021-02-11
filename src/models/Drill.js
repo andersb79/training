@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { types, getRoot } from "mobx-state-tree";
 
 const Drill = types
   .model("Drill", {
@@ -10,6 +10,12 @@ const Drill = types
     posterPath: types.maybeNull(types.string),
   })
   .views((self) => ({
+    get medias() {
+      const levelStore = getRoot(self);
+      return levelStore.drillMedias.filter(
+        (x) => x.drillNumber === this.drillNumber
+      );
+    },
     get src() {
       return `https://www.dropbox.com/s/${self.sharedPath}/Lpass.${self.fileType}?raw=1`;
     },

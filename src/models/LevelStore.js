@@ -212,6 +212,7 @@ const LevelStore = types
     height: null,
     selectedCategory: null,
     selectedEpisode: null,
+    selectedContainer: null,
     selectedPlayer: null,
     selectedDrill: null,
     levelFilter: self.levelFilters[0],
@@ -333,6 +334,9 @@ const LevelStore = types
     },
     selectEpisode(episode) {
       self.selectedEpisode = episode;
+    },
+    selectContainer(container) {
+      self.selectedContainer = container;
     },
     selectPlayer(player) {
       self.selectedPlayer = player;
