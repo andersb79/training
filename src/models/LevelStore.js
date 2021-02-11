@@ -7,6 +7,11 @@ import Training from "./Training";
 import Player from "./Player";
 import Rating from "./Rating";
 import Stat from "./Stat";
+import Episode from "./Episode";
+import DrillContainer from "./DrillContainer";
+import Drill from "./Drill";
+import DrillMedia from "./DrillMedia";
+import Container from "./Container";
 
 const levelFilters = [
   { id: 0, text: "Alla utmaningar" },
@@ -50,6 +55,11 @@ const LevelStore = types
     players: types.array(Player),
     ratings: types.array(Rating),
     stats: types.array(Stat),
+    episodes: types.array(Episode),
+    containers: types.array(Container),
+    drillContainers: types.array(DrillContainer),
+    drills: types.array(Drill),
+    drillMedias: types.array(DrillMedia),
   })
   .views((self) => ({
     get listCategories() {
@@ -201,6 +211,7 @@ const LevelStore = types
     initzialize: false,
     height: null,
     selectedCategory: null,
+    selectedEpisode: null,
     selectedPlayer: null,
     selectedDrill: null,
     levelFilter: self.levelFilters[0],
@@ -320,6 +331,9 @@ const LevelStore = types
     selectCategory(category) {
       self.selectedCategory = category;
     },
+    selectEpisode(episode) {
+      self.selectedEpisode = episode;
+    },
     selectPlayer(player) {
       self.selectedPlayer = player;
     },
@@ -337,6 +351,11 @@ const LevelStore = types
       var players = await self.api.fetchPlayers();
       var trainings = await self.api.fetchTrainings();
       var stats = await self.api.fetchStats();
+      var episodes = await self.api.fetchEpisodes();
+      var containers = await self.api.fetchContainers();
+      var drillContainers = await self.api.fetchDrillContainers();
+      var drills = await self.api.fetchDrills();
+      var drillMedias = await self.api.fetchDrillMedia();
       console.log(levelMedias);
       const data = {
         users: [],
@@ -352,7 +371,37 @@ const LevelStore = types
           { id: "3", name: "Nivå 3", selected: true },
           { id: "4", name: "Nivå 4", selected: true },
         ],
+        episodes: [],
+        containers: [],
+        drillContainers: [],
+        drills: [],
+        drillMedias: [],
       };
+
+      episodes.forEach((elm) => {
+        elm.fields.id = elm.id;
+        data.episodes.push(elm.fields);
+      });
+
+      containers.forEach((elm) => {
+        elm.fields.id = elm.id;
+        data.containers.push(elm.fields);
+      });
+
+      drillContainers.forEach((elm) => {
+        elm.fields.id = elm.id;
+        data.drillContainers.push(elm.fields);
+      });
+
+      drills.forEach((elm) => {
+        elm.fields.id = elm.id;
+        data.drills.push(elm.fields);
+      });
+
+      drillMedias.forEach((elm) => {
+        elm.fields.id = elm.id;
+        data.drillMedias.push(elm.fields);
+      });
 
       stats.forEach((elm) => {
         elm.fields.id = elm.id;

@@ -21,6 +21,7 @@ import Profile from "./Profile";
 import HighScore from "./HighScore";
 import Help from "./Help";
 import Trainings from "./Trainings";
+import Episodes from "./Episodes";
 import Players from "./Players";
 import Number from "./Number";
 import Training from "./Training";
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Main({ store, onLogout }) {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(3);
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
@@ -76,7 +77,8 @@ function Main({ store, onLogout }) {
           <Tab icon={<SettingsIcon />} />
           <Tab icon={<PersonIcon />} />
           {/* <Tab icon={<CalendarTodayIcon />} />
-          <Tab icon={<GroupIcon />} /> */}
+          <Tab icon={<GroupIcon />} />
+          <Tab icon={<PersonIcon />} /> */}
           <Tab icon={<PersonIcon />} />
         </Tabs>
       </AppBar>
@@ -98,7 +100,7 @@ function Main({ store, onLogout }) {
       )}
       {tabIndex === 3 && (
         <TabContainer>
-          <Training store={store} />
+          <Episodes store={store} />
         </TabContainer>
       )}
       {tabIndex === 4 && (

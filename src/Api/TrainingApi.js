@@ -13,56 +13,69 @@ const config = {
   view: "Grid%20view",
   apiKey: "keyHQ5GM7ktar7YtG",
   maxRecords: 1000,
-  url: "https://api.airtable.com/v0/app9IO48CYcfaIY4Z"
+  url: "https://api.airtable.com/v0/app9IO48CYcfaIY4Z",
 };
 
 export default {
   async fetchUsers() {
-    const data = await base("Users")
-      .select({ view: "Grid view" })
-      .all();
+    const data = await base("Users").select({ view: "Grid view" }).all();
 
     return data;
   },
   async fetchLevels() {
-    const data = await base("Levels")
-      .select({ view: "Grid view" })
-      .all();
+    const data = await base("Levels").select({ view: "Grid view" }).all();
 
     return data;
   },
   async fetchLevelMedias() {
-    const data = await base("LevelMedia")
-      .select({ view: "Grid view" })
-      .all();
+    const data = await base("LevelMedia").select({ view: "Grid view" }).all();
 
     return data;
   },
   async fetchTrainings() {
-    const data = await base("Trainings")
+    const data = await base("Trainings").select({ view: "Grid view" }).all();
+
+    return data;
+  },
+  async fetchEpisodes() {
+    const data = await base("Episodes").select({ view: "Grid view" }).all();
+
+    return data;
+  },
+  async fetchContainers() {
+    const data = await base("Containers").select({ view: "Grid view" }).all();
+
+    return data;
+  },
+  async fetchDrillContainers() {
+    const data = await base("DrillContainers")
       .select({ view: "Grid view" })
       .all();
+
+    return data;
+  },
+  async fetchDrills() {
+    const data = await base("Drills").select({ view: "Grid view" }).all();
+
+    return data;
+  },
+  async fetchDrillMedia() {
+    const data = await base("DrillMedia").select({ view: "Grid view" }).all();
 
     return data;
   },
   async fetchStats() {
-    const data = await base("Stat")
-      .select({ view: "Grid view" })
-      .all();
+    const data = await base("Stat").select({ view: "Grid view" }).all();
 
     return data;
   },
   async fetchPlayers() {
-    const data = await base("Players")
-      .select({ view: "Grid view" })
-      .all();
+    const data = await base("Players").select({ view: "Grid view" }).all();
 
     return data;
   },
   async fetchItems() {
-    const data = await base("Items")
-      .select({ view: "Grid view" })
-      .all();
+    const data = await base("Items").select({ view: "Grid view" }).all();
 
     return data;
   },
@@ -70,7 +83,7 @@ export default {
     console.log("insert level");
     const u = {
       id: level.id,
-      fields: level
+      fields: level,
     };
     this.create("Levels", u);
   },
@@ -78,18 +91,18 @@ export default {
     console.log("insert stat");
     const u = {
       id: stat.id,
-      fields: stat
+      fields: stat,
     };
 
     this.create("Stat", u);
   },
   create(table, item) {
-    base(table).create([item], function(err, records) {
+    base(table).create([item], function (err, records) {
       if (err) {
         console.error(err);
         return;
       }
-      records.forEach(function(record) {
+      records.forEach(function (record) {
         console.log(record.getId());
       });
     });
@@ -105,15 +118,15 @@ export default {
             trainingId: stat.trainingId,
             player: stat.player,
             isTraining: stat.isTraining,
-            level: stat.level
-          }
+            level: stat.level,
+          },
         }),
         headers: new Headers({
           Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json"
-        })
+          "Content-Type": "application/json",
+        }),
       })
-    ).catch(err => {
+    ).catch((err) => {
       alert(err);
     });
   },
@@ -129,8 +142,8 @@ export default {
         favoriteTeam: user.favoriteTeam,
         playerTeam: user.playerTeam,
         position: user.position,
-        shirtNumber: user.shirtNumber
-      }
+        shirtNumber: user.shirtNumber,
+      },
     };
 
     this.update("Users", u);
@@ -140,20 +153,20 @@ export default {
       id: player.id,
       fields: {
         player: player.player,
-        rating: player.rating
-      }
+        rating: player.rating,
+      },
     };
     this.update("Players", u);
   },
   update(table, item) {
-    base(table).update([item], function(err, records) {
+    base(table).update([item], function (err, records) {
       if (err) {
         console.error(err);
         return;
       }
-      records.forEach(function(record) {
+      records.forEach(function (record) {
         console.log(record.get("name"));
       });
     });
-  }
+  },
 };
