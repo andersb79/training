@@ -32,8 +32,8 @@ function ViewDrill2({ store, drill }) {
 
     const videoElm = document.getElementById(media.id);
 
-    //const placeHolder = document.getElementById("legend");
-    //placeHolder.innerHTML = media.description;
+    const placeHolder = document.getElementById(drill.id);
+    placeHolder.innerHTML = media.description;
 
     if (videoElm) {
       console.log("play");
@@ -42,12 +42,9 @@ function ViewDrill2({ store, drill }) {
   }
 
   return (
-    <div className="game">
+    <div>
       <div>
-        <div className="back">
-          <div className="left">{drill.drillNumber}</div>
-          <div className="right">{drill.sharedPath}</div>
-        </div>
+        <div className="back"></div>
         <div className="drill">
           <div>{drill.description}</div>
 
@@ -74,15 +71,7 @@ function ViewDrill2({ store, drill }) {
             ))}
           </Carousel>
           <Box padding={2}>
-            {/* <Box textAlign="center" id="legend"></Box>
-            <Box fontWeight="fontWeightBold">Setup</Box>
-            <Box className="drill-desc">{drill.details}</Box>
-            <Box fontWeight="fontWeightBold">Spelare</Box>
-            <Box className="drill-desc">
-              {level.minPlayers}-{level.maxPlayers}
-            </Box>
-            <Box fontWeight="fontWeightBold">Organisation</Box>
-            <Box className="drill-desc">{level.organisation}</Box> */}
+            <Box textAlign="center" id={drill.id}></Box>
           </Box>
         </div>
       </div>

@@ -66,8 +66,8 @@ function Episodes({ store }) {
                 className={classes.card}
               >
                 {container.containerName}
-                {container.drillContainers.map((drill, i) => (
-                  <div>Övning {drill.drillNumber}</div>
+                {container.drillContainers.map((drillContainer, i) => (
+                  <div>{drillContainer.drill.description}</div>
                 ))}
               </Card>
             ))}
@@ -81,8 +81,6 @@ function Episodes({ store }) {
 
           {store.selectedContainer.drillContainers.map((drillContainer, i) => (
             <Card className={classes.card}>
-              Övning {drillContainer.drillNumber} ahhh
-              {drillContainer.drill.description}
               <ViewDrill2 store={store} drill={drillContainer.drill} />
             </Card>
           ))}
