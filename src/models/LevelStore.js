@@ -497,6 +497,32 @@ const LevelStore = types
 
       self.refresh();
     },
+    insertEpisode() {
+      self.api.insertEpisode({
+        episodeName: "Testing",
+      });
+      self.refresh();
+    },
+    insertContainer() {
+      self.api.insertContainer({
+        episodeNumber: self.selectedEpisode.episodeNumber,
+        containerName: "Container",
+      });
+      self.refresh();
+    },
+    insertDrillContainer(container) {
+      self.api.insertDrillContainer({
+        containerNumber: container.containerNumber,
+        drillNumber: 1,
+      });
+      self.refresh();
+    },
+    insertDrill(name) {
+      self.api.insertDrill({
+        description: name,
+      });
+      self.refresh();
+    },
     updateStat(stat) {
       self.api.updateStat(stat);
     },
@@ -608,6 +634,52 @@ const LevelStore = types
         };
 
         self.api.insertLevel(level);
+
+        self.refresh();
+
+        onProcessed(this.responseText);
+      };
+      xhr.send(formdata);
+    },
+    processFile2(file, values, onProcessed) {
+      var formdata = new FormData();
+
+      const isImage =
+        file.type === "image/jpeg" || file.type === "image/png" ? true : false;
+
+      formdata.append("file", file);
+      formdata.append("cloud_name", "deolievif");
+      formdata.append("upload_preset", "kv0do7lj");
+
+      if (!isImage) {
+        formdata.append("resource_type", "raw");
+      }
+
+      formdata.append("title", self.loggedIn.userName);
+      //formdata.append("public_id", level.level);
+      formdata.append("tags", self.loggedIn.userName);
+
+      const uploadUrl = isImage
+        ? "https://api.cloudinary.com/v1_1/deolievif/image/upload"
+        : "https://api.cloudinary.com/v1_1/deolievif/video/upload/";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", uploadUrl, true);
+
+      xhr.onload = function () {
+        // do something to response
+        var myObj = JSON.parse(this.responseText);
+        console.log(myObj);
+        //level.setPublicId(myObj.public_id);
+        console.log(this.responseText);
+
+        const drill = {
+          description: values.description,
+          sharedPath: myObj.public_id,
+          fileType: isImage ? "jpg" : "mp4",
+        };
+
+        self.api.insertDrill(drill);
 
         self.refresh();
 

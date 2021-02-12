@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { observer } from "mobx-react";
 
-function EditDrill({ store, onBack }) {
+function AddDrill({ store, onBack }) {
   const [values, setValues] = React.useState({
     name: "",
     description: "",
@@ -19,20 +19,13 @@ function EditDrill({ store, onBack }) {
   function processFile(e) {
     var file = e.target.files[0];
 
-    store.processFile(file, values, (text) => {
-      onBack();
+    store.processFile2(file, values, (text) => {
+      //onBack();
     });
   }
 
   return (
     <div className="add-drill">
-      <div className="back">
-        <div className="left">
-          <ArrowBackIosIcon onClick={() => onBack()} />
-        </div>
-        <div className="right">{store.selectedCategory.name}</div>
-      </div>
-
       <TextField
         id="name"
         label="Namn"
@@ -67,4 +60,4 @@ function EditDrill({ store, onBack }) {
   );
 }
 
-export default observer(EditDrill);
+export default observer(AddDrill);

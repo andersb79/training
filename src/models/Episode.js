@@ -7,9 +7,11 @@ const Episode = types
     episodeName: types.string,
   })
   .views((self) => ({
+    get store() {
+      return getRoot(self);
+    },
     get containers() {
-      const levelStore = getRoot(self);
-      const a = levelStore.containers.filter(
+      const a = self.store.containers.filter(
         (x) => x.episodeNumber === this.episodeNumber
       );
       return a;

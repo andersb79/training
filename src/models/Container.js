@@ -8,9 +8,11 @@ const Container = types
     containerName: types.string,
   })
   .views((self) => ({
+    get store() {
+      return getRoot(self);
+    },
     get drillContainers() {
-      const levelStore = getRoot(self);
-      return levelStore.drillContainers.filter(
+      return self.store.drillContainers.filter(
         (x) => x.containerNumber === this.containerNumber
       );
     },

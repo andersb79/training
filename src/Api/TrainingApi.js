@@ -79,6 +79,42 @@ export default {
 
     return data;
   },
+  insertEpisode(episode) {
+    console.log("insert episode");
+    const u = {
+      id: episode.id,
+      fields: episode,
+    };
+
+    this.create("Episodes", u);
+  },
+  insertContainer(container) {
+    console.log("insert container");
+    const u = {
+      id: container.id,
+      fields: container,
+    };
+
+    this.create("Containers", u);
+  },
+  insertDrillContainer(drillContainer) {
+    console.log("insert drillContainer");
+    const u = {
+      id: drillContainer.id,
+      fields: drillContainer,
+    };
+
+    this.create("DrillContainers", u);
+  },
+  insertDrill(drill) {
+    console.log("insert drill");
+    const u = {
+      id: drill.id,
+      fields: drill,
+    };
+
+    this.create("Drills", u);
+  },
   insertLevel(level) {
     console.log("insert level");
     const u = {

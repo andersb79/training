@@ -12,6 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ImageIcon from "@material-ui/icons/Image";
 import WorkIcon from "@material-ui/icons/Work";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Divider from "@material-ui/core/Divider";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -44,6 +45,8 @@ function Episodes({ store }) {
     <div className={classes.root}>
       {!store.selectedEpisode && (
         <div>
+          {" "}
+          <Button onClick={() => store.insertEpisode()}>Ny träning</Button>
           {store.episodes.map((episode, i) => (
             <Card
               className={classes.card}
@@ -57,12 +60,16 @@ function Episodes({ store }) {
       {store.selectedEpisode && !store.selectedContainer && (
         <div>
           <Button onClick={() => store.selectEpisode()}>Back</Button>
+
           {store.selectedEpisode.episodeName}
 
           <div>
             {store.selectedEpisode.containers.map((container, i) => (
               <>
                 {container.containerName}
+                <Button onClick={() => store.insertDrillContainer(container)}>
+                  <AddCircleIcon />
+                </Button>
                 <Card
                   onClick={() => store.selectContainer(container)}
                   className={classes.card}
@@ -73,6 +80,10 @@ function Episodes({ store }) {
                 </Card>
               </>
             ))}
+
+            <Button onClick={() => store.insertContainer()}>
+              Ny Container
+            </Button>
           </div>
         </div>
       )}

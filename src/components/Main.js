@@ -25,6 +25,8 @@ import Episodes from "./Episodes";
 import Players from "./Players";
 import Number from "./Number";
 import Training from "./Training";
+import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
+import AllDrills from "./AllDrills";
 
 function TabContainer(props) {
   return (
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Main({ store, onLogout }) {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = useState(3);
+  const [tabIndex, setTabIndex] = useState(0);
 
   function handleChange(event, newValue) {
     setTabIndex(newValue);
@@ -73,29 +75,31 @@ function Main({ store, onLogout }) {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab icon={<FormatListBulletedIcon />} />
-          <Tab icon={<SettingsIcon />} />
+          <Tab icon={<FitnessCenterIcon />} />
+          <Tab icon={<FormatListNumberedIcon />} />
           <Tab icon={<PersonIcon />} />
           {/* <Tab icon={<CalendarTodayIcon />} />
           <Tab icon={<GroupIcon />} />
-          <Tab icon={<PersonIcon />} /> */}
           <Tab icon={<PersonIcon />} />
+          <Tab icon={<PersonIcon />} /> */}
         </Tabs>
       </AppBar>
 
       {tabIndex === 0 && (
         <TabContainer>
-          <Drills store={store} />
+          <Episodes store={store} />
+          {/* <Drills store={store} /> */}
         </TabContainer>
       )}
       {tabIndex === 1 && (
         <TabContainer>
-          <Help store={store} />
+          <AllDrills store={store} />
+          {/* <Profile store={store} onLogout={onLogout} /> */}
         </TabContainer>
       )}
       {tabIndex === 2 && (
         <TabContainer>
-          <Profile store={store} onLogout={onLogout} />
+          <Help store={store} />
         </TabContainer>
       )}
       {tabIndex === 3 && (
