@@ -54,22 +54,24 @@ function Episodes({ store }) {
           ))}
         </div>
       )}
-      {store.selectedEpisode && (
+      {store.selectedEpisode && !store.selectedContainer && (
         <div>
           <Button onClick={() => store.selectEpisode()}>Back</Button>
           {store.selectedEpisode.episodeName}
 
           <div>
             {store.selectedEpisode.containers.map((container, i) => (
-              <Card
-                onClick={() => store.selectContainer(container)}
-                className={classes.card}
-              >
+              <>
                 {container.containerName}
-                {container.drillContainers.map((drillContainer, i) => (
-                  <div>{drillContainer.drill.description}</div>
-                ))}
-              </Card>
+                <Card
+                  onClick={() => store.selectContainer(container)}
+                  className={classes.card}
+                >
+                  {container.drillContainers.map((drillContainer, i) => (
+                    <div>{drillContainer.drill.description}</div>
+                  ))}
+                </Card>
+              </>
             ))}
           </div>
         </div>
@@ -77,6 +79,7 @@ function Episodes({ store }) {
 
       {store.selectedContainer && (
         <div>
+          <Button onClick={() => store.selectContainer()}>Back</Button>
           {store.selectedContainer.containerName}
 
           {store.selectedContainer.drillContainers.map((drillContainer, i) => (
